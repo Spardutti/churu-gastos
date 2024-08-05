@@ -3,7 +3,7 @@ interface LabelProps {
 }
 
 const Label = ({ text }: LabelProps) => {
-  return <label>{text}</label>;
+  return <label className="text-main-light">{text}</label>;
 };
 
 export default Label;

@@ -1,11 +1,16 @@
-import React from "react";
+import React from 'react';
 
 interface LayoutProps {
-	children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
-	return <div className="bg-slate-300 h-screen w-screen">{children}</div>;
+  return (
+    <div className="bg-neutral-800 h-screen flex flex-col gap-4 text-white">
+      <h1 className="text-center">Churu Gastos</h1>
+      {children}
+    </div>
+  );
 };
 
 export default Layout;

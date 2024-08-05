@@ -1,16 +1,38 @@
-import Button from '@/components/button';
-import Textfield from '@/components/input/Textfield';
+import Form from '@/components/form';
 import Layout from '@/layout';
 
 interface HomeProps {}
 
+const inputs = [
+  {
+    type: 'text',
+    value: '',
+    label: 'Expense Name',
+    name: 'expense',
+    placeholder: 'Enter expense name',
+  },
+];
+
+type FormData = {
+  // specify your form fields here
+
+  name: string;
+  category: string;
+  amount: number;
+};
+
 const Home = () => {
+  const submit = async (data: FormData) => {
+    console.log(data);
+  };
+
   return (
     <Layout>
-      <p>Hom</p>
-      <Textfield value="123" />
-      <Textfield value="123" label labelText="Name" />
-      <Button text="123" />
+      <div className="flex justify-center">
+        <div className="shadow-lg p-4 rounded-lg min-w-[400px] bg-main-primary">
+          <Form submit={submit} inputs={inputs} />
+        </div>
+      </div>
     </Layout>
   );
 };
