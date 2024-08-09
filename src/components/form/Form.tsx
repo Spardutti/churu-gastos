@@ -1,17 +1,11 @@
 import Button from '@/components/button';
+import { FormInputs } from '@/components/form/types';
+import Select from '@/components/input/Select';
 import Textfield from '@/components/input/Textfield';
 import { Controller, Path, useForm } from 'react-hook-form';
 
-interface Inputs {
-  type: string;
-  value: string;
-  label: string | undefined;
-  name: string;
-  placeholder: string | undefined;
-}
-
 interface FormProps<T> {
-  inputs: Inputs[];
+  inputs: FormInputs[];
   submit: (data: T) => Promise<void>;
 }
 
@@ -28,7 +22,27 @@ const Form = <T extends Record<string, string | number | {} | []>>({ inputs, sub
 
   return (
     <form className="flex flex-col gap-4 flex-grow" onSubmit={handleSubmit(onSubmit)}>
-      {inputs?.map(({ type, label, name, placeholder }, index) => {
+      {inputs?.map((input, index) => {
+        const { type, label, name, placeholder, inputType } = input;
+
+        if (inputType === 'select') {
+          const { options } = input;
+          return (
+            <Controller
+              key={index + name}
+              name={name as Path<T>}
+              control={control}
+              render={({ field }) => (
+                <Select
+                  label={label}
+                  options={options}
+                  placeholder={placeholder}
+                  onChange={(e) => field.onChange({ id: e, name: field.name })}
+                />
+              )}
+            />
+          );
+        }
         if (label) {
           return (
             <Controller
@@ -36,7 +50,13 @@ const Form = <T extends Record<string, string | number | {} | []>>({ inputs, sub
               name={name as Path<T>}
               control={control}
               render={({ field }) => (
-                <Textfield type={type} label={label} name={field.name} value={field.value} placeholder={placeholder} />
+                <Textfield
+                  type={type}
+                  label={label}
+                  value={field.value}
+                  placeholder={placeholder}
+                  onChange={field.onChange}
+                />
               )}
             />
           );
@@ -47,13 +67,13 @@ const Form = <T extends Record<string, string | number | {} | []>>({ inputs, sub
             name={name as Path<T>}
             control={control}
             render={({ field }) => (
-              <Textfield type={type} name={field.name} value={field.value} placeholder={placeholder} />
+              <Textfield type={type} value={field.value} placeholder={placeholder} onChange={field.onChange} />
             )}
           />
         );
       })}
 
-      <div className="flex">
+      <div className="flex justify-end">
         <Button type="submit" text="Submit" />
       </div>
     </form>

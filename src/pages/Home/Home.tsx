@@ -1,37 +1,19 @@
-import Form from '@/components/form';
+import CategoryForm from '@/features/category/components/CategoryForm/CategoryForm';
+import CreateProductForm from '@/features/home/components/CreateProductForm';
+import ProductsTable from '@/features/home/components/ProductsTable';
 import Layout from '@/layout';
 
-interface HomeProps {}
-
-const inputs = [
-  {
-    type: 'text',
-    value: '',
-    label: 'Expense Name',
-    name: 'expense',
-    placeholder: 'Enter expense name',
-  },
-];
-
-type FormData = {
-  // specify your form fields here
-
-  name: string;
-  category: string;
-  amount: number;
-};
-
 const Home = () => {
-  const submit = async (data: FormData) => {
-    console.log(data);
-  };
-
   return (
     <Layout>
-      <div className="flex justify-center">
+      <div className="flex justify-center gap-10 flex-col items-center">
         <div className="shadow-lg p-4 rounded-lg min-w-[400px] bg-main-primary">
-          <Form submit={submit} inputs={inputs} />
+          <CreateProductForm />
         </div>
+        <div className="shadow-lg p-4 rounded-lg min-w-[400px] bg-main-primary">
+          <CategoryForm />
+        </div>
+        <ProductsTable />
       </div>
     </Layout>
   );
