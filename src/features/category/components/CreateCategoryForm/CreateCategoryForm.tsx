@@ -1,6 +1,6 @@
 import Form from '@/components/form';
 import { FormInputs } from '@/components/form/types';
-import { Category } from '@/features/category/types';
+import { Category } from '@/features/category/types/category';
 import { useCreateCategoryMutation } from '@/store/api';
 import React from 'react';
 
@@ -17,13 +17,13 @@ const inputs: FormInputs[] = [
   },
 ];
 
-const CategoryForm: React.FC<categoryFormProps> = () => {
-  const [createCategory, { isLoading, isError, isSuccess }] = useCreateCategoryMutation();
+const CreateCategoryForm: React.FC<categoryFormProps> = () => {
+  const [createCategory, { isLoading }] = useCreateCategoryMutation();
 
   const handleSubmit = async (data: Category) => {
     createCategory(data);
   };
-  return <Form inputs={inputs} submit={handleSubmit}></Form>;
+  return <Form inputs={inputs} submitLabel="Create" isSubmitting={isLoading} submit={handleSubmit}></Form>;
 };
 
-export default CategoryForm;
+export default CreateCategoryForm;

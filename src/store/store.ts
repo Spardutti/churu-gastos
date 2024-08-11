@@ -3,6 +3,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { churuGastosApi } from '@/store/api';
 import userSlice from '@/features/user/store/userSlice';
 
+
 export const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice

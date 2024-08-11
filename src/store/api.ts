@@ -1,6 +1,7 @@
 import { categoryEndpoint } from '@/store/endpoints/category';
 import { productEndpoints } from '@/store/endpoints/product';
 import { userEndpoint } from '@/store/endpoints/user';
+import { RootState } from '@/store/store';
 import {
   BaseQueryFn,
   createApi,
@@ -17,10 +18,22 @@ export type Builder = EndpointBuilder<
   'churuGastos'
 >;
 
+const baseQuery = fetchBaseQuery({
+  baseUrl: 'http://localhost:3000/api/v1',
+  prepareHeaders: (headers, { getState }) => {
+    // Get the token from the Redux store
+    const token = (getState() as RootState).user.token;
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
+    return headers;
+  },
+});
+
 // Define a service using a base URL and expected endpoints
 export const churuGastosApi = createApi({
   reducerPath: 'churuGastos',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api/v1' }),
+  baseQuery,
   endpoints: (builder) => ({
     ...categoryEndpoint(builder),
     ...userEndpoint(builder),

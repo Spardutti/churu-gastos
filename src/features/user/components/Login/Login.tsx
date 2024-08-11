@@ -1,10 +1,12 @@
 import Form from '@/components/form';
 import { FormInputs } from '@/components/form/types';
 import { setUser } from '@/features/user/store/userSlice';
+import routes from '@/routes/routes';
 import { useLoginMutation } from '@/store/api';
 import { ApiError } from '@/store/types';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 interface UserAuthProps {}
 
@@ -32,10 +34,16 @@ const inputs: FormInputs[] = [
   },
 ];
 
+interface IFormResponse {
+  type: 'success' | 'error';
+  message: string;
+}
+
 const Login = () => {
-  const [response, setResponse] = useState<{ type: 'success' | 'error'; message: string } | undefined>();
+  const [response, setResponse] = useState<IFormResponse | undefined>();
   const dispatch = useDispatch();
   const [login, { isLoading }] = useLoginMutation();
+  const navigate = useNavigate();
 
   const submit = async (data: FormData) => {
     const response = await login(data);
@@ -45,6 +53,7 @@ const Login = () => {
       setResponse({ type: 'error', message: error.data.message });
     } else {
       dispatch(setUser(response.data.user!));
+      navigate(routes.DASHBOARD());
     }
   };
 
