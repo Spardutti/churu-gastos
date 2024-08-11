@@ -19,7 +19,7 @@ export type Builder = EndpointBuilder<
 >;
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:3000/api/v1',
+  baseUrl: import.meta.env.VITE_API_URL,
   prepareHeaders: (headers, { getState }) => {
     // Get the token from the Redux store
     const token = (getState() as RootState).user.token;
