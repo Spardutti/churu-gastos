@@ -29,7 +29,6 @@ const Form = <T extends Record<string, string | number | {} | []>>({
     handleSubmit,
     formState: { errors },
   } = useForm<T>({ resolver: yupResolver(schema) });
-  console.log('errors:', errors);
 
   const onSubmit = async (data: T) => {
     await submit(data);

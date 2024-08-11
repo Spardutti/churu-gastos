@@ -3,6 +3,7 @@ import { FormInputs } from '@/components/form/types';
 import { Category } from '@/features/category/types/category';
 import { useCreteProductMutation, useGetCategoriesQuery } from '@/store/api';
 import { useMemo } from 'react';
+import * as yup from 'yup';
 
 interface CreateProductFormsProps {}
 
@@ -12,13 +13,19 @@ type FormData = {
   amount: number;
 };
 
+const schema = yup.object({
+  name: yup.string().required('Name is required'),
+  category: yup.object().required('Category is required'),
+  amount: yup.number().required('Amount is required'),
+});
+
 const CreateProductForms = () => {
   const { data: categories, error, isLoading } = useGetCategoriesQuery();
 
   const [createProduct] = useCreteProductMutation();
 
   const submit = async (data: FormData) => {
-    const category = categories!.data.find((cat) => cat.id == data.category.id);
+    const category = categories!.data!.find((cat) => cat.id == data.category.id);
     await createProduct({ ...data, category_id: category!.id, category_name: category!.name });
   };
 
@@ -79,7 +86,7 @@ const CreateProductForms = () => {
   return (
     <div>
       {' '}
-      <Form submit={submit} inputs={formInputs} submitLabel="Create" />
+      <Form submit={submit} inputs={formInputs} submitLabel="Create" schema={schema} />
     </div>
   );
 };

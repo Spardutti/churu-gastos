@@ -1,5 +1,6 @@
 import Form from '@/components/form';
 import { FormInputs } from '@/components/form/types';
+import { strings } from '@/constants/strings';
 import { setUser } from '@/features/user/store/userSlice';
 import routes from '@/routes/routes';
 import { useLoginMutation } from '@/store/api';
@@ -8,6 +9,7 @@ import { IFormResponse } from '@/types/formResponse';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
 
 interface UserAuthProps {}
 
@@ -35,7 +37,12 @@ const inputs: FormInputs[] = [
   },
 ];
 
-
+const schema = yup
+  .object({
+    email: yup.string().required('Email is required'),
+    password: yup.string().required('Password is required'),
+  })
+  .required();
 
 const Login = () => {
   const [response, setResponse] = useState<IFormResponse | undefined>();
@@ -51,13 +58,21 @@ const Login = () => {
       setResponse({ type: 'error', message: error.data.message });
     } else {
       dispatch(setUser(response.data.user!));
+      localStorage.setItem(strings.token, response.data.user!.token)
       navigate(routes.DASHBOARD());
     }
   };
 
   return (
     <div className="flex flex-col flex-grow md:max-w-[400px] shadow-md px-4 py-2 rounded-md rounded-tl-none bg-main-primary">
-      <Form inputs={inputs} submit={submit} submitLabel="Log in" isSubmitting={isLoading} response={response} />
+      <Form
+        inputs={inputs}
+        submit={submit}
+        submitLabel="Log in"
+        isSubmitting={isLoading}
+        response={response}
+        schema={schema}
+      />
     </div>
   );
 };

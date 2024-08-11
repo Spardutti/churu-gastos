@@ -5,7 +5,7 @@ const MobileLayout = lazy(() => import('@/layout/MobileLayout'));
 const DesktopLayout = lazy(() => import('@/layout/DesktopLayout'));
 const ProductsTable = lazy(() => import('@/features/home/components/ProductsTable'));
 const CreateProductForm = lazy(() => import('@/features/home/components/CreateProductForm'));
-const CategoryForm = lazy(() => import('@/features/category/components/CreateCategoryForm/CategoryForm'));
+const CreateCategoryForm = lazy(() => import('@/features/category/components/CreateCategoryForm/CreateCategoryForm'));
 
 interface DashboardProps {}
 
@@ -22,7 +22,7 @@ const Dashboard = () => {
             <CreateProductForm />
           </div>
           <div className="shadow-lg p-4 rounded-lg min-w-[400px] bg-main-primary">
-            <CategoryForm />
+            <CreateCategoryForm />
           </div>
           <ProductsTable />
         </div>
