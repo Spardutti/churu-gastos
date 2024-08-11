@@ -53,8 +53,7 @@ const Login = () => {
 
     if (response.error) {
       const error = response.error as ApiError;
-      console.log('error:', error);
-      setResponse({ type: 'error', message: error.data?.message || 'Something went wrong' });
+      setResponse({ type: 'error', message: error.data?.errors! || 'Something went wrong' });
     } else {
       dispatch(setUser(response.data.user!));
       localStorage.setItem(strings.token, response.data.user!.token);
@@ -63,16 +62,14 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col flex-grow md:max-w-[400px] shadow-md px-4 py-2 rounded-md rounded-tl-none bg-main-primary">
-      <Form
-        inputs={inputs}
-        submit={submit}
-        submitLabel="Log in"
-        isSubmitting={isLoading}
-        response={response}
-        schema={schema}
-      />
-    </div>
+    <Form
+      inputs={inputs}
+      submit={submit}
+      submitLabel="Log in"
+      isSubmitting={isLoading}
+      response={response}
+      schema={schema}
+    />
   );
 };
 

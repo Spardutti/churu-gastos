@@ -10,7 +10,12 @@ interface ButtonProps {
 
 const Button = ({ text, type = 'button', onClick, isLoading }: ButtonProps) => {
   return (
-    <button onClick={onClick} className="px-2 py-1 border  rounded-lg" type={type}>
+    <button
+      onClick={onClick}
+      className="px-2 py-1 border  rounded-lg disabled:opacity-50"
+      type={type}
+      disabled={isLoading}
+    >
       <div className="relative transition-all">
         <p className={clsx(isLoading && 'invisible')}>{text}</p>
         <p className={clsx('absolute inset-0 visible', !isLoading && 'invisible')}>

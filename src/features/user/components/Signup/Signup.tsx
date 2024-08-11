@@ -6,7 +6,6 @@ import { IFormResponse } from '@/types/formResponse';
 import { useState } from 'react';
 import * as yup from 'yup';
 
-
 type FormData = {
   email: string;
   password: string;
@@ -44,9 +43,12 @@ const schema = yup
   .object({
     email: yup.string().required('Email is required'),
     password: yup.string().required('Password is required'),
-    confirm_password: yup.string().test('passwords-match', 'Passwords must match', function (value) {
-      return this.parent.password === value;
-  }).required('Confirm Password is required'),
+    confirm_password: yup
+      .string()
+      .test('passwords-match', 'Passwords must match', function (value) {
+        return this.parent.password === value;
+      })
+      .required('Confirm Password is required'),
   })
   .required();
 
@@ -60,16 +62,21 @@ const Signup = () => {
 
     if (response.error) {
       const error = response.error as ApiError;
-      setResponse({ type: 'error', message: error.data.message });
+      setResponse({ type: 'error', message: error.data?.errors! });
     } else {
       setResponse({ type: 'success', message: 'Signup successful' });
     }
   };
 
   return (
-    <div className="flex flex-grow md:max-w-[400px] shadow-md px-4 py-2 rounded-md rounded-tl-none bg-main-primary">
-      <Form inputs={inputs} submit={submit} submitLabel="Log in" isSubmitting={isLoading} response={response} schema={schema}/>
-    </div>
+    <Form
+      inputs={inputs}
+      submit={submit}
+      submitLabel="Log in"
+      isSubmitting={isLoading}
+      response={response}
+      schema={schema}
+    />
   );
 };
 

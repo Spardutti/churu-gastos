@@ -6,6 +6,7 @@ import DesktopLayout from '@/layout/DesktopLayout';
 
 const tabs = [<Login key={0} />, <Signup key={1} />];
 const headers = ['Login', 'Signup'];
+
 const Home = () => {
   return (
     <LazyComponent>
