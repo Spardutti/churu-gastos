@@ -53,7 +53,8 @@ const Login = () => {
 
     if (response.error) {
       const error = response.error as ApiError;
-      setResponse({ type: 'error', message: error.data.message });
+      console.log('error:', error);
+      setResponse({ type: 'error', message: error.data?.message || 'Something went wrong' });
     } else {
       dispatch(setUser(response.data.user!));
       localStorage.setItem(strings.token, response.data.user!.token);
