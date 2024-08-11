@@ -11,6 +11,12 @@ export default {
           tertiary: '#6EACDA',
           light: '#E2E2B6',
         },
+        green: {
+          primary: '#1A5319',
+          secondary: '#508D4E',
+          tertiary: '#80AF81',
+          light: '#D6EFD8',
+        },
       },
     },
   },

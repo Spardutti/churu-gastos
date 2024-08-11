@@ -1,3 +1,4 @@
+import Alert from '@/components/alert';
 import Button from '@/components/button';
 import { FormInputs } from '@/components/form/types';
 import Select from '@/components/input/Select';
@@ -9,6 +10,7 @@ interface FormProps<T> {
   submit: (data: T) => Promise<void>;
   submitLabel: string;
   isSubmitting: boolean;
+  response?: { type: 'success' | 'error'; message: string };
 }
 
 const Form = <T extends Record<string, string | number | {} | []>>({
@@ -16,6 +18,7 @@ const Form = <T extends Record<string, string | number | {} | []>>({
   submit,
   submitLabel,
   isSubmitting,
+  response,
 }: FormProps<T>) => {
   const {
     control,
@@ -79,6 +82,11 @@ const Form = <T extends Record<string, string | number | {} | []>>({
           />
         );
       })}
+      {response && (
+        <div>
+          <Alert type={response.type} message={response?.message} />
+        </div>
+      )}
 
       <div className="flex justify-end">
         <Button type="submit" text={submitLabel} isLoading={isSubmitting} />

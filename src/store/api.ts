@@ -1,4 +1,3 @@
-import { Category } from '@/features/category/types/category';
 import { categoryEndpoint } from '@/store/endpoints/category';
 import { productEndpoints } from '@/store/endpoints/product';
 import { userEndpoint } from '@/store/endpoints/user';

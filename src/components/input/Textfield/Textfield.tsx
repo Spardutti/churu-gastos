@@ -1,5 +1,4 @@
 import Label from '@/components/input/Label';
-import './styles.css';
 
 interface TextfieldPropsBase {
   value: string | number | {} | [];
@@ -31,7 +30,6 @@ const Textfield = ({ label, value, type = 'text', placeholder, onChange }: Textf
           type={type}
           className="text-main-light px-2 py-1 rounded-md bg-main-secondary w-full"
         />
-        <span />
       </div>
     </div>
   );

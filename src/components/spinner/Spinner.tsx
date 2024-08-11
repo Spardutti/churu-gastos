@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 interface SpinnerProps {
   size?: 'default' | 'small';
@@ -8,10 +8,10 @@ const Spinner = ({ size = 'default' }: SpinnerProps) => {
   // Define size classes based on the size prop
 
   return (
-    <span role="output" aria-label="Loading..." className='flex flex-grow items-center justify-center h-full'>
+    <span role="output" aria-label="Loading..." className="flex flex-grow items-center justify-center h-full">
       <svg
         aria-hidden="true"
-        className={classNames(
+        className={clsx(
           size === 'default' && 'size-8',
           size === 'small' && 'size-4',
           'text-gray-200 animate-spin dark:text-main-light fill-main-primary',
