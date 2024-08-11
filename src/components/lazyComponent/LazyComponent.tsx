@@ -27,7 +27,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
     <div role="alert">
       <p>Something went wrong:</p>
       <pre style={{ color: 'red' }}>{error.message}</pre>
-      <Button type="button" text="Try Again" onClick={resetErrorBoundary} />
+      <Button type="button" text="Try Again" onClick={resetErrorBoundary} isLoading={false} />
     </div>
   );
 };

@@ -7,8 +7,6 @@ const ProductsTable = lazy(() => import('@/features/home/components/ProductsTabl
 const CreateProductForm = lazy(() => import('@/features/home/components/CreateProductForm'));
 const CreateCategoryForm = lazy(() => import('@/features/category/components/CreateCategoryForm/CreateCategoryForm'));
 
-interface DashboardProps {}
-
 const Dashboard = () => {
   const isDesktop = useMediaQuery({
     query: '(min-width: 875px)',

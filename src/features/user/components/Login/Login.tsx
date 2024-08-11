@@ -11,8 +11,6 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
-interface UserAuthProps {}
-
 type FormData = {
   email: string;
   password: string;
@@ -58,7 +56,7 @@ const Login = () => {
       setResponse({ type: 'error', message: error.data.message });
     } else {
       dispatch(setUser(response.data.user!));
-      localStorage.setItem(strings.token, response.data.user!.token)
+      localStorage.setItem(strings.token, response.data.user!.token);
       navigate(routes.DASHBOARD());
     }
   };

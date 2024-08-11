@@ -1,10 +1,8 @@
 import { Product } from '@/features/product/types/types';
 import { useGetProductsQuery } from '@/store/api';
 
-interface ProductsProps {}
-
 const Products = () => {
-  const { data, isLoading } = useGetProductsQuery();
+  const { data } = useGetProductsQuery();
   return (
     <div className="flex">
       {data?.data?.map((product: Product) => (

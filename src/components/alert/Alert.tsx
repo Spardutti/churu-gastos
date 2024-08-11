@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import React from 'react';
 
 interface AlertProps {
   type: 'success' | 'error' | 'warning';
@@ -8,7 +7,13 @@ interface AlertProps {
 
 const Alert = ({ type, message }: AlertProps) => {
   return (
-    <div className={clsx('px-4 py-2 rounded-md',type === 'success' && 'bg-green-primary', type === 'error' && 'bg-red-500')}>
+    <div
+      className={clsx(
+        'px-4 py-2 rounded-md',
+        type === 'success' && 'bg-green-primary',
+        type === 'error' && 'bg-red-500',
+      )}
+    >
       <p>{message}</p>
     </div>
   );
