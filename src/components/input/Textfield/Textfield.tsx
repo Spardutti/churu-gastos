@@ -1,4 +1,4 @@
-import Label from '@/components/input/Label';
+import InputLabel from "@/components/input/InputLabel";
 
 interface TextfieldPropsBase {
   value: string | number | {} | [];
@@ -20,7 +20,7 @@ type TextfieldProps = TextfieldWithLabel | TextfieldWithoutLabel;
 const Textfield = ({ label, value, type = 'text', placeholder, onChange }: TextfieldProps) => {
   return (
     <div className="flex gap-1 flex-col">
-      {label && <Label text={label} />}
+      {label && <InputLabel text={label} />}
 
       <div>
         <input

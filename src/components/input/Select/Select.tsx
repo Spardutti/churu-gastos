@@ -1,4 +1,4 @@
-import Label from '@/components/input/Label';
+import InputLabel from '@/components/input/InputLabel';
 import { Select as SelectUI } from '@headlessui/react';
 
 interface SelectProps {
@@ -14,7 +14,7 @@ interface SelectProps {
 const Select = ({ options, onChange, label, placeholder }: SelectProps) => {
   return (
     <div className="flex gap-1 flex-col">
-      {label && <Label text={label} />}
+      {label && <InputLabel text={label} />}
       <SelectUI
         onChange={(e) => onChange(e.target.value)}
         className="bg-main-secondary rounded-md px-2 py-1 cursor-pointer flex flex-col gap-4"
