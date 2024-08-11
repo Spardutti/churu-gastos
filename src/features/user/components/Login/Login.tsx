@@ -4,6 +4,7 @@ import { setUser } from '@/features/user/store/userSlice';
 import routes from '@/routes/routes';
 import { useLoginMutation } from '@/store/api';
 import { ApiError } from '@/store/types';
+import { IFormResponse } from '@/types/formResponse';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -34,10 +35,7 @@ const inputs: FormInputs[] = [
   },
 ];
 
-interface IFormResponse {
-  type: 'success' | 'error';
-  message: string;
-}
+
 
 const Login = () => {
   const [response, setResponse] = useState<IFormResponse | undefined>();

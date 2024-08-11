@@ -4,6 +4,8 @@ import { FormInputs } from '@/components/form/types';
 import Select from '@/components/input/Select';
 import Textfield from '@/components/input/Textfield';
 import { Controller, Path, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { AnyObjectSchema } from 'yup';
 
 interface FormProps<T> {
   inputs: FormInputs[];
@@ -11,6 +13,7 @@ interface FormProps<T> {
   submitLabel: string;
   isSubmitting: boolean;
   response?: { type: 'success' | 'error'; message: string };
+  schema: AnyObjectSchema;
 }
 
 const Form = <T extends Record<string, string | number | {} | []>>({
@@ -19,12 +22,14 @@ const Form = <T extends Record<string, string | number | {} | []>>({
   submitLabel,
   isSubmitting,
   response,
+  schema,
 }: FormProps<T>) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<T>();
+  } = useForm<T>({ resolver: yupResolver(schema) });
+  console.log('errors:', errors);
 
   const onSubmit = async (data: T) => {
     await submit(data);
@@ -38,48 +43,57 @@ const Form = <T extends Record<string, string | number | {} | []>>({
         if (inputType === 'select') {
           const { options } = input;
           return (
-            <Controller
-              key={index + name}
-              name={name as Path<T>}
-              control={control}
-              render={({ field }) => (
-                <Select
-                  label={label}
-                  options={options}
-                  placeholder={placeholder}
-                  onChange={(e) => field.onChange({ id: e, name: field.name })}
-                />
-              )}
-            />
+            <div key={index + name}>
+              <Controller
+                name={name as Path<T>}
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    label={label}
+                    options={options}
+                    placeholder={placeholder}
+                    onChange={(e) => field.onChange({ id: e, name: field.name })}
+                  />
+                )}
+              />
+              {errors && errors[name] && <p className="text-red-500">{errors[name]?.message as string}</p>}
+            </div>
           );
         }
+
         if (label) {
           return (
+            <div key={index + name}>
+              <Controller
+                name={name as Path<T>}
+                control={control}
+                render={({ field }) => (
+                  <Textfield
+                    type={type}
+                    label={label}
+                    value={field.value}
+                    placeholder={placeholder}
+                    onChange={field.onChange}
+                  />
+                )}
+              />
+              {errors && errors[name] && <p className="text-red-500">{errors[name]?.message as string}</p>}
+            </div>
+          );
+        }
+
+        return (
+          <div key={index + name}>
             <Controller
               key={index + name}
               name={name as Path<T>}
               control={control}
               render={({ field }) => (
-                <Textfield
-                  type={type}
-                  label={label}
-                  value={field.value}
-                  placeholder={placeholder}
-                  onChange={field.onChange}
-                />
+                <Textfield type={type} value={field.value} placeholder={placeholder} onChange={field.onChange} />
               )}
             />
-          );
-        }
-        return (
-          <Controller
-            key={index + name}
-            name={name as Path<T>}
-            control={control}
-            render={({ field }) => (
-              <Textfield type={type} value={field.value} placeholder={placeholder} onChange={field.onChange} />
-            )}
-          />
+            {errors && errors[name] && <p className="text-red-500">{errors[name]?.message as string}</p>}
+          </div>
         );
       })}
       {response && (
