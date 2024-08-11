@@ -2,7 +2,7 @@ import { Category } from '@/features/category/types/category';
 import { useGetCategoriesQuery } from '@/store/api';
 
 const Categories = () => {
-  const { data, error, isLoading, isFetching } = useGetCategoriesQuery();
+  const { data, error, isLoading } = useGetCategoriesQuery();
 
   if (error) {
     return <>Oh no, there was an error</>;

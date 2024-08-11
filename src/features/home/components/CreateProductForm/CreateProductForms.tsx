@@ -5,8 +5,6 @@ import { useCreteProductMutation, useGetCategoriesQuery } from '@/store/api';
 import { useMemo } from 'react';
 import * as yup from 'yup';
 
-interface CreateProductFormsProps {}
-
 type FormData = {
   name: string;
   category: Category;
@@ -20,9 +18,9 @@ const schema = yup.object({
 });
 
 const CreateProductForms = () => {
-  const { data: categories, error, isLoading } = useGetCategoriesQuery();
+  const { data: categories } = useGetCategoriesQuery();
 
-  const [createProduct] = useCreteProductMutation();
+  const [createProduct, { isLoading }] = useCreteProductMutation();
 
   const submit = async (data: FormData) => {
     const category = categories!.data!.find((cat) => cat.id == data.category.id);
@@ -86,7 +84,7 @@ const CreateProductForms = () => {
   return (
     <div>
       {' '}
-      <Form submit={submit} inputs={formInputs} submitLabel="Create" schema={schema} />
+      <Form submit={submit} inputs={formInputs} submitLabel="Create" schema={schema} isSubmitting={isLoading} />
     </div>
   );
 };

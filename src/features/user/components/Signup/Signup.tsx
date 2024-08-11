@@ -6,7 +6,6 @@ import { IFormResponse } from '@/types/formResponse';
 import { useState } from 'react';
 import * as yup from 'yup';
 
-interface SignupProps {}
 
 type FormData = {
   email: string;

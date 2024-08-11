@@ -4,8 +4,6 @@ import Login from '@/features/user/components/Login';
 import Signup from '@/features/user/components/Signup';
 import DesktopLayout from '@/layout/DesktopLayout';
 
-interface HomeProps {}
-
 const tabs = [<Login key={0} />, <Signup key={1} />];
 const headers = ['Login', 'Signup'];
 const Home = () => {

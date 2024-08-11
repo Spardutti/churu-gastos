@@ -4,8 +4,6 @@ import { useGetProductsQuery } from '@/store/api';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useMemo } from 'react';
 
-interface ProductsTableProps {}
-
 const ProductsTable = () => {
   const { data, isLoading, error } = useGetProductsQuery();
   const columnHelper = createColumnHelper<Product>();
@@ -45,7 +43,7 @@ const ProductsTable = () => {
 
   return (
     <div>
-      <Table columns={columns} data={data!.data} />
+      <Table columns={columns} data={data!.data!} />
     </div>
   );
 };

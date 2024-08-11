@@ -1,8 +1,11 @@
-import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
 
-interface TableProps {}
+interface TableProps<TData> {
+  columns: ColumnDef<TData, any>[];
+  data: TData[];
+}
 
-const Table = ({ columns, data }) => {
+const Table = <TData,>({ columns, data }: TableProps<TData>) => {
   const table = useReactTable({ columns, data, getCoreRowModel: getCoreRowModel() });
   return (
     <div className="bg-main-primary px-4 py-1 rounded-md">

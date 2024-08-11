@@ -9,8 +9,6 @@ import ProtectedRoute from '@/features/protectedRoute';
 const Dashboard = lazy(() => import('@/routes/Dashboard'));
 const Home = lazy(() => import('@/routes/Home'));
 
-interface AppProps {}
-
 const App = () => {
   const dispatch = useDispatch();
 
