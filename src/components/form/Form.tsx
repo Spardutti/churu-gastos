@@ -7,9 +7,16 @@ import { Controller, Path, useForm } from 'react-hook-form';
 interface FormProps<T> {
   inputs: FormInputs[];
   submit: (data: T) => Promise<void>;
+  submitLabel: string;
+  isSubmitting: boolean;
 }
 
-const Form = <T extends Record<string, string | number | {} | []>>({ inputs, submit }: FormProps<T>) => {
+const Form = <T extends Record<string, string | number | {} | []>>({
+  inputs,
+  submit,
+  submitLabel,
+  isSubmitting,
+}: FormProps<T>) => {
   const {
     control,
     handleSubmit,
@@ -74,7 +81,7 @@ const Form = <T extends Record<string, string | number | {} | []>>({ inputs, sub
       })}
 
       <div className="flex justify-end">
-        <Button type="submit" text="Submit" />
+        <Button type="submit" text={submitLabel} isLoading={isSubmitting} />
       </div>
     </form>
   );

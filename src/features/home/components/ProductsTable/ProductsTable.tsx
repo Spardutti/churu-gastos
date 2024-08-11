@@ -1,5 +1,5 @@
 import Table from '@/components/table';
-import { Product } from '@/features/product/types';
+import { Product } from '@/features/product/types/types';
 import { useGetProductsQuery } from '@/store/api';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useMemo } from 'react';
@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 interface ProductsTableProps {}
 
 const ProductsTable = () => {
-  const { data, isLoading } = useGetProductsQuery();
+  const { data, isLoading, error } = useGetProductsQuery();
   const columnHelper = createColumnHelper<Product>();
 
   const columns = useMemo(
@@ -37,6 +37,10 @@ const ProductsTable = () => {
 
   if (isLoading) {
     return <p>Loading</p>;
+  }
+
+  if (error) {
+    return <p>Error</p>;
   }
 
   return (

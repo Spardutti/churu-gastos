@@ -7,7 +7,9 @@ const ProductsTable = lazy(() => import('@/features/home/components/ProductsTabl
 const CreateProductForm = lazy(() => import('@/features/home/components/CreateProductForm'));
 const CategoryForm = lazy(() => import('@/features/category/components/CategoryForm/CategoryForm'));
 
-const Home = () => {
+interface DashboardProps {}
+
+const Dashboard = () => {
   const isDesktop = useMediaQuery({
     query: '(min-width: 875px)',
   });
@@ -35,4 +37,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Dashboard;

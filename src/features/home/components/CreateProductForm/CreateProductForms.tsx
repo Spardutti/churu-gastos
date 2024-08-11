@@ -1,6 +1,6 @@
 import Form from '@/components/form';
 import { FormInputs } from '@/components/form/types';
-import { Category } from '@/features/category/types';
+import { Category } from '@/features/category/types/category';
 import { useCreteProductMutation, useGetCategoriesQuery } from '@/store/api';
 import { useMemo } from 'react';
 
@@ -79,7 +79,7 @@ const CreateProductForms = () => {
   return (
     <div>
       {' '}
-      <Form submit={submit} inputs={formInputs} />
+      <Form submit={submit} inputs={formInputs} submitLabel="Create" />
     </div>
   );
 };
