@@ -1,4 +1,5 @@
 import LazyComponent from '@/components/lazyComponent';
+import ProductsMobileView from '@/features/home/components/ProductsMobileView';
 import { lazy } from 'react';
 import { useMediaQuery } from 'react-responsive';
 const MobileLayout = lazy(() => import('@/layout/MobileLayout'));
@@ -30,6 +31,7 @@ const Dashboard = () => {
     <LazyComponent>
       <MobileLayout>
         <CreateProductForm />
+        <ProductsMobileView />
       </MobileLayout>
     </LazyComponent>
   );

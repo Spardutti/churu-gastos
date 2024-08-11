@@ -8,23 +8,25 @@ interface TabProps {
 
 const Tab = ({ tabs, headers }: TabProps) => {
   return (
-    <TabGroup>
-      <TabList className={'flex  '}>
-        {headers.map((header) => (
-          <Tabs
-            className={'data-[selected]:bg-main-primary px-2 py-1 rounded-t-md bg-main-secondary outline-none'}
-            key={header}
-          >
-            {header}
-          </Tabs>
-        ))}
-      </TabList>
+    <TabGroup className={'flex-grow flex flex-col items-center'}>
+      <div className='self-stretch md:mx-auto'>
+        <TabList className={'flex'}>
+          {headers.map((header) => (
+            <Tabs
+              className={'data-[selected]:bg-main-primary px-2 py-1 rounded-t-md bg-main-secondary outline-none'}
+              key={header}
+            >
+              {header}
+            </Tabs>
+          ))}
+        </TabList>
 
-      <TabPanels>
-        {tabs.map((tab, index) => (
-          <TabPanel key={index}>{tab}</TabPanel>
-        ))}
-      </TabPanels>
+        <TabPanels>
+          {tabs.map((tab, index) => (
+            <TabPanel key={index}>{tab}</TabPanel>
+          ))}
+        </TabPanels>
+      </div>
     </TabGroup>
   );
 };

@@ -1,3 +1,4 @@
+import Spinner from '@/components/spinner';
 import Table from '@/components/table';
 import { Product } from '@/features/product/types/types';
 import { useGetProductsQuery } from '@/store/api';
@@ -34,18 +35,18 @@ const ProductsTable = () => {
   );
 
   if (isLoading) {
-    return <p>Loading</p>;
+    return (
+      <div className="flex flex-1 bg-main-primary">
+        <Spinner />
+      </div>
+    );
   }
 
   if (error) {
     return <p>Error</p>;
   }
 
-  return (
-    <div>
-      <Table columns={columns} data={data!.data!} />
-    </div>
-  );
+  return <Table columns={columns} data={data!.data!} />;
 };
 
 export default ProductsTable;
