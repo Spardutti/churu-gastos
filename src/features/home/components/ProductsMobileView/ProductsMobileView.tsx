@@ -4,8 +4,6 @@ import { lazy, useState } from 'react';
 const ProductsTable = lazy(() => import('@/features/home/components/ProductsTable'));
 const CreateCategoryForm = lazy(() => import('@/features/category/components/CreateCategoryForm/CreateCategoryForm'));
 
-interface ProductsMobileViewProps {}
-
 const ProductsMobileView = () => {
   const [showTable, setShowTable] = useState(false);
   const [categoryForm, setCategoryForm] = useState(false);
