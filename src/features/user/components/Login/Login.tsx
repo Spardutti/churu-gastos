@@ -36,7 +36,10 @@ const Login = () => {
 
   const submit = async (data: FormData) => {
     const response = await login(data);
-    dispatch(setUser(response.data!));
+
+    if (response.data?.status === 'ok' && response.data.user) {
+      dispatch(setUser(response.data.user));
+    }
   };
 
   return (

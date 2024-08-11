@@ -12,7 +12,7 @@ const Categories = () => {
     return <>Loading...</>;
   }
 
-  if (data) {
+  if (data?.data) {
     return (
       <div>
         {data.data.map((cat: Category) => (

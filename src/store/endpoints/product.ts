@@ -1,5 +1,6 @@
 import { Product } from '@/features/product/types/types';
 import { Builder, churuGastosApi } from '@/store/api';
+import { ApiResponse } from '@/store/types';
 
 type CreateProductPayload = {
   name: string;
@@ -10,10 +11,10 @@ type CreateProductPayload = {
 };
 
 export const productEndpoints = (builder: Builder) => ({
-  getProducts: builder.query<{ data: Product[] }, void>({
+  getProducts: builder.query<ApiResponse<Product[], 'data'>, void>({
     query: () => `/products`,
   }),
-  creteProduct: builder.mutation<Product, CreateProductPayload>({
+  creteProduct: builder.mutation<ApiResponse<Product, 'data'>, CreateProductPayload>({
     query: (body) => ({
       url: `/products`,
       method: 'POST',
@@ -22,7 +23,7 @@ export const productEndpoints = (builder: Builder) => ({
     async onQueryStarted(newProduct, { dispatch, queryFulfilled }) {
       const patchResult = dispatch(
         churuGastosApi.util.updateQueryData('getProducts', undefined, (draft) => {
-          draft.data.push({
+          draft.data!.push({
             ...newProduct,
             id: Date.now(),
             category: { id: newProduct.category_id, name: newProduct.category_name },

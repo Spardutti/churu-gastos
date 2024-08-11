@@ -7,6 +7,7 @@ import routes from '@/routes/routes.ts';
 import LazyComponent from '@/components/lazyComponent';
 
 import './index.css';
+import ProtectedRoute from '@/features/protectedRoute';
 
 const Dashboard = lazy(() => import('@/routes/Dashboard'));
 const Home = lazy(() => import('@/routes/Home'));
@@ -24,7 +25,9 @@ const router = createBrowserRouter([
     path: routes.DASHBOARD(),
     element: (
       <LazyComponent>
-        <Dashboard />
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
       </LazyComponent>
     ),
   },

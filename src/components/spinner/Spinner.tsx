@@ -8,7 +8,7 @@ const Spinner = ({ size = 'default' }: SpinnerProps) => {
   // Define size classes based on the size prop
 
   return (
-    <div role="output" aria-label="Loading..." className='flex flex-grow items-center justify-center h-full'>
+    <span role="output" aria-label="Loading..." className='flex flex-grow items-center justify-center h-full'>
       <svg
         aria-hidden="true"
         className={classNames(
@@ -30,7 +30,7 @@ const Spinner = ({ size = 'default' }: SpinnerProps) => {
         />
       </svg>
       <span className="sr-only">Loading...</span>
-    </div>
+    </span>
   );
 };
 
