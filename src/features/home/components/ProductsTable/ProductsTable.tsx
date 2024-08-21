@@ -2,11 +2,14 @@ import Spinner from '@/components/spinner';
 import Table from '@/components/table';
 import { Product } from '@/features/product/types/types';
 import { useGetProductsQuery } from '@/store/api';
+import { RootState } from '@/store/store';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 const ProductsTable = () => {
-  const { data, isLoading, error } = useGetProductsQuery();
+  const date = useSelector((state: RootState) => state.date);
+  const { data, isLoading, error } = useGetProductsQuery({ date: date.date! }, { skip: !date.date });
   const columnHelper = createColumnHelper<Product>();
 
   const columns = useMemo(

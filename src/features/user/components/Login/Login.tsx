@@ -1,5 +1,7 @@
+import Card from '@/components/card';
 import Form from '@/components/form';
 import { FormInputs } from '@/components/form/types';
+import Heading from '@/components/heading';
 import { strings } from '@/constants/strings';
 import { setUser } from '@/features/user/store/userSlice';
 import routes from '@/routes/routes';
@@ -8,7 +10,7 @@ import { ApiError } from '@/store/types';
 import { IFormResponse } from '@/types/formResponse';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 type FormData = {
@@ -62,14 +64,28 @@ const Login = () => {
   };
 
   return (
-    <Form
-      inputs={inputs}
-      submit={submit}
-      submitLabel="Log in"
-      isSubmitting={isLoading}
-      response={response}
-      schema={schema}
-    />
+    <div className="p-4">
+      <Heading variant="h1" label="Churu Gastos" />
+      <div className="h-24 flex items-center justify-center">
+        something cool here
+      </div>
+      <Card>
+        <Form
+          inputs={inputs}
+          submit={submit}
+          submitLabel="Log in"
+          isSubmitting={isLoading}
+          response={response}
+          schema={schema}
+        />
+        <p className="text-center">
+          Don't have an account?{' '}
+          <Link className="text-blue-500 underline" to={routes.SIGNUP()}>
+            Sign up
+          </Link>
+        </p>
+      </Card>
+    </div>
   );
 };
 

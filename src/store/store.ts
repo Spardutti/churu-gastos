@@ -2,13 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { churuGastosApi } from '@/store/api';
 import userSlice from '@/features/user/store/userSlice';
-
+import monthSlice from '@/features/month/components/store/monthSlice';
 
 export const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice
     [churuGastosApi.reducerPath]: churuGastosApi.reducer,
     user: userSlice,
+    date: monthSlice,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.

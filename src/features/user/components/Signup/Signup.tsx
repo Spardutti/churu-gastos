@@ -1,9 +1,13 @@
+import Card from '@/components/card';
 import Form from '@/components/form';
 import { FormInputs } from '@/components/form/types';
+import Heading from '@/components/heading';
+import routes from '@/routes/routes';
 import { useSignupMutation } from '@/store/api';
 import { ApiError } from '@/store/types';
 import { IFormResponse } from '@/types/formResponse';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 
 type FormData = {
@@ -69,14 +73,26 @@ const Signup = () => {
   };
 
   return (
-    <Form
-      inputs={inputs}
-      submit={submit}
-      submitLabel="Log in"
-      isSubmitting={isLoading}
-      response={response}
-      schema={schema}
-    />
+    <div className="p-4">
+      <Heading variant="h1" label="Churu Gastos" />
+      <div className="h-24 flex items-center justify-center">something cool here</div>
+      <Card>
+        <Form
+          inputs={inputs}
+          submit={submit}
+          submitLabel="Sign up"
+          isSubmitting={isLoading}
+          response={response}
+          schema={schema}
+        />
+        <p className="text-center">
+          Already have an account?{' '}
+          <Link className="text-blue-500 underline" to={routes.HOME()}>
+            Log in
+          </Link>
+        </p>
+      </Card>
+    </div>
   );
 };
 

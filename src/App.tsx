@@ -1,26 +1,38 @@
-import { strings } from '@/constants/strings';
-import { setUser } from '@/features/user/store/userSlice';
-import { lazy, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { lazy } from 'react';
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import routes from '@/routes/routes.ts';
 import LazyComponent from '@/components/lazyComponent';
 import ProtectedRoute from '@/features/protectedRoute';
+
 const Dashboard = lazy(() => import('@/routes/Dashboard'));
-const Home = lazy(() => import('@/routes/Home'));
+const SignupPage = lazy(() => import('@/features/user/components/Signup/Signup'));
+const Login = lazy(() => import('@/features/user/components/Login/Login'));
 
 const App = () => {
-  const dispatch = useDispatch();
-
   const router = createBrowserRouter([
     {
-      path: routes.HOME(),
+      path: routes.LOGIN(),
       element: (
         <LazyComponent>
-          <Home />
+          <Login />
         </LazyComponent>
       ),
     },
+
+    {
+      path: '/',
+      element: <Navigate to={routes.DASHBOARD()} replace />,
+    },
+
+    {
+      path: routes.SIGNUP(),
+      element: (
+        <LazyComponent>
+          <SignupPage />
+        </LazyComponent>
+      ),
+    },
+
     {
       path: routes.DASHBOARD(),
       element: (
@@ -32,13 +44,6 @@ const App = () => {
       ),
     },
   ]);
-
-  useEffect(() => {
-    const token = localStorage.getItem(strings.token);
-    if (token) {
-      dispatch(setUser({ email: '', token }));
-    }
-  }, [dispatch]);
 
   return <RouterProvider router={router} />;
 };

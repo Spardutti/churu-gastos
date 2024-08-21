@@ -1,4 +1,4 @@
-import InputLabel from "@/components/input/InputLabel";
+import InputLabel from '@/components/input/InputLabel';
 
 interface TextfieldPropsBase {
   value: string | number | {} | [];
@@ -28,7 +28,7 @@ const Textfield = ({ label, value, type = 'text', placeholder, onChange }: Textf
           value={value as string}
           onChange={onChange}
           type={type}
-          className="text-main-light px-2 py-1 rounded-md bg-main-secondary w-full"
+          className=" outline-none focus-within:ring border border-black ring-main-tertiary px-2 py-1 rounded-md  w-full"
         />
       </div>
     </div>

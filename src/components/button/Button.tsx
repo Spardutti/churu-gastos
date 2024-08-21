@@ -5,14 +5,15 @@ interface ButtonProps {
   text: string;
   type: 'button' | 'submit' | 'reset' | undefined;
   onClick?: () => void;
-  isLoading: boolean;
+  isLoading?: boolean;
+  variant: 'primary' | 'secondary';
 }
 
-const Button = ({ text, type = 'button', onClick, isLoading }: ButtonProps) => {
+const Button = ({ text, type = 'button', onClick, isLoading, variant }: ButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className="px-2 py-1 border  rounded-lg disabled:opacity-50"
+      className={clsx('px-2 py-1 border  rounded-lg disabled:opacity-50', variant === 'primary' && 'bg-main-primary text-main-light')}
       type={type}
       disabled={isLoading}
     >

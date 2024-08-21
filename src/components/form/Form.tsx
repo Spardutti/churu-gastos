@@ -35,10 +35,7 @@ const Form = <T extends Record<string, string | number | {} | []>>({
   };
 
   return (
-    <form
-      className="flex flex-col gap-4 flex-grow md:min-w-[500px] w-full md:max-w-[500px] px-4 py-2 rounded-md rounded-tl-none bg-main-primary"
-      onSubmit={handleSubmit(onSubmit)}
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-grow gap-4 flex-col">
       {inputs?.map((input, index) => {
         const { type, label, name, placeholder, inputType } = input;
 
@@ -105,7 +102,7 @@ const Form = <T extends Record<string, string | number | {} | []>>({
       )}
 
       <div className="flex justify-end">
-        <Button type="submit" text={submitLabel} isLoading={isSubmitting} />
+        <Button variant="primary" type="submit" text={submitLabel} isLoading={isSubmitting} />
       </div>
     </form>
   );

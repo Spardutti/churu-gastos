@@ -50,4 +50,5 @@ export const {
   useCreteProductMutation,
   useLoginMutation,
   useSignupMutation,
+  useProfileQuery,
 } = churuGastosApi;

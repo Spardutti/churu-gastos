@@ -16,8 +16,10 @@ const ProductsMobileView = () => {
           isLoading={false}
           onClick={() => setShowTable(!showTable)}
           type="button"
+          variant="primary"
         />
         <Button
+          variant="primary"
           text={categoryForm ? 'Hide' : 'Create Category'}
           isLoading={false}
           onClick={() => setCategoryForm(!categoryForm)}

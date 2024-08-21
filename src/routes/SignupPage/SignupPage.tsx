@@ -1,16 +1,17 @@
 import LazyComponent from '@/components/lazyComponent';
-import Login from '@/features/user/components/Login';
-
+import Signup from '@/features/user/components/Signup';
 import Layout from '@/layout/Layout';
 
-const Home = () => {
+interface SignupProps {}
+
+const SignupPage = () => {
   return (
     <LazyComponent>
       <Layout>
-        <Login />
+        <Signup />
       </Layout>
     </LazyComponent>
   );
 };
 
-export default Home;
+export default SignupPage;

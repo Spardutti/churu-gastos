@@ -1,3 +1,4 @@
+import Card from '@/components/card';
 import Form from '@/components/form';
 import { FormInputs } from '@/components/form/types';
 import { Category } from '@/features/category/types/category';
@@ -82,10 +83,9 @@ const CreateProductForms = () => {
   }, [categories]);
 
   return (
-    <div>
-      {' '}
+    <Card>
       <Form submit={submit} inputs={formInputs} submitLabel="Create" schema={schema} isSubmitting={isLoading} />
-    </div>
+    </Card>
   );
 };
 
