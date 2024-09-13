@@ -1,7 +1,7 @@
-import { Product } from '@/features/product/types/types';
+import { Product } from '@/features/expense/types/types';
 import { useGetProductsQuery } from '@/store/api';
 
-const Products = () => {
+const Expenses = () => {
   const { data } = useGetProductsQuery();
   return (
     <div className="flex">
@@ -17,4 +17,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default Expenses;

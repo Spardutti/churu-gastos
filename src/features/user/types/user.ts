@@ -1,5 +1,6 @@
-export type User = {
+export interface IUser {
+  id: string;
+  displayName: string;
   email: string;
-  // name: string;
-  token: string;
-};
+  authorizationToken: string
+}

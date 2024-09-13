@@ -18,7 +18,7 @@ const schema = yup.object({
   amount: yup.number().required('Amount is required'),
 });
 
-const CreateProductForms = () => {
+const CreateExpenseForm = () => {
   const { data: categories } = useGetCategoriesQuery();
 
   const [createProduct, { isLoading }] = useCreteProductMutation();
@@ -89,4 +89,4 @@ const CreateProductForms = () => {
   );
 };
 
-export default CreateProductForms;
+export default CreateExpenseForm;

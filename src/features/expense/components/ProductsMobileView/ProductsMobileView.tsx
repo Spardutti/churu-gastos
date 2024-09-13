@@ -1,7 +1,7 @@
 import Button from '@/components/button';
 import LazyComponent from '@/components/lazyComponent';
 import { lazy, useState } from 'react';
-const ProductsTable = lazy(() => import('@/features/home/components/ProductsTable'));
+const ProductsTable = lazy(() => import('@/features/expense/components/ExpenseTable'));
 const CreateCategoryForm = lazy(() => import('@/features/category/components/CreateCategoryForm/CreateCategoryForm'));
 
 const ProductsMobileView = () => {

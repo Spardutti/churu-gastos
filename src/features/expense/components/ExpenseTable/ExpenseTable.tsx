@@ -1,37 +1,41 @@
 import Spinner from '@/components/spinner';
 import Table from '@/components/table';
-import { Product } from '@/features/product/types/types';
-import { useGetProductsQuery } from '@/store/api';
-import { RootState } from '@/store/store';
+import { expenseAPI } from '@/features/expense/api/expense';
+import type { IExpense } from '@/features/expense/types/types';
+import { formattedDate } from '@/utils/formatDate';
 import { createColumnHelper } from '@tanstack/react-table';
 import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 
-const ProductsTable = () => {
-  const date = useSelector((state: RootState) => state.date);
-  const { data, isLoading, error } = useGetProductsQuery({ date: date.date! }, { skip: !date.date });
-  const columnHelper = createColumnHelper<Product>();
+const ExpenseTable = () => {
+  const columnHelper = createColumnHelper<IExpense>();
+
+  const { data, isLoading, error } = expenseAPI.useGetExpenses();
 
   const columns = useMemo(
     () => [
       columnHelper.accessor('name', {
+        id: 'name',
         header: 'Name',
         cell: (info) => info.getValue(),
+        size: 200,
       }),
       columnHelper.accessor('amount', {
         header: 'Amount',
         cell: (info) => info.getValue(),
-        size: 100,
+        size: 200,
+        id: 'amount',
       }),
       columnHelper.accessor('category', {
         header: 'Category',
-        cell: (info) => info.getValue()?.name,
-        size: 100,
+        cell: (info) => info.getValue(),
+        size: 200,
+        id: 'category',
       }),
       columnHelper.accessor('date', {
         header: 'Date',
-        cell: (info) => info.getValue(),
-        size: 100,
+        cell: (info) => formattedDate(info.getValue()),
+        size: 200,
+        id: 'date',
       }),
     ],
     [],
@@ -49,7 +53,11 @@ const ProductsTable = () => {
     return <p>Error</p>;
   }
 
-  return <Table columns={columns} data={data!.data!} />;
+  return (
+    <div className="flex justify-center">
+      <Table columns={columns} data={data!} sortBy="date" />
+    </div>
+  );
 };
 
-export default ProductsTable;
+export default ExpenseTable;

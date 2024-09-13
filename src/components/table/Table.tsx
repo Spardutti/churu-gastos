@@ -1,20 +1,41 @@
-import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
+import type { ColumnDef, ColumnOrderState, SortingState } from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getSortedRowModel, useReactTable } from '@tanstack/react-table';
+import clsx from 'clsx';
+import { useState } from 'react';
 
 interface TableProps<TData> {
   columns: ColumnDef<TData, any>[];
   data: TData[];
+  sortBy: string;
 }
 
-const Table = <TData,>({ columns, data }: TableProps<TData>) => {
-  const table = useReactTable({ columns, data, getCoreRowModel: getCoreRowModel() });
+const Table = <TData,>({ columns, data, sortBy }: TableProps<TData>) => {
+  const [sorting, setSorting] = useState<SortingState>([{ id: sortBy, desc: true }]);
+  const table = useReactTable({
+    columns,
+    data,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    onSortingChange: setSorting,
+    state: {
+      sorting,
+    },
+    enableSortingRemoval: false,
+  });
+
   return (
-    <div className="bg-main-primary px-4 py-1 rounded-md">
+    <div className="px-4 py-1 rounded-md">
       <table>
         <thead className="border-b border-main-tertiary">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <th className="text-start " key={header.id} style={{ width: header.getSize() }}>
+                <th
+                  className={clsx('text-start', header.column.getCanSort() ? 'cursor-pointer select-none' : '')}
+                  key={header.id}
+                  style={{ width: header.getSize() }}
+                  onClick={header.column.getToggleSortingHandler()}
+                >
                   {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                 </th>
               ))}
@@ -22,8 +43,11 @@ const Table = <TData,>({ columns, data }: TableProps<TData>) => {
           ))}
         </thead>
         <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id} className="border-b border-main-tertiary last:border-b-0">
+          {table.getRowModel().rows.map((row, index) => (
+            <tr
+              key={row.id}
+              className={clsx('border-b border-main-tertiary last:border-b-0', index % 2 === 0 && 'bg-primary-light')}
+            >
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
               ))}

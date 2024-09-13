@@ -1,0 +1,429 @@
+{
+  "users": [
+    { "id": "1", "email": "luisdamian.sp@gmail.com", "displayName": "Spardutti", "authorizationToken": "1234567890" }
+  ],
+  "categories": [
+    { "id": "1", "name": "Food", "icon": "food" },
+    { "id": "2", "name": "Home", "icon": "home" },
+    { "id": "3", "name": "Travel", "icon": "travel" },
+    { "id": "4", "name": "Entertainment", "icon": "entertainment" },
+    { "id": "5", "name": "Health", "icon": "health" },
+    { "id": "6", "name": "Education", "icon": "education" },
+    { "id": "7", "name": "Finance", "icon": "finance" },
+    { "id": "8", "name": "Technology", "icon": "technology" },
+    { "id": "9", "name": "Fitness", "icon": "fitness" },
+    { "id": "10", "name": "Shopping", "icon": "shopping" },
+    { "id": "11", "name": "Automotive", "icon": "automotive" },
+    { "id": "12", "name": "Sports", "icon": "sports" },
+    { "id": "13", "name": "Art", "icon": "art" },
+    { "id": "14", "name": "Music", "icon": "music" },
+    { "id": "15", "name": "Books", "icon": "books" },
+    { "id": "16", "name": "Lifestyle", "icon": "lifestyle" },
+    { "id": "17", "name": "Gardening", "icon": "gardening" },
+    { "id": "18", "name": "Pets", "icon": "pets" },
+    { "id": "19", "name": "Photography", "icon": "photography" },
+    { "id": "20", "name": "Events", "icon": "events" }
+  ],
+  "expenses": [
+    {
+      "id": "1",
+      "amount": 45.67,
+      "name": "Groceries",
+      "description": "Weekly grocery shopping",
+      "date": "2024-08-01",
+      "category": 1
+    },
+    {
+      "id": "2",
+      "amount": 120.5,
+      "name": "Electricity Bill",
+      "description": "Monthly electricity bill",
+      "date": "2024-08-03",
+      "category": 2
+    },
+    {
+      "id": "3",
+      "amount": 75.3,
+      "name": "Dinner",
+      "description": "Dinner at a restaurant",
+      "date": "2024-08-05",
+      "category": 1
+    },
+    {
+      "id": "4",
+      "amount": 200.0,
+      "name": "Flight Tickets",
+      "description": "Flight tickets for vacation",
+      "date": "2024-08-07",
+      "category": 3
+    },
+    {
+      "id": "5",
+      "amount": 60.0,
+      "name": "Books",
+      "description": "Purchase of educational books",
+      "date": "2024-08-09",
+      "category": 6
+    },
+    {
+      "id": "6",
+      "amount": 30.25,
+      "name": "Coffee",
+      "description": "Coffee at the local café",
+      "date": "2024-08-11",
+      "category": 1
+    },
+    {
+      "id": "7",
+      "amount": 550.0,
+      "name": "New Laptop",
+      "description": "Purchase of a new laptop",
+      "date": "2024-08-13",
+      "category": 8
+    },
+    {
+      "id": "8",
+      "amount": 15.0,
+      "name": "Bus Fare",
+      "description": "Public transportation fare",
+      "date": "2024-08-14",
+      "category": 3
+    },
+    {
+      "id": "9",
+      "amount": 80.0,
+      "name": "Gym Membership",
+      "description": "Monthly gym membership fee",
+      "date": "2024-08-15",
+      "category": 9
+    },
+    {
+      "id": "10",
+      "amount": 25.0,
+      "name": "Magazine Subscription",
+      "description": "Monthly magazine subscription",
+      "date": "2024-08-17",
+      "category": 13
+    },
+    {
+      "id": "11",
+      "amount": 250.0,
+      "name": "New Phone",
+      "description": "Purchase of a new phone",
+      "date": "2024-08-19",
+      "category": 8
+    },
+    {
+      "id": "12",
+      "amount": 40.0,
+      "name": "Lunch",
+      "description": "Lunch at a café",
+      "date": "2024-08-20",
+      "category": 1
+    },
+    {
+      "id": "13",
+      "amount": 180.0,
+      "name": "Dining Out",
+      "description": "Dining at a fancy restaurant",
+      "date": "2024-08-22",
+      "category": 4
+    },
+    {
+      "id": "14",
+      "amount": 60.0,
+      "name": "Movie Tickets",
+      "description": "Tickets for a movie",
+      "date": "2024-08-23",
+      "category": 4
+    },
+    {
+      "id": "15",
+      "amount": 90.0,
+      "name": "Car Service",
+      "description": "Routine car service",
+      "date": "2024-08-25",
+      "category": 11
+    },
+    {
+      "id": "16",
+      "amount": 120.0,
+      "name": "Hotel Stay",
+      "description": "One night stay at a hotel",
+      "date": "2024-08-26",
+      "category": 3
+    },
+    {
+      "id": "17",
+      "amount": 85.0,
+      "name": "Outdoor Gear",
+      "description": "Purchase of hiking gear",
+      "date": "2024-08-28",
+      "category": 12
+    },
+    {
+      "id": "18",
+      "amount": 22.5,
+      "name": "Snacks",
+      "description": "Snacks for the trip",
+      "date": "2024-09-01",
+      "category": 1
+    },
+    {
+      "id": "19",
+      "amount": 300.0,
+      "name": "Concert Tickets",
+      "description": "Tickets for a concert",
+      "date": "2024-09-02",
+      "category": 14
+    },
+    {
+      "id": "20",
+      "amount": 50.0,
+      "name": "Pet Food",
+      "description": "Food for the pet",
+      "date": "2024-09-03",
+      "category": 18
+    },
+    {
+      "id": "21",
+      "amount": 40.0,
+      "name": "Gardening Tools",
+      "description": "Purchase of gardening tools",
+      "date": "2024-09-04",
+      "category": 17
+    },
+    {
+      "id": "22",
+      "amount": 70.0,
+      "name": "Repair",
+      "description": "Home repair services",
+      "date": "2024-09-06",
+      "category": 2
+    },
+    {
+      "id": "23",
+      "amount": 55.0,
+      "name": "Subscription Box",
+      "description": "Monthly subscription box",
+      "date": "2024-09-08",
+      "category": 16
+    },
+    {
+      "id": "24",
+      "amount": 200.0,
+      "name": "Flight Booking",
+      "description": "Flight booking for travel",
+      "date": "2024-09-10",
+      "category": 3
+    },
+    {
+      "id": "25",
+      "amount": 65.0,
+      "name": "Fitness Class",
+      "description": "Monthly fitness class fee",
+      "date": "2024-09-12",
+      "category": 9
+    },
+    {
+      "id": "26",
+      "amount": 150.0,
+      "name": "Artwork",
+      "description": "Purchase of a painting",
+      "date": "2024-09-14",
+      "category": 13
+    },
+    {
+      "id": "27",
+      "amount": 95.0,
+      "name": "Music Concert",
+      "description": "Tickets for a music concert",
+      "date": "2024-09-16",
+      "category": 14
+    },
+    {
+      "id": "28",
+      "amount": 30.0,
+      "name": "Taxi Fare",
+      "description": "Taxi fare for the day",
+      "date": "2024-09-18",
+      "category": 3
+    },
+    {
+      "id": "29",
+      "amount": 55.0,
+      "name": "Sports Equipment",
+      "description": "Purchase of sports equipment",
+      "date": "2024-09-20",
+      "category": 12
+    },
+    {
+      "id": "30",
+      "amount": 80.0,
+      "name": "Dining Out",
+      "description": "Dinner at a new restaurant",
+      "date": "2024-09-21",
+      "category": 4
+    },
+    {
+      "id": "31",
+      "amount": 40.0,
+      "name": "Pet Grooming",
+      "description": "Grooming services for pet",
+      "date": "2024-09-22",
+      "category": 18
+    },
+    {
+      "id": "32",
+      "amount": 25.0,
+      "name": "Local Tour",
+      "description": "Tour around the city",
+      "date": "2024-09-23",
+      "category": 3
+    },
+    {
+      "id": "33",
+      "amount": 65.0,
+      "name": "Health Checkup",
+      "description": "Routine health checkup",
+      "date": "2024-09-24",
+      "category": 5
+    },
+    {
+      "id": "34",
+      "amount": 110.0,
+      "name": "Furniture",
+      "description": "Purchase of new furniture",
+      "date": "2024-09-25",
+      "category": 2
+    },
+    {
+      "id": "35",
+      "amount": 90.0,
+      "name": "Photography Equipment",
+      "description": "New camera lens",
+      "date": "2024-09-27",
+      "category": 19
+    },
+    {
+      "id": "36",
+      "amount": 70.0,
+      "name": "Concert Tickets",
+      "description": "Tickets for a local band",
+      "date": "2024-09-28",
+      "category": 14
+    },
+    {
+      "id": "37",
+      "amount": 85.0,
+      "name": "Camping Gear",
+      "description": "Purchase of camping gear",
+      "date": "2024-09-30",
+      "category": 12
+    },
+    {
+      "id": "38",
+      "amount": 125.0,
+      "name": "Outdoor Furniture",
+      "description": "New outdoor furniture set",
+      "date": "2024-10-01",
+      "category": 2
+    },
+    {
+      "id": "39",
+      "amount": 50.0,
+      "name": "Online Course",
+      "description": "Purchase of an online course",
+      "date": "2024-10-03",
+      "category": 6
+    },
+    {
+      "id": "40",
+      "amount": 30.0,
+      "name": "Lunch",
+      "description": "Lunch with colleagues",
+      "date": "2024-10-04",
+      "category": 1
+    },
+    {
+      "id": "41",
+      "amount": 70.0,
+      "name": "Sports Event",
+      "description": "Tickets for a sports event",
+      "date": "2024-10-06",
+      "category": 12
+    },
+    {
+      "id": "42",
+      "amount": 45.0,
+      "name": "Bookstore",
+      "description": "Books and stationery",
+      "date": "2024-10-08",
+      "category": 15
+    },
+    {
+      "id": "43",
+      "amount": 35.0,
+      "name": "Museum Entry",
+      "description": "Entry fee to the museum",
+      "date": "2024-10-10",
+      "category": 13
+    },
+    {
+      "id": "44",
+      "amount": 75.0,
+      "name": "New Shoes",
+      "description": "Purchase of new shoes",
+      "date": "2024-10-12",
+      "category": 10
+    },
+    {
+      "id": "45",
+      "amount": 55.0,
+      "name": "Cooking Class",
+      "description": "Fee for a cooking class",
+      "date": "2024-10-14",
+      "category": 1
+    },
+    {
+      "id": "46",
+      "amount": 90.0,
+      "name": "Birthday Gift",
+      "description": "Gift for a friend's birthday",
+      "date": "2024-10-16",
+      "category": 16
+    },
+    {
+      "id": "47",
+      "amount": 65.0,
+      "name": "Art Supplies",
+      "description": "Purchase of art supplies",
+      "date": "2024-10-18",
+      "category": 13
+    },
+    {
+      "id": "48",
+      "amount": 40.0,
+      "name": "Car Wash",
+      "description": "Car cleaning service",
+      "date": "2024-10-20",
+      "category": 11
+    },
+    {
+      "id": "49",
+      "amount": 75.0,
+      "name": "Fitness Tracker",
+      "description": "New fitness tracker watch",
+      "date": "2024-10-22",
+      "category": 9
+    },
+    {
+      "id": "50",
+      "amount": 55.0,
+      "name": "Concert Merchandise",
+      "description": "Merchandise from a concert",
+      "date": "2024-10-24",
+      "category": 14
+    }
+  ]
+}
