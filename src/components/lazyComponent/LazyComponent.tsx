@@ -27,13 +27,13 @@ const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
     <div role="alert">
       <p>Something went wrong:</p>
       <pre style={{ color: 'red' }}>{error.message}</pre>
-      <Button type="button" text="Try Again" onClick={resetErrorBoundary} isLoading={false} />
+      <Button variant="primary" type="button" text="Try Again" onClick={resetErrorBoundary} isLoading={false} />
     </div>
   );
 };
 
 const LoadingFallback = () => (
-  <div className="flex flex-grow justify-center items-center min-h-screen w-full bg-main-primary">
+  <div className="flex flex-grow justify-center items-center w-full">
     <Spinner />
   </div>
 );

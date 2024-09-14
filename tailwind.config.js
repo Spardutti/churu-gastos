@@ -5,17 +5,21 @@ export default {
     extend: {
       colors: {
         gray: '#6F6E77',
-        main: {
-          primary: '#021526',
-          secondary: '#03346E',
-          tertiary: '#6EACDA',
-          light: '#E2E2B6',
+        primary: {
+          main: '#274156',
+          light: '#1b998b',
+          bg: '#E9EBF8',
         },
-        green: {
-          primary: '#1A5319',
-          secondary: '#508D4E',
-          tertiary: '#80AF81',
-          light: '#D6EFD8',
+        hover: {
+          main: '#2E7D32',
+          light: '#4CAF50',
+        },
+
+        danger: {
+          main: '#BB342F',
+        },
+        info: {
+          main: '#F2C14E',
         },
       },
     },
