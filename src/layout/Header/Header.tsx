@@ -1,17 +1,20 @@
 import Heading from '@/components/heading';
-import NavigationMenuDemo from '@/components/nav/NavBar';
+import NavBar from '@/components/nav/NavBar';
 import { useUserContext } from '@/context/UserContext/UserContext';
-import { INavItems } from '@/layout/Header/types';
+import type { INavItems } from '@/layout/Header/types';
 import routes from '@/routes/routes';
 import { Link } from 'react-router-dom';
 
 interface HeaderProps {}
 
-
 const navItems: INavItems[] = [
   {
     label: 'Dashboard',
     href: routes.DASHBOARD(),
+  },
+  {
+    label: 'Insights',
+    href: routes.INSIGHTS(),
   },
 ];
 
@@ -24,7 +27,7 @@ const Header = () => {
         <Link to={routes.PROFILE()}>{user && <Avatar label={user.displayName} />}</Link>
       </div>
 
-      <NavigationMenuDemo items={navItems}/>
+      <NavBar items={navItems} />
     </div>
   );
 };

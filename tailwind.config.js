@@ -10,6 +10,11 @@ export default {
           light: '#1b998b',
           bg: '#E9EBF8',
         },
+        hover: {
+          main: '#2E7D32',
+          light: '#4CAF50',
+        },
+
         danger: {
           main: '#BB342F',
         },

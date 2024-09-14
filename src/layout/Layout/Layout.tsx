@@ -9,7 +9,7 @@ const Layout = ({ children }: DesktopLayoutProps) => {
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       <Header />
-      <div className="overflow-auto">{children}</div>
+      <div className="overflow-auto flex flex-col gap-4 p-4">{children}</div>
     </div>
   );
 };

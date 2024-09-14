@@ -1,10 +1,10 @@
-import type { Category } from '@/features/category/types/category';
+import type { ICategory } from '@/features/category/types/category';
 
 export interface IExpense {
   name: string;
   id: number;
   amount: number;
-  category: number;
+  category: ICategory;
   description: string;
   date: Date;
 }

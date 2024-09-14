@@ -1,5 +1,4 @@
-import { Category } from '@/features/category/types/category';
-import { useGetCategoriesQuery } from '@/store/api';
+import type { Category } from '@/features/category/types/category';
 
 const Categories = () => {
   const { data, error, isLoading } = useGetCategoriesQuery();

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import * as NavigationMenu from '@radix-ui/react-navigation-menu';
+import * as Navigation from '@radix-ui/react-navigation-menu';
 import clsx from 'clsx';
 import type { INavItems } from '@/layout/Header/types';
 import { Link } from 'react-router-dom';
@@ -13,28 +13,28 @@ const ReactLink = ({ href, ...props }: { href: string; children: ReactNode }) =>
   const isActive = href === pathname;
 
   return (
-    <NavigationMenu.Link asChild active={isActive}>
+    <Navigation.Link asChild active={isActive}>
       <Link to={href} className={clsx(isActive && 'underline text-primary-main')} {...props} />
-    </NavigationMenu.Link>
+    </Navigation.Link>
   );
 };
 
-const NavigationMenuDemo = ({ items }: NavigationMenuDemoProps) => {
+const NavBar = ({ items }: NavigationMenuDemoProps) => {
   return (
-    <NavigationMenu.Root className="relative z-[1] flex">
-      <NavigationMenu.List className="center m-0 flex list-none  p-1">
+    <Navigation.Root className="relative z-[1] flex">
+      <Navigation.List className="list-none p-1 flex gap-2">
         {items.map((item) => (
-          <NavigationMenu.Item key={item.href}>
+          <Navigation.Item key={item.href}>
             <ReactLink href={item.href}>
               <p>{item.label}</p>
             </ReactLink>
-          </NavigationMenu.Item>
+          </Navigation.Item>
         ))}
 
-        <NavigationMenu.Indicator className="bg-red-500 h-1" />
-      </NavigationMenu.List>
-    </NavigationMenu.Root>
+        <Navigation.Indicator className="bg-red-500 h-1" />
+      </Navigation.List>
+    </Navigation.Root>
   );
 };
 
-export default NavigationMenuDemo;
+export default NavBar;

@@ -4,5 +4,6 @@ const routes = {
   SIGNUP: () => '/signup',
   LOGIN: () => '/login',
   PROFILE: () => '/profile',
+  INSIGHTS: () => '/insights',
 };
 export default routes;
