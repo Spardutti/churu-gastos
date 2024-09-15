@@ -4,7 +4,7 @@ export interface ICategoryBudget {
     id: number;
     name: string;
   };
-  amount: number;
+  budget: number;
   month: number;
   year: number;
 }

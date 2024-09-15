@@ -1,6 +1,6 @@
 import Card from '@/components/card';
 import { budgetAPI } from '@/features/dashboard/api/budget';
-import { expenseAPI } from '@/features/expense/api/expense';
+import { itemAPI } from '@/features/items/api/items';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { useMemo } from 'react';
 
@@ -12,10 +12,10 @@ const ExpenseTracker = () => {
 
   const { data: categoriesBudget } = budgetAPI.useGetBudget({ query: `month=${month}&year=${year}` });
 
-  const { data: expenses } = expenseAPI.useGetExpenses();
+  const { data: items } = itemAPI.useGetItems();
 
   const monthlyExpense = useMemo(() => {
-    const monthExpenses = expenses?.filter((expense) => {
+    const monthExpenses = items?.filter((expense) => {
       const currentDate = new Date();
       const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // First day of the current month
       const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0); // Last day of the current month
@@ -24,10 +24,10 @@ const ExpenseTracker = () => {
     });
 
     return monthExpenses?.reduce((acc, expense) => acc + expense.amount, 0);
-  }, [expenses]);
+  }, [items]);
 
   const totalBudget = useMemo(() => {
-    return categoriesBudget?.reduce((acc, budget) => acc + budget.amount, 0);
+    return categoriesBudget?.reduce((acc, budget) => acc + budget.budget, 0);
   }, [categoriesBudget]);
 
   return (
@@ -36,7 +36,7 @@ const ExpenseTracker = () => {
         <Card variant="info">
           <div className="flex flex-col gap-2 items-center">
             <p>Expenses Budget</p>
-            {formatCurrency({ amount: monthlyExpense })}
+            {formatCurrency({ amount: monthlyExpense! })}
           </div>{' '}
         </Card>
       </div>
@@ -45,7 +45,7 @@ const ExpenseTracker = () => {
         <Card variant="info">
           <div className="flex flex-col gap-2 items-center">
             <p>Balance </p>
-            {formatCurrency({ amount: totalBudget - monthlyExpense })}
+            {formatCurrency({ amount: totalBudget! - monthlyExpense! })}
           </div>{' '}
         </Card>
       </div>
@@ -54,7 +54,7 @@ const ExpenseTracker = () => {
         <Card variant="info">
           <div className="flex flex-col gap-2 items-center">
             <p>Monthly Budget</p>
-            {formatCurrency({ amount: totalBudget })}
+            {formatCurrency({ amount: totalBudget! })}
           </div>
         </Card>
       </div>

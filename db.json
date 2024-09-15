@@ -14,7 +14,7 @@
     { "id": "9", "name": "Fitness", "icon": "fitness" },
     { "id": "10", "name": "Automotive", "icon": "shopping" }
   ],
-  "expenses": [
+  "items": [
     {
       "id": "50",
       "amount": 55.0,
@@ -34,7 +34,7 @@
         "id": 1,
         "name": "Food"
       },
-      "amount": 300.0,
+      "budget": 300.0,
       "month": 9,
       "year": 2024
     },
@@ -44,7 +44,7 @@
         "id": 2,
         "name": "Home"
       },
-      "amount": 500.0,
+      "budget": 500.0,
       "month": 9,
       "year": 2024
     },
@@ -54,7 +54,7 @@
         "id": 3,
         "name": "Shopping"
       },
-      "amount": 400.0,
+      "budget": 400.0,
       "month": 9,
       "year": 2024
     },
@@ -64,7 +64,7 @@
         "id": 4,
         "name": "Entertainment"
       },
-      "amount": 800.0,
+      "budget": 800.0,
       "month": 9,
       "year": 2024
     }
