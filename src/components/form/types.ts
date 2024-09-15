@@ -1,10 +1,14 @@
 interface BaseInput {
-  type: string;
-  value: string;
+  value: string | number;
   label?: string;
   name: string;
   placeholder?: string;
-  inputType: 'text' | 'file' | 'select' | 'date';
+  inputType: 'text' | 'file' | 'select' | 'date' | 'number';
+}
+
+interface NumberInput extends BaseInput {
+  inputType: 'number';
+  value: number;
 }
 
 interface TextOrFileInput extends BaseInput {
@@ -23,4 +27,4 @@ interface DateInput extends BaseInput {
   inputType: 'date';
 }
 
-export type FormInputs = TextOrFileInput | SelectInput | DateInput;
+export type FormInputs = TextOrFileInput | SelectInput | DateInput | NumberInput;

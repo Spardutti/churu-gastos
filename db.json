@@ -1,72 +1,50 @@
 {
   "users": [
-    { "id": "1", "email": "luisdamian.sp@gmail.com", "displayName": "Spardutti", "authorizationToken": "1234567890" }
+    {
+      "id": "1",
+      "email": "luisdamian.sp@gmail.com",
+      "displayName": "Spardutti",
+      "authorizationToken": "1234567890"
+    }
   ],
   "categories": [
-    { "id": "1", "name": "Food", "icon": "food" },
-    { "id": "2", "name": "Home", "icon": "home" },
-    { "id": "3", "name": "Shopping", "icon": "travel" },
-    { "id": "4", "name": "Entertainment", "icon": "entertainment" },
-    { "id": "5", "name": "Health", "icon": "health" },
-    { "id": "6", "name": "Education", "icon": "education" },
-    { "id": "7", "name": "Finance", "icon": "finance" },
-    { "id": "8", "name": "Technology", "icon": "technology" },
-    { "id": "9", "name": "Fitness", "icon": "fitness" },
-    { "id": "10", "name": "Automotive", "icon": "shopping" }
+    {
+      "id": "cedb63cc-5edd-48dc-9cd2-07ec5213eec8",
+      "name": "Mercado"
+    },
+    {
+      "id": "83259b79-23e3-4eab-90fa-a78b054ab2c4",
+      "name": "Servicios"
+    }
+  ],
+  "expenses": [
+    {
+      "id": "002861a6-eb6b-42fc-be37-212c31572332",
+      "item": "e47552cd-6b78-4e4b-b060-78a344e31e28",
+      "amount": "100",
+      "date": "2024-09-15T20:23:14.335Z"
+    },
+    {
+      "id": "a6d0125d-1bc8-442f-94cf-c86d329f6589",
+      "item": "573b549f-13d9-4d45-af04-953796618be3",
+      "amount": "150",
+      "date": "2024-09-15T20:24:41.075Z"
+    }
   ],
   "items": [
     {
-      "id": "50",
-      "amount": 55.0,
-      "name": "Concert Merchandise",
-      "description": "Merchandise from a concert",
-      "date": "2024-09-24",
-      "category": {
-        "id": 4,
-        "name": "Entertainment"
-      }
-    }
-  ],
-  "categoryBudgets": [
-    {
-      "id": "1",
-      "category": {
-        "id": 1,
-        "name": "Food"
-      },
-      "budget": 300.0,
-      "month": 9,
-      "year": 2024
+      "id": "e47552cd-6b78-4e4b-b060-78a344e31e28",
+      "name": "Verdura",
+      "categoryID": "cedb63cc-5edd-48dc-9cd2-07ec5213eec8",
+      "budget": "500",
+      "date": "2024-09-15T20:22:14.439Z"
     },
     {
-      "id": "2",
-      "category": {
-        "id": 2,
-        "name": "Home"
-      },
-      "budget": 500.0,
-      "month": 9,
-      "year": 2024
-    },
-    {
-      "id": "3",
-      "category": {
-        "id": 3,
-        "name": "Shopping"
-      },
-      "budget": 400.0,
-      "month": 9,
-      "year": 2024
-    },
-    {
-      "id": "4",
-      "category": {
-        "id": 4,
-        "name": "Entertainment"
-      },
-      "budget": 800.0,
-      "month": 9,
-      "year": 2024
+      "id": "573b549f-13d9-4d45-af04-953796618be3",
+      "name": "Expensas",
+      "categoryID": "83259b79-23e3-4eab-90fa-a78b054ab2c4",
+      "budget": "250",
+      "date": "2024-09-15T20:22:52.651Z"
     }
   ]
 }

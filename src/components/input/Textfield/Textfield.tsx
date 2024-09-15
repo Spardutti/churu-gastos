@@ -17,9 +17,9 @@ interface TextfieldWithoutLabel extends TextfieldPropsBase {
 
 type TextfieldProps = TextfieldWithLabel | TextfieldWithoutLabel;
 
-const Textfield = ({ label, value, type = 'text', placeholder, onChange }: TextfieldProps) => {
+const Textfield = ({ label, value = '', type = 'text', placeholder, onChange }: TextfieldProps) => {
   return (
-    <div className="flex gap-1 flex-col">
+    <div className="flex gap-1 flex-col ">
       {label && <InputLabel text={label} />}
 
       <div>
@@ -28,7 +28,7 @@ const Textfield = ({ label, value, type = 'text', placeholder, onChange }: Textf
           value={value as string}
           onChange={onChange}
           type={type}
-          className=" outline-none focus-within:ring border border-black ring-main-tertiary px-2 py-1 rounded-md  w-full"
+          className="text-primary-light outline-none focus-within:ring placeholder:text-primary-light border border-black ring-primary-bg px-2 py-1 rounded-md  w-full"
         />
       </div>
     </div>

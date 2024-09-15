@@ -1,4 +1,5 @@
 import type { ICategoryBudget } from '@/features/dashboard/types/ICategoryBudget';
+import { expensesAPI } from '@/features/expenses/api/expenses';
 import { itemAPI } from '@/features/items/api/items';
 import { useMemo } from 'react';
 
@@ -21,10 +22,10 @@ export interface IRemainingBudgets {
 }
 
 const useCalculateBudget = ({ categoriesBudget }: useCalculateBudgetProps): IRemainingBudgets[] => {
-  const { data: items } = itemAPI.useGetItems();
+  const { data: expenses } = expensesAPI.useGetExpenses();
 
   const monthlyExpense = useMemo(() => {
-    return items?.filter((item) => {
+    return expenses?.filter((item) => {
       const currentDate = new Date();
       const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // First day of the current month
       const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0); // Last day of the current month
@@ -33,7 +34,7 @@ const useCalculateBudget = ({ categoriesBudget }: useCalculateBudgetProps): IRem
 
       return expenseDate >= startOfMonth && expenseDate <= endOfMonth;
     });
-  }, [items]);
+  }, [expenses]);
 
   const calculateRemainingBudgetOfCategory = () => {
     // Initialize a map to store total expenses by category ID
