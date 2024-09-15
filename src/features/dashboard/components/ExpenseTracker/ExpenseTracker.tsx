@@ -1,6 +1,6 @@
 import Card from '@/components/card';
 import { budgetAPI } from '@/features/dashboard/api/budget';
-import { itemAPI } from '@/features/items/api/items';
+import { expensesAPI } from '@/features/expenses/api/expenses';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { useMemo } from 'react';
 
@@ -12,10 +12,10 @@ const ExpenseTracker = () => {
 
   const { data: categoriesBudget } = budgetAPI.useGetBudget({ query: `month=${month}&year=${year}` });
 
-  const { data: items } = itemAPI.useGetItems();
+  const { data: expenses } = expensesAPI.useGetExpenses();
 
   const monthlyExpense = useMemo(() => {
-    const monthExpenses = items?.filter((expense) => {
+    const monthExpenses = expenses?.filter((expense) => {
       const currentDate = new Date();
       const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // First day of the current month
       const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0); // Last day of the current month
@@ -24,7 +24,7 @@ const ExpenseTracker = () => {
     });
 
     return monthExpenses?.reduce((acc, expense) => acc + expense.amount, 0);
-  }, [items]);
+  }, [expenses]);
 
   const totalBudget = useMemo(() => {
     return categoriesBudget?.reduce((acc, budget) => acc + budget.budget, 0);

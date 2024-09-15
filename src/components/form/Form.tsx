@@ -1,11 +1,12 @@
 import Alert from '@/components/alert';
 import Button from '@/components/button';
-import { FormInputs } from '@/components/form/types';
+import type { FormInputs } from '@/components/form/types';
 import Select from '@/components/input/Select';
 import Textfield from '@/components/input/Textfield';
-import { Controller, Path, useForm } from 'react-hook-form';
+import type { Path } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { AnyObjectSchema } from 'yup';
+import type { AnyObjectSchema } from 'yup';
 
 interface FormProps<T> {
   inputs: FormInputs[];

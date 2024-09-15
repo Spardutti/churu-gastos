@@ -14,12 +14,15 @@
     { "id": "9", "name": "Fitness", "icon": "fitness" },
     { "id": "10", "name": "Automotive", "icon": "shopping" }
   ],
-  "items": [
+
+  "expenses": [
     {
-      "id": "50",
-      "amount": 55.0,
-      "name": "Concert Merchandise",
-      "description": "Merchandise from a concert",
+      "id": 1,
+      "item": {
+        "id": 1,
+        "name": "Concert Merchandise"
+      },
+      "amount": 55,
       "date": "2024-09-24",
       "category": {
         "id": 4,
@@ -27,6 +30,15 @@
       }
     }
   ],
+
+  "items": [
+    {
+      "id": "1",
+      "name": "Concert Merchandise",
+      "description": "Merchandise from a concert"
+    }
+  ],
+
   "categoryBudgets": [
     {
       "id": "1",
