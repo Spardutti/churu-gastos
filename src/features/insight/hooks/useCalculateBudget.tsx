@@ -1,51 +1,51 @@
-import type { ICategoryBudget } from '@/features/dashboard/types/categoryBudget';
-import { expenseAPI } from '@/features/expense/api/expense';
+import type { ICategoryBudget } from '@/features/dashboard/types/ICategoryBudget';
+import { itemAPI } from '@/features/items/api/items';
 import { useMemo } from 'react';
 
 interface useCalculateBudgetProps {
   categoriesBudget: ICategoryBudget[];
 }
 
-interface IRemainingBudgets {
-  remainingBudgets: {
-    remainingBudget: number;
-    totalExpenses: number;
-    id: number;
+export interface IRemainingBudgets {
+  remainingBudget: number;
+  totalExpenses: number;
+  id: number;
 
-    category: {
-      id: number;
-      name: string;
-    };
-    amount: number;
-    month: number;
-    year: number;
-  }[];
+  category: {
+    id: number;
+    name: string;
+  };
+  budget: number;
+  month: number;
+  year: number;
 }
 
-const useCalculateBudget = ({ categoriesBudget }: useCalculateBudgetProps): IRemainingBudgets => {
-  const { data: expenses } = expenseAPI.useGetExpenses();
+const useCalculateBudget = ({ categoriesBudget }: useCalculateBudgetProps): IRemainingBudgets[] => {
+  const { data: items } = itemAPI.useGetItems();
 
   const monthlyExpense = useMemo(() => {
-    return expenses?.filter((expense) => {
+    return items?.filter((item) => {
       const currentDate = new Date();
       const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // First day of the current month
       const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0); // Last day of the current month
-      const expenseDate = new Date(expense.date);
+
+      const expenseDate = new Date(item.date);
+
       return expenseDate >= startOfMonth && expenseDate <= endOfMonth;
     });
-  }, [expenses]);
+  }, [items]);
 
   const calculateRemainingBudgetOfCategory = () => {
     // Initialize a map to store total expenses by category ID
     const categoryExpenseMap: { [key: string]: number } = {};
 
     // Calculate total expenses for each category
-    monthlyExpense?.forEach((expense) => {
-      const categoryId = expense.category.id; // Adjust based on your expense structure
+    monthlyExpense?.forEach((item) => {
+      const categoryId = item.category.id; // Adjust based on your expense structure
       if (!categoryExpenseMap[categoryId]) {
         categoryExpenseMap[categoryId] = 0;
       }
-      categoryExpenseMap[categoryId] += expense.amount;
+      categoryExpenseMap[categoryId] += item.amount;
     });
 
     // Calculate remaining budget for each category
@@ -54,19 +54,15 @@ const useCalculateBudget = ({ categoriesBudget }: useCalculateBudgetProps): IRem
       return {
         ...category,
         name: category.category.name,
-        remainingBudget: category.amount - totalExpenses,
-        totalExpenses, // Optional: Include total expenses for display
+        remainingBudget: category.budget - totalExpenses,
+        totalExpenses,
       };
     });
   };
 
   const remainingBudgets = calculateRemainingBudgetOfCategory();
 
-  return {
-    remainingBudgets,
-  };
+  return remainingBudgets;
 };
 
 export default useCalculateBudget;
-
-// !TODO This work but fix the naming and everything, for example category.category, or amount should be renamed to budget in a budget, etc

@@ -1,6 +1,6 @@
 import type { ICategory } from '@/features/category/types/category';
 
-export interface IExpense {
+export interface IItem {
   name: string;
   id: number;
   amount: number;
