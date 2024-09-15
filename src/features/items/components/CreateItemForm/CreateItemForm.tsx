@@ -1,44 +1,47 @@
 import Card from '@/components/card';
 import Form from '@/components/form';
 import type { FormInputs } from '@/components/form/types';
+import { itemAPI } from '@/features/items/api/items';
+import type { IItem } from '@/features/items/types/types';
 import * as yup from 'yup';
+import { v4 as uuidv4 } from 'uuid';
 
-// Define the type for form data
-interface CreateItemFormData {
-  name: string;
-}
+const inputs: FormInputs[] = [
+  {
+    name: 'name',
+    label: 'Name',
+    type: 'text',
+    inputType: 'text',
+    value: '',
+    placeholder: 'Enter name',
+  },
+
+  {
+    name: 'description',
+    label: 'Description',
+    type: 'text',
+    inputType: 'text',
+    value: '',
+    placeholder: 'Enter description',
+  },
+];
 
 const schema = yup.object({
   name: yup.string().required(),
 });
 
 const CreateItemForm = () => {
-  const inputs: FormInputs[] = [
-    {
-      name: 'name',
-      label: 'Name',
-      type: 'text',
-      inputType: 'text',
-      value: '',
-      placeholder: 'Enter name',
-    },
-  ];
-
-  const onSubmit = async (data: CreateItemFormData) => {
-    console.log('submit', data);
+  const { mutateAsync: createItem } = itemAPI.useCreateItem();
+  const onSubmit = async (data: IItem) => {
+    const r = await createItem({ ...data, id: uuidv4() });
+    console.log('submit', r);
   };
 
   return (
     <div className="flex justify-center">
       <Card variant="info">
         <p>Create Item</p>
-        <Form<CreateItemFormData>
-          isSubmitting={false}
-          inputs={inputs}
-          schema={schema}
-          submitLabel="Create"
-          submit={onSubmit}
-        />
+        <Form<IItem> isSubmitting={false} inputs={inputs} schema={schema} submitLabel="Create" submit={onSubmit} />
       </Card>
     </div>
   );
