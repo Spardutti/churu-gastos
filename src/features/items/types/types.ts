@@ -1,5 +1,7 @@
 export interface IItem {
   name: string;
   id: string;
-  description: string;
+  budget: number;
+  categoryID: string;
+  date: Date;
 }

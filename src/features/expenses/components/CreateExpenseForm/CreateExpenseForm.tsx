@@ -2,10 +2,9 @@ import Card from '@/components/card';
 import Form from '@/components/form';
 import type { FormInputs } from '@/components/form/types';
 import * as yup from 'yup';
-import { v4 as uuidv4 } from 'uuid';
+import { v4 } from 'uuid';
 import type { IExpense } from '@/features/expenses/types/IExpense';
 import { itemAPI } from '@/features/items/api/items';
-import { categoriesAPI } from '@/features/category/api/categories';
 import Spinner from '@/components/spinner';
 import { useMemo } from 'react';
 import { expensesAPI } from '@/features/expenses/api/expenses';
@@ -22,7 +21,7 @@ interface IInput {
   }[];
 }
 
-const inputs = ({ items, categories }: IInput): FormInputs[] => {
+const inputs = ({ items }: IInput): FormInputs[] => {
   const formInputs: FormInputs[] = [
     {
       name: 'item',
@@ -40,15 +39,6 @@ const inputs = ({ items, categories }: IInput): FormInputs[] => {
       value: 0,
       placeholder: 'Enter Amount',
     },
-
-    {
-      name: 'category',
-      label: 'Category',
-      inputType: 'select',
-      value: '',
-      placeholder: 'Select Category',
-      options: categories,
-    },
   ];
 
   return formInputs;
@@ -61,19 +51,17 @@ const schema = yup.object({
 interface CreateExpenseFormProps {}
 
 const CreateExpenseForm = () => {
-  const { data: categories, isPending: isLoadingCategories } = categoriesAPI.useGetCategories();
   const { data: items, isPending: isLoadingItems } = itemAPI.useGetItems();
 
   const { mutateAsync: createExpense } = expensesAPI.useCreateExpense();
 
   const onSubmit = async (data: IExpense) => {
-    const r = await createExpense({ ...data, date: new Date() });
+    const r = await createExpense({ ...data, date: new Date(), id: v4() });
   };
 
-  const cats = useMemo(() => categories?.map((c) => ({ label: c.name, value: c.id })), [categories]);
   const formattedItems = useMemo(() => items?.map((c) => ({ label: c.name, value: c.id })), [items]);
 
-  if (isLoadingCategories || isLoadingItems) {
+  if (isLoadingItems) {
     return <Spinner />;
   }
 
@@ -83,7 +71,7 @@ const CreateExpenseForm = () => {
         <Heading label="Create Expense" variant="h5" />
         <Form<IExpense>
           isSubmitting={false}
-          inputs={inputs({ items: formattedItems, categories: cats })}
+          inputs={inputs({ items: formattedItems })}
           schema={schema}
           submitLabel="Create"
           submit={onSubmit}

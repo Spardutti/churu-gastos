@@ -9,33 +9,42 @@
   ],
   "categories": [
     {
-      "id": "7f726951-d6a7-4f5e-890f-024aaadd816f",
+      "id": "cedb63cc-5edd-48dc-9cd2-07ec5213eec8",
       "name": "Mercado"
     },
     {
-      "id": "26ab46c5-e7a1-49a2-b2de-f9a12789c6f4",
-      "name": "Varias"
+      "id": "83259b79-23e3-4eab-90fa-a78b054ab2c4",
+      "name": "Servicios"
     }
   ],
-  "expenses": [],
-  "items": [
+  "expenses": [
     {
-      "id": "173d80da-d627-4d48-a350-98a4490d9663",
-      "name": "Proteina"
-    }
-  ],
-  "categoryBudgets": [
-    {
-      "id": "a7bf27ee-11b1-4eec-8e58-d70fd6689532",
-      "budget": "1000",
-      "categoryID": "7f726951-d6a7-4f5e-890f-024aaadd816f",
-      "date": "2024-09-15T19:55:09.770Z"
+      "id": "002861a6-eb6b-42fc-be37-212c31572332",
+      "item": "e47552cd-6b78-4e4b-b060-78a344e31e28",
+      "amount": "100",
+      "date": "2024-09-15T20:23:14.335Z"
     },
     {
-      "id": "273ae983-883c-4d9b-a6c6-455c4965df68",
+      "id": "a6d0125d-1bc8-442f-94cf-c86d329f6589",
+      "item": "573b549f-13d9-4d45-af04-953796618be3",
+      "amount": "150",
+      "date": "2024-09-15T20:24:41.075Z"
+    }
+  ],
+  "items": [
+    {
+      "id": "e47552cd-6b78-4e4b-b060-78a344e31e28",
+      "name": "Verdura",
+      "categoryID": "cedb63cc-5edd-48dc-9cd2-07ec5213eec8",
       "budget": "500",
-      "categoryID": "26ab46c5-e7a1-49a2-b2de-f9a12789c6f4",
-      "date": "2024-09-15T20:00:28.517Z"
+      "date": "2024-09-15T20:22:14.439Z"
+    },
+    {
+      "id": "573b549f-13d9-4d45-af04-953796618be3",
+      "name": "Expensas",
+      "categoryID": "83259b79-23e3-4eab-90fa-a78b054ab2c4",
+      "budget": "250",
+      "date": "2024-09-15T20:22:52.651Z"
     }
   ]
 }
