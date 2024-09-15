@@ -10,7 +10,6 @@ const inputs: FormInputs[] = [
   {
     name: 'name',
     label: 'Name',
-    type: 'text',
     inputType: 'text',
     value: '',
     placeholder: 'Enter name',
@@ -19,7 +18,6 @@ const inputs: FormInputs[] = [
   {
     name: 'description',
     label: 'Description',
-    type: 'text',
     inputType: 'text',
     value: '',
     placeholder: 'Enter description',

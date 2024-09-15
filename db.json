@@ -9,128 +9,33 @@
   ],
   "categories": [
     {
-      "id": "1",
-      "name": "Food",
-      "icon": "food"
+      "id": "7f726951-d6a7-4f5e-890f-024aaadd816f",
+      "name": "Mercado"
     },
     {
-      "id": "2",
-      "name": "Home",
-      "icon": "home"
-    },
-    {
-      "id": "3",
-      "name": "Shopping",
-      "icon": "travel"
-    },
-    {
-      "id": "4",
-      "name": "Entertainment",
-      "icon": "entertainment"
-    },
-    {
-      "id": "5",
-      "name": "Health",
-      "icon": "health"
-    },
-    {
-      "id": "6",
-      "name": "Education",
-      "icon": "education"
-    },
-    {
-      "id": "7",
-      "name": "Finance",
-      "icon": "finance"
-    },
-    {
-      "id": "8",
-      "name": "Technology",
-      "icon": "technology"
-    },
-    {
-      "id": "9",
-      "name": "Fitness",
-      "icon": "fitness"
-    },
-    {
-      "id": "10",
-      "name": "Automotive",
-      "icon": "shopping"
+      "id": "26ab46c5-e7a1-49a2-b2de-f9a12789c6f4",
+      "name": "Varias"
     }
   ],
-  "expenses": [
-    {
-      "id": 1,
-      "item": {
-        "id": 1,
-        "name": "Concert Merchandise"
-      },
-      "amount": 55,
-      "date": "2024-09-24",
-      "category": {
-        "id": 4,
-        "name": "Entertainment"
-      }
-    }
-  ],
+  "expenses": [],
   "items": [
     {
-      "id": "1",
-      "name": "Concert Merchandise",
-      "description": "Merchandise from a concert"
-    },
-    {
-      "id": 2,
-      "name": "Pizza",
-      "description": "The best"
-    },
-    {
-      "id": "92c6d8c5-5d1d-4a2e-a425-bb8006dec048",
-      "name": "Quenone",
-      "description": "Good Dog"
+      "id": "173d80da-d627-4d48-a350-98a4490d9663",
+      "name": "Proteina"
     }
   ],
   "categoryBudgets": [
     {
-      "id": "1",
-      "category": {
-        "id": 1,
-        "name": "Food"
-      },
-      "budget": 300,
-      "month": 9,
-      "year": 2024
+      "id": "a7bf27ee-11b1-4eec-8e58-d70fd6689532",
+      "budget": "1000",
+      "categoryID": "7f726951-d6a7-4f5e-890f-024aaadd816f",
+      "date": "2024-09-15T19:55:09.770Z"
     },
     {
-      "id": "2",
-      "category": {
-        "id": 2,
-        "name": "Home"
-      },
-      "budget": 500,
-      "month": 9,
-      "year": 2024
-    },
-    {
-      "id": "3",
-      "category": {
-        "id": 3,
-        "name": "Shopping"
-      },
-      "budget": 400,
-      "month": 9,
-      "year": 2024
-    },
-    {
-      "id": "4",
-      "category": {
-        "id": 4,
-        "name": "Entertainment"
-      },
-      "budget": 800,
-      "month": 9,
-      "year": 2024
+      "id": "273ae983-883c-4d9b-a6c6-455c4965df68",
+      "budget": "500",
+      "categoryID": "26ab46c5-e7a1-49a2-b2de-f9a12789c6f4",
+      "date": "2024-09-15T20:00:28.517Z"
     }
   ]
 }

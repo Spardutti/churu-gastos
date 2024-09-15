@@ -1,6 +1,6 @@
 import type { ICategory } from '@/features/category/types/category';
 import { axiosHelper } from '@/lib/axios/axiosHelper';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 const categoryUrl = ({ categoryID }: { categoryID?: number } = {}) => {
   if (categoryID) {
@@ -15,5 +15,10 @@ export const categoriesAPI = {
     useQuery({
       queryKey: ['categories'],
       queryFn: () => axiosHelper<ICategory[]>({ method: 'get', url: categoryUrl() }),
+    }),
+
+  useCreateCategory: () =>
+    useMutation({
+      mutationFn: (data: ICategory) => axiosHelper<ICategory>({ method: 'post', url: categoryUrl(), data }),
     }),
 };

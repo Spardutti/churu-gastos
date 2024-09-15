@@ -1,10 +1,7 @@
-import type { ICategory } from '@/features/category/types/category';
-import type { IItem } from '@/features/items/types/types';
-
 export interface IExpense {
   id: number;
-  item: IItem;
+  itemID: string;
   amount: number;
   date: Date;
-  category: ICategory;
+  categoryID: string;
 }

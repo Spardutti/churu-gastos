@@ -1,6 +1,6 @@
 import type { IExpense } from '@/features/expenses/types/IExpense';
 import { axiosHelper } from '@/lib/axios/axiosHelper';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 const expenseURL = ({ ID, query }: { ID?: number; query?: string }) => {
   if (query) {
@@ -20,5 +20,10 @@ export const expensesAPI = {
       queryFn: () => axiosHelper<IExpense[]>({ method: 'get', url: expenseURL({ query }) }),
       queryKey: ['expenses', query],
       enabled,
+    }),
+
+  useCreateExpense: () =>
+    useMutation({
+      mutationFn: (data: IExpense) => axiosHelper<IExpense>({ method: 'post', url: expenseURL({}), data }),
     }),
 };

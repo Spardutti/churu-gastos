@@ -31,7 +31,7 @@ const Form = <T extends FieldValues>({ inputs, submit, submitLabel, isSubmitting
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-grow gap-4 flex-col">
       {inputs.map((input, index) => {
-        const { type, label, name, placeholder, inputType } = input;
+        const { label, name, placeholder, inputType } = input;
 
         if (inputType === 'select') {
           return (
@@ -60,7 +60,7 @@ const Form = <T extends FieldValues>({ inputs, submit, submitLabel, isSubmitting
               control={control}
               render={({ field }) => (
                 <Textfield
-                  type={type}
+                  type={inputType}
                   label={label}
                   value={field.value}
                   placeholder={placeholder}

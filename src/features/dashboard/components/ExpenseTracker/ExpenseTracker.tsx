@@ -14,6 +14,15 @@ const ExpenseTracker = () => {
 
   const { data: expenses } = expensesAPI.useGetExpenses();
 
+  const formatDate = (date) => {
+    // Ensure the date is valid
+    if (!(date instanceof Date) || isNaN(date)) {
+      throw new Error('Invalid date');
+    }
+
+    return date.toISOString().split('T')[0]; // Get the date part
+  };
+
   const monthlyExpense = useMemo(() => {
     const monthExpenses = expenses?.filter((expense) => {
       const currentDate = new Date();
@@ -23,11 +32,11 @@ const ExpenseTracker = () => {
       return expenseDate >= startOfMonth && expenseDate <= endOfMonth;
     });
 
-    return monthExpenses?.reduce((acc, expense) => acc + expense.amount, 0);
+    return monthExpenses?.reduce((acc, expense) => acc + Number(expense.amount), 0);
   }, [expenses]);
 
   const totalBudget = useMemo(() => {
-    return categoriesBudget?.reduce((acc, budget) => acc + budget.budget, 0);
+    return categoriesBudget?.reduce((acc, budget) => acc + Number(budget.budget), 0);
   }, [categoriesBudget]);
 
   return (

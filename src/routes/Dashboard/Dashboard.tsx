@@ -1,4 +1,7 @@
+import CreateCategoryForm from '@/features/category/components/CreateCategoryForm/CreateCategoryForm';
+import CreateCategoryBudgetForm from '@/features/categoryBudget/components/CreateCategoryBudgetForm';
 import ExpenseTracker from '@/features/dashboard/components/ExpenseTracker';
+import CreateExpenseForm from '@/features/expenses/components/CreateExpenseForm';
 import CreateItemForm from '@/features/items/components/CreateItemForm';
 import { lazy } from 'react';
 import { useMediaQuery } from 'react-responsive';
@@ -12,8 +15,10 @@ const Dashboard = () => {
   return (
     <Layout>
       <ExpenseTracker />
-      {/* <Form /> */}
+      <CreateCategoryForm />
       <CreateItemForm />
+      <CreateCategoryBudgetForm />
+      <CreateExpenseForm />
     </Layout>
   );
 };
