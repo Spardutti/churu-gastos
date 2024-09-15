@@ -3,12 +3,12 @@ import Button from '@/components/button';
 import type { FormInputs } from '@/components/form/types';
 import Select from '@/components/input/Select';
 import Textfield from '@/components/input/Textfield';
-import type { Path } from 'react-hook-form';
+import type { Path, FieldValues, UseFormReturn } from 'react-hook-form';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { AnyObjectSchema } from 'yup';
 
-interface FormProps<T> {
+interface FormProps<T extends FieldValues> {
   inputs: FormInputs[];
   submit: (data: T) => Promise<void>;
   submitLabel: string;
@@ -17,19 +17,12 @@ interface FormProps<T> {
   schema: AnyObjectSchema;
 }
 
-const Form = <T extends Record<string, string | number | {} | []>>({
-  inputs,
-  submit,
-  submitLabel,
-  isSubmitting,
-  response,
-  schema,
-}: FormProps<T>) => {
+const Form = <T extends FieldValues>({ inputs, submit, submitLabel, isSubmitting, response, schema }: FormProps<T>) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<T>({ resolver: yupResolver(schema) });
+  }: UseFormReturn<T> = useForm<T>({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data: T) => {
     await submit(data);
@@ -37,11 +30,10 @@ const Form = <T extends Record<string, string | number | {} | []>>({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-grow gap-4 flex-col">
-      {inputs?.map((input, index) => {
+      {inputs.map((input, index) => {
         const { type, label, name, placeholder, inputType } = input;
 
         if (inputType === 'select') {
-          const { options } = input;
           return (
             <div key={index + name}>
               <Controller
@@ -50,34 +42,13 @@ const Form = <T extends Record<string, string | number | {} | []>>({
                 render={({ field }) => (
                   <Select
                     label={label}
-                    options={options}
+                    options={input.options}
                     placeholder={placeholder}
-                    onChange={(e) => field.onChange({ id: e, name: field.name })}
+                    onChange={(e) => field.onChange(e)}
                   />
                 )}
               />
-              {errors && errors[name] && <p className="text-red-500">{errors[name]?.message as string}</p>}
-            </div>
-          );
-        }
-
-        if (label) {
-          return (
-            <div key={index + name}>
-              <Controller
-                name={name as Path<T>}
-                control={control}
-                render={({ field }) => (
-                  <Textfield
-                    type={type}
-                    label={label}
-                    value={field.value}
-                    placeholder={placeholder}
-                    onChange={field.onChange}
-                  />
-                )}
-              />
-              {errors && errors[name] && <p className="text-red-500">{errors[name]?.message as string}</p>}
+              {errors[name]?.message && <p className="text-danger-main">{errors[name]?.message as React.ReactNode}</p>}
             </div>
           );
         }
@@ -85,20 +56,26 @@ const Form = <T extends Record<string, string | number | {} | []>>({
         return (
           <div key={index + name}>
             <Controller
-              key={index + name}
               name={name as Path<T>}
               control={control}
               render={({ field }) => (
-                <Textfield type={type} value={field.value} placeholder={placeholder} onChange={field.onChange} />
+                <Textfield
+                  type={type}
+                  label={label}
+                  value={field.value}
+                  placeholder={placeholder}
+                  onChange={field.onChange}
+                />
               )}
             />
-            {errors && errors[name] && <p className="text-red-500">{errors[name]?.message as string}</p>}
+            {errors[name]?.message && <p className="text-danger-main">{errors[name]?.message as React.ReactNode}</p>}
           </div>
         );
       })}
+
       {response && (
         <div>
-          <Alert type={response.type} message={response?.message} />
+          <Alert type={response.type} message={response.message} />
         </div>
       )}
 

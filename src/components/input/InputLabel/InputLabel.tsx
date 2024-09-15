@@ -3,7 +3,7 @@ interface InputLabelProps {
 }
 
 const InputLabel = ({ text }: InputLabelProps) => {
-  return <label className="text-black">{text}</label>;
+  return <label className="text-primary-light">{text}</label>;
 };
 
 export default InputLabel;
