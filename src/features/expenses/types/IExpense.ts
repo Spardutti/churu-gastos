@@ -1,6 +1,7 @@
 export interface IExpense {
   id: string;
-  itemID: string;
+  categoryID: string;
+  description: string;
   amount: number;
   date: Date;
 }

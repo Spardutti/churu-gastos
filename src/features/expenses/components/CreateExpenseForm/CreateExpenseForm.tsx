@@ -10,68 +10,46 @@ import { useMemo } from 'react';
 import { expensesAPI } from '@/features/expenses/api/expenses';
 import Heading from '@/components/heading';
 
-interface IInput {
-  items: {
-    label: string;
-    value: string;
-  }[];
-  categories: {
-    label: string;
-    value: string;
-  }[];
-}
-
-const inputs = ({ items }: IInput): FormInputs[] => {
-  const formInputs: FormInputs[] = [
-    {
-      name: 'item',
-      label: 'item',
-      inputType: 'select',
-      value: '',
-      placeholder: 'Enter name',
-      options: items,
-    },
-
-    {
-      name: 'amount',
-      label: 'Amount',
-      inputType: 'number',
-      value: 0,
-      placeholder: 'Enter Amount',
-    },
-  ];
-
-  return formInputs;
-};
+const inputs: FormInputs[] = [
+  {
+    name: 'description',
+    label: 'Description',
+    inputType: 'text',
+    value: '',
+    placeholder: 'Enter Description',
+  },
+  {
+    name: 'amount',
+    label: 'Amount',
+    inputType: 'number',
+    value: 0,
+    placeholder: 'Enter Amount',
+  },
+];
 
 const schema = yup.object({
-  item: yup.string().required(),
+  amount: yup.number().required(),
 });
 
-interface CreateExpenseFormProps {}
+interface CreateExpenseFormProps {
+  categoryID: string;
+}
 
-const CreateExpenseForm = () => {
-  const { data: items, isPending: isLoadingItems } = itemAPI.useGetItems();
-
+const CreateExpenseForm = ({ categoryID }: CreateExpenseFormProps) => {
   const { mutateAsync: createExpense } = expensesAPI.useCreateExpense();
 
   const onSubmit = async (data: IExpense) => {
-    const r = await createExpense({ ...data, date: new Date(), id: v4() });
+    const r = await createExpense({ ...data, date: new Date(), id: v4(), categoryID });
   };
-
-  const formattedItems = useMemo(() => items?.map((c) => ({ label: c.name, value: c.id })), [items]);
-
-  if (isLoadingItems) {
-    return <Spinner />;
-  }
 
   return (
     <div className="flex justify-center">
       <Card variant="info">
         <Heading label="Create Expense" variant="h5" />
         <Form<IExpense>
+          direction="row"
           isSubmitting={false}
-          inputs={inputs({ items: formattedItems })}
+          inputs={inputs}
           schema={schema}
           submitLabel="Create"
           submit={onSubmit}
@@ -82,5 +60,3 @@ const CreateExpenseForm = () => {
 };
 
 export default CreateExpenseForm;
-
-// TODO work with the correct data and stop using the JSON as guide, example category: {id, name}, should only be the categoryID on create and on fetch we serialize the data.

@@ -10,41 +10,27 @@
   "categories": [
     {
       "id": "cedb63cc-5edd-48dc-9cd2-07ec5213eec8",
-      "name": "Mercado"
+      "name": "Mercado",
+      "budget": 3000
     },
     {
       "id": "83259b79-23e3-4eab-90fa-a78b054ab2c4",
-      "name": "Servicios"
+      "name": "Servicios",
+      "budget": 2000
+    },
+    {
+      "id": "2e576b44-13e7-441b-9964-c1b0468b04d0",
+      "name": "Varios",
+      "budget": 1000
     }
   ],
   "expenses": [
     {
-      "id": "002861a6-eb6b-42fc-be37-212c31572332",
-      "item": "e47552cd-6b78-4e4b-b060-78a344e31e28",
-      "amount": "100",
-      "date": "2024-09-15T20:23:14.335Z"
-    },
-    {
-      "id": "a6d0125d-1bc8-442f-94cf-c86d329f6589",
-      "item": "573b549f-13d9-4d45-af04-953796618be3",
-      "amount": "150",
-      "date": "2024-09-15T20:24:41.075Z"
-    }
-  ],
-  "items": [
-    {
-      "id": "e47552cd-6b78-4e4b-b060-78a344e31e28",
-      "name": "Verdura",
-      "categoryID": "cedb63cc-5edd-48dc-9cd2-07ec5213eec8",
-      "budget": "500",
-      "date": "2024-09-15T20:22:14.439Z"
-    },
-    {
-      "id": "573b549f-13d9-4d45-af04-953796618be3",
-      "name": "Expensas",
-      "categoryID": "83259b79-23e3-4eab-90fa-a78b054ab2c4",
-      "budget": "250",
-      "date": "2024-09-15T20:22:52.651Z"
+      "id": "e677add4-915c-492d-bb66-8a5db14777f2",
+      "amount": 223,
+      "description": "asdads",
+      "date": "2024-09-16T13:00:51.400Z",
+      "categoryID": "cedb63cc-5edd-48dc-9cd2-07ec5213eec8"
     }
   ]
 }
