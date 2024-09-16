@@ -111,7 +111,7 @@ const BarChart = <T,>({ data, dataKey, onPieClick }: BarChartProps<T>) => {
         onMouseLeave={onPieLeave}
         onClick={onPieClick}
       >
-        {data?.map((entry, index) => (
+        {data?.map((_, index) => (
           <Cell radius={10} key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
         ))}
       </Pie>

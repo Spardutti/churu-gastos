@@ -1,4 +1,3 @@
-import type { ICategoryBudget } from '@/features/dashboard/types/categoryBudget';
 import { axiosHelper } from '@/lib/axios/axiosHelper';
 import { useQuery } from '@tanstack/react-query';
 
@@ -15,7 +14,7 @@ const budgetUrl = ({ query }: IParams) => {
 export const budgetAPI = {
   useGetBudget: ({ query }: IParams) =>
     useQuery({
-      queryFn: () => axiosHelper<ICategoryBudget[]>({ method: 'get', url: budgetUrl({ query }) }),
+      queryFn: () => axiosHelper({ method: 'get', url: budgetUrl({ query }) }),
       queryKey: [budgetUrl, query],
     }),
 };

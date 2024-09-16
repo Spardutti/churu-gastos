@@ -44,7 +44,7 @@ const CreateItemForm = () => {
   const { data: categories } = categoriesAPI.useGetCategories();
 
   const onSubmit = async (data: IItem) => {
-    const r = await createItem({ ...data, id: uuidv4(), date: new Date() });
+    await createItem({ ...data, id: uuidv4(), date: new Date() });
   };
 
   const formatCategories = useMemo(() => {

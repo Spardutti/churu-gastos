@@ -9,7 +9,6 @@ import Spinner from '@/components/spinner';
 import { ArrowLeftIcon } from '@radix-ui/react-icons';
 import Button from '@/components/button';
 
-interface CategoryProps {}
 
 const Category = () => {
   const { categoryID } = useParams();
