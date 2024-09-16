@@ -1,10 +1,10 @@
-import type { ICategory } from '@/features/category/types/category';
+import type { ICategory } from '@/features/category/types/ICategory';
 import { axiosHelper } from '@/lib/axios/axiosHelper';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-const categoryUrl = ({ categoryID }: { categoryID?: number } = {}) => {
+const categoryUrl = ({ categoryID }: { categoryID?: string } = {}) => {
   if (categoryID) {
-    return `/categories${categoryID}`;
+    return `/categories/${categoryID}`;
   }
 
   return '/categories';
@@ -15,6 +15,13 @@ export const categoriesAPI = {
     useQuery({
       queryKey: ['categories'],
       queryFn: () => axiosHelper<ICategory[]>({ method: 'get', url: categoryUrl() }),
+    }),
+
+  useGetCategory: ({ categoryID }: { categoryID: string }) =>
+    useQuery({
+      queryKey: ['category', categoryID],
+      queryFn: () => axiosHelper<ICategory>({ method: 'get', url: categoryUrl({ categoryID }) }),
+      enabled: !!categoryID,
     }),
 
   useCreateCategory: () =>
