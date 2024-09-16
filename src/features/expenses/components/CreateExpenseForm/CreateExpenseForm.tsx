@@ -4,9 +4,6 @@ import type { FormInputs } from '@/components/form/types';
 import * as yup from 'yup';
 import { v4 } from 'uuid';
 import type { IExpense } from '@/features/expenses/types/IExpense';
-import { itemAPI } from '@/features/items/api/items';
-import Spinner from '@/components/spinner';
-import { useMemo } from 'react';
 import { expensesAPI } from '@/features/expenses/api/expenses';
 import Heading from '@/components/heading';
 
@@ -39,7 +36,7 @@ const CreateExpenseForm = ({ categoryID }: CreateExpenseFormProps) => {
   const { mutateAsync: createExpense } = expensesAPI.useCreateExpense();
 
   const onSubmit = async (data: IExpense) => {
-    const r = await createExpense({ ...data, date: new Date(), id: v4(), categoryID });
+    await createExpense({ ...data, date: new Date(), id: v4(), categoryID });
   };
 
   return (

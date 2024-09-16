@@ -5,13 +5,13 @@ import CreateCategoryForm from '@/features/category/components/CreateCategoryFor
 import ExpenseTracker from '@/features/dashboard/components/ExpenseTracker';
 import { expensesAPI } from '@/features/expenses/api/expenses';
 import { lazy, useMemo } from 'react';
-import { useMediaQuery } from 'react-responsive';
+// import { useMediaQuery } from 'react-responsive';
 const Layout = lazy(() => import('@/layout/Layout'));
 
 const Dashboard = () => {
-  const isDesktop = useMediaQuery({
-    query: '(min-width: 875px)',
-  });
+  // const isDesktop = useMediaQuery({
+  //   query: '(min-width: 875px)',
+  // });
 
   const { data: expenses } = expensesAPI.useGetExpenses();
 

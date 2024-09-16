@@ -5,8 +5,6 @@ import type { INavItems } from '@/layout/Header/types';
 import routes from '@/routes/routes';
 import { Link } from 'react-router-dom';
 
-interface HeaderProps {}
-
 const navItems: INavItems[] = [
   {
     label: 'Dashboard',

@@ -4,7 +4,6 @@ import { expensesAPI } from '@/features/expenses/api/expenses';
 import type { IExpense } from '@/features/expenses/types/IExpense';
 import { formattedDate } from '@/utils/formatDate';
 import { createColumnHelper } from '@tanstack/react-table';
-import React, { useMemo } from 'react';
 
 interface ExpenseTableProps {
   categoryID: string;

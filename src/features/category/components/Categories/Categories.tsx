@@ -4,7 +4,6 @@ import { categoriesAPI } from '@/features/category/api/categories';
 import routes from '@/routes/routes';
 import { useNavigate } from 'react-router-dom';
 
-interface CategoriesProps {}
 
 const Categories = () => {
   const navigate = useNavigate();
