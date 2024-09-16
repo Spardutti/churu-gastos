@@ -1,28 +1,38 @@
-import { Category } from '@/features/category/types/category';
-import { useGetCategoriesQuery } from '@/store/api';
+import Button from '@/components/button';
+import Spinner from '@/components/spinner';
+import { categoriesAPI } from '@/features/category/api/categories';
+import routes from '@/routes/routes';
+import { useNavigate } from 'react-router-dom';
+
+interface CategoriesProps {}
 
 const Categories = () => {
-  const { data, error, isLoading } = useGetCategoriesQuery();
+  const navigate = useNavigate();
 
-  if (error) {
-    return <>Oh no, there was an error</>;
+  const { data: categories, isPending } = categoriesAPI.useGetCategories();
+
+  const onCategoryClick = (ID: string) => {
+    navigate(routes.CATEGORY({ categoryID: ID }));
+  };
+
+  if (isPending) {
+    return <Spinner />;
   }
 
-  if (isLoading) {
-    return <>Loading...</>;
-  }
-
-  if (data?.data) {
-    return (
-      <div>
-        {data.data.map((cat: Category) => (
-          <p key={cat.id}>{cat.name}</p>
-        ))}
-      </div>
-    );
-  }
-
-  return null;
+  return (
+    <div className="flex flex-wrap gap-2">
+      {categories?.map((category) => (
+        <Button
+          type="button"
+          variant="secondary"
+          text={category.name}
+          key={category.id}
+          onClick={() => onCategoryClick(category.id)}
+          isLoading={false}
+        />
+      ))}
+    </div>
+  );
 };
 
 export default Categories;

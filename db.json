@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "luisdamian.sp@gmail.com",
+      "displayName": "Spardutti",
+      "authorizationToken": "1234567890"
+    }
+  ],
+  "categories": [
+    {
+      "id": "cedb63cc-5edd-48dc-9cd2-07ec5213eec8",
+      "name": "Mercado",
+      "budget": 3000
+    },
+    {
+      "id": "83259b79-23e3-4eab-90fa-a78b054ab2c4",
+      "name": "Servicios",
+      "budget": 2000
+    },
+    {
+      "id": "2e576b44-13e7-441b-9964-c1b0468b04d0",
+      "name": "Varios",
+      "budget": 1000
+    }
+  ],
+  "expenses": [
+    {
+      "id": "e677add4-915c-492d-bb66-8a5db14777f2",
+      "amount": 223,
+      "description": "asdads",
+      "date": "2024-09-16T13:00:51.400Z",
+      "categoryID": "cedb63cc-5edd-48dc-9cd2-07ec5213eec8"
+    }
+  ]
+}

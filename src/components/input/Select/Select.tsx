@@ -1,5 +1,4 @@
 import InputLabel from '@/components/input/InputLabel';
-import { Select as SelectUI } from '@headlessui/react';
 
 interface SelectProps {
   onChange: (value: string) => void;
@@ -15,9 +14,9 @@ const Select = ({ options, onChange, label, placeholder }: SelectProps) => {
   return (
     <div className="flex gap-1 flex-col">
       {label && <InputLabel text={label} />}
-      <SelectUI
+      <select
         onChange={(e) => onChange(e.target.value)}
-        className="bg-main-secondary rounded-md px-2 py-1 cursor-pointer flex flex-col gap-4"
+        className="border rounded-md px-2 py-1 cursor-pointer flex flex-col gap-4"
       >
         {placeholder && (
           <option value="" disabled selected>
@@ -29,7 +28,7 @@ const Select = ({ options, onChange, label, placeholder }: SelectProps) => {
             {option.label}
           </option>
         ))}
-      </SelectUI>
+      </select>
     </div>
   );
 };

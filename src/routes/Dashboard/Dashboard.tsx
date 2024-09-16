@@ -1,39 +1,36 @@
-import LazyComponent from '@/components/lazyComponent';
-import ProductsMobileView from '@/features/home/components/ProductsMobileView';
-import { lazy } from 'react';
+import Heading from '@/components/heading';
+import { categoriesAPI } from '@/features/category/api/categories';
+import Categories from '@/features/category/components/Categories';
+import CreateCategoryForm from '@/features/category/components/CreateCategoryForm/CreateCategoryForm';
+import ExpenseTracker from '@/features/dashboard/components/ExpenseTracker';
+import { expensesAPI } from '@/features/expenses/api/expenses';
+import { lazy, useMemo } from 'react';
 import { useMediaQuery } from 'react-responsive';
-const MobileLayout = lazy(() => import('@/layout/MobileLayout'));
-const DesktopLayout = lazy(() => import('@/layout/DesktopLayout'));
-const ProductsTable = lazy(() => import('@/features/home/components/ProductsTable'));
-const CreateProductForm = lazy(() => import('@/features/home/components/CreateProductForm'));
-const CreateCategoryForm = lazy(() => import('@/features/category/components/CreateCategoryForm/CreateCategoryForm'));
+const Layout = lazy(() => import('@/layout/Layout'));
 
 const Dashboard = () => {
   const isDesktop = useMediaQuery({
     query: '(min-width: 875px)',
   });
 
-  return isDesktop ? (
-    <LazyComponent>
-      <DesktopLayout>
-        <div className="flex justify-center gap-10 flex-col items-center">
-          <div className="shadow-lg p-4 rounded-lg min-w-[400px] bg-main-primary">
-            <CreateProductForm />
-          </div>
-          <div className="shadow-lg p-4 rounded-lg min-w-[400px] bg-main-primary">
-            <CreateCategoryForm />
-          </div>
-          <ProductsTable />
-        </div>
-      </DesktopLayout>
-    </LazyComponent>
-  ) : (
-    <LazyComponent>
-      <MobileLayout>
-        <CreateProductForm />
-        <ProductsMobileView />
-      </MobileLayout>
-    </LazyComponent>
+  const { data: expenses } = expensesAPI.useGetExpenses();
+
+  const { data: categories } = categoriesAPI.useGetCategories();
+
+  const budget = useMemo(() => categories?.reduce((acc, category) => acc + category.budget, 0), []);
+
+  return (
+    <Layout>
+      <ExpenseTracker
+        expenses={expenses!}
+        expensesLabel="Monthly Expenses"
+        budgetLabel="Monthly Budget"
+        budget={budget!}
+      />
+      <CreateCategoryForm />
+      <Heading variant="h4" label="Choose a category to see the details" />
+      <Categories />
+    </Layout>
   );
 };
 

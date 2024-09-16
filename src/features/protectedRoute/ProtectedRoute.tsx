@@ -1,21 +1,32 @@
-import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
-import { strings } from '@/constants/strings';
+import Spinner from '@/components/spinner';
+import { useUserContext } from '@/context/UserContext/UserContext';
+import { useEffect } from 'react';
+import { userAPI } from '@/features/user/api/user';
+import Layout from '@/layout/Layout';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const user = useSelector((state: RootState) => state.user);
-  const token = localStorage.getItem(strings.token);
+  const { setUser } = useUserContext();
+  const { data: userData, isPending } = userAPI.useGetUser({ userID: 1 });
 
-  if (!user?.token && !token) {
-    return <Navigate to="/" replace />;
+  useEffect(() => {
+    if (userData) {
+      setUser(userData);
+    }
+  }, [userData, setUser]);
+
+  if (isPending) {
+    return (
+      <Layout>
+        <Spinner />
+      </Layout>
+    );
   }
 
-  return <>{children}</>;
+  return children;
 };
 
 export default ProtectedRoute;

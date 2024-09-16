@@ -1,49 +1,49 @@
 import Alert from '@/components/alert';
 import Button from '@/components/button';
-import { FormInputs } from '@/components/form/types';
+import type { FormInputs } from '@/components/form/types';
 import Select from '@/components/input/Select';
 import Textfield from '@/components/input/Textfield';
-import { Controller, Path, useForm } from 'react-hook-form';
+import type { Path, FieldValues, UseFormReturn } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { AnyObjectSchema } from 'yup';
+import type { AnyObjectSchema } from 'yup';
+import clsx from 'clsx';
 
-interface FormProps<T> {
+interface FormProps<T extends FieldValues> {
   inputs: FormInputs[];
   submit: (data: T) => Promise<void>;
   submitLabel: string;
   isSubmitting: boolean;
   response?: { type: 'success' | 'error'; message: string };
   schema: AnyObjectSchema;
+  direction?: 'col' | 'row';
 }
 
-const Form = <T extends Record<string, string | number | {} | []>>({
+const Form = <T extends FieldValues>({
   inputs,
   submit,
   submitLabel,
   isSubmitting,
   response,
   schema,
+  direction = 'col',
 }: FormProps<T>) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<T>({ resolver: yupResolver(schema) });
+  }: UseFormReturn<T> = useForm<T>({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data: T) => {
     await submit(data);
   };
 
   return (
-    <form
-      className="flex flex-col gap-4 flex-grow md:min-w-[500px] w-full md:max-w-[500px] px-4 py-2 rounded-md rounded-tl-none bg-main-primary"
-      onSubmit={handleSubmit(onSubmit)}
-    >
-      {inputs?.map((input, index) => {
-        const { type, label, name, placeholder, inputType } = input;
+    <form onSubmit={handleSubmit(onSubmit)} className={clsx('flex flex-grow gap-4', direction === 'col' && 'flex-col')}>
+      {inputs.map((input, index) => {
+        const { label, name, placeholder, inputType, value } = input;
 
         if (inputType === 'select') {
-          const { options } = input;
           return (
             <div key={index + name}>
               <Controller
@@ -52,34 +52,39 @@ const Form = <T extends Record<string, string | number | {} | []>>({
                 render={({ field }) => (
                   <Select
                     label={label}
-                    options={options}
+                    options={input.options}
                     placeholder={placeholder}
-                    onChange={(e) => field.onChange({ id: e, name: field.name })}
+                    onChange={(e) => field.onChange(e)}
                   />
                 )}
               />
-              {errors && errors[name] && <p className="text-red-500">{errors[name]?.message as string}</p>}
+              {errors[name]?.message && <p className="text-danger-main">{errors[name]?.message as React.ReactNode}</p>}
             </div>
           );
         }
 
-        if (label) {
+        if (inputType === 'checkbox') {
           return (
             <div key={index + name}>
               <Controller
                 name={name as Path<T>}
                 control={control}
                 render={({ field }) => (
-                  <Textfield
-                    type={type}
-                    label={label}
-                    value={field.value}
-                    placeholder={placeholder}
-                    onChange={field.onChange}
-                  />
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      id={name}
+                      className="h-4 w-4 text-primary-main border-gray-300 rounded"
+                      onChange={(e) => field.onChange(e.target.checked)}
+                      defaultChecked={value}
+                    />
+                    <label htmlFor={name} className="text-sm text-gray-900">
+                      {label}
+                    </label>
+                  </div>
                 )}
               />
-              {errors && errors[name] && <p className="text-red-500">{errors[name]?.message as string}</p>}
+              {errors[name]?.message && <p className="text-danger-main">{errors[name]?.message as React.ReactNode}</p>}
             </div>
           );
         }
@@ -87,25 +92,33 @@ const Form = <T extends Record<string, string | number | {} | []>>({
         return (
           <div key={index + name}>
             <Controller
-              key={index + name}
               name={name as Path<T>}
               control={control}
               render={({ field }) => (
-                <Textfield type={type} value={field.value} placeholder={placeholder} onChange={field.onChange} />
+                <Textfield
+                  type={inputType}
+                  label={label}
+                  value={field.value}
+                  placeholder={placeholder}
+                  onChange={field.onChange}
+                />
               )}
             />
-            {errors && errors[name] && <p className="text-red-500">{errors[name]?.message as string}</p>}
+            {errors[name]?.message && <p className="text-danger-main">{errors[name]?.message as React.ReactNode}</p>}
           </div>
         );
       })}
+
       {response && (
         <div>
-          <Alert type={response.type} message={response?.message} />
+          <Alert type={response.type} message={response.message} />
         </div>
       )}
 
-      <div className="flex justify-end">
-        <Button type="submit" text={submitLabel} isLoading={isSubmitting} />
+      <div className="flex justify-end items-end">
+        <div>
+          <Button variant="primary" type="submit" text={submitLabel} isLoading={isSubmitting} />
+        </div>
       </div>
     </form>
   );
