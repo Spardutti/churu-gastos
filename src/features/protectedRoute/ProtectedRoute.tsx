@@ -2,6 +2,7 @@ import Spinner from '@/components/spinner';
 import { useUserContext } from '@/context/UserContext/UserContext';
 import { useEffect } from 'react';
 import { userAPI } from '@/features/user/api/user';
+import Layout from '@/layout/Layout';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -18,7 +19,11 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   }, [userData, setUser]);
 
   if (isPending) {
-    return <Spinner />;
+    return (
+      <Layout>
+        <Spinner />
+      </Layout>
+    );
   }
 
   return children;

@@ -24,7 +24,11 @@ const Category = () => {
   };
 
   if (!category || isPending) {
-    return <Spinner />;
+    return (
+      <Layout>
+        <Spinner />
+      </Layout>
+    );
   }
 
   return (
