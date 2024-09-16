@@ -1,5 +1,6 @@
 import Button from '@/components/button';
 import Spinner from '@/components/spinner';
+import Layout from '@/layout/Layout';
 import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
@@ -33,7 +34,7 @@ const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
 };
 
 const LoadingFallback = () => (
-  <div className="flex flex-grow justify-center items-center w-full">
+  <Layout>
     <Spinner />
-  </div>
+  </Layout>
 );
