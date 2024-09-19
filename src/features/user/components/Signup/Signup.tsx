@@ -4,7 +4,6 @@ import type { FormInputs } from '@/components/form/types';
 import Heading from '@/components/heading';
 import { userAPI } from '@/features/user/api/user';
 import routes from '@/routes/routes';
-import { formatErrorResponse } from '@/utils/formatErrorResponse';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 
@@ -67,15 +66,7 @@ const Signup = () => {
             Log in
           </Link>
         </p>
-        {error && (
-          <p>
-            {formatErrorResponse(error)?.map((error: string) => (
-              <span className="text-danger-main" key={error}>
-                {error}
-              </span>
-            ))}
-          </p>
-        )}
+        {error!! && <p>Something went wrong</p>}
       </Card>
     </div>
   );

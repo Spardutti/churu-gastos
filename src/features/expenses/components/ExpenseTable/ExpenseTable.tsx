@@ -27,14 +27,14 @@ const columns = [
 ];
 
 const ExpenseTable = ({ categoryID }: ExpenseTableProps) => {
-  const { data: expenses, isPending } = expensesAPI.useGetExpenses({ query: `categoryID=${categoryID}` });
+  const { data: expenses, isPending } = expensesAPI.useGetExpenses({ categoryID });
 
   if (isPending) {
     return <Spinner />;
   }
   return (
     <div className="flex justify-center">
-      <Table data={expenses!} columns={columns} sortBy="description" />
+      <Table data={expenses!.data!} columns={columns} sortBy="description" />
     </div>
   );
 };
