@@ -4,7 +4,6 @@ import type { FormInputs } from '@/components/form/types';
 import Heading from '@/components/heading';
 import { categoriesAPI } from '@/features/category/api/categories';
 import type { ICategory } from '@/features/category/types/ICategory';
-import { v4 } from 'uuid';
 import * as yup from 'yup';
 
 const inputs: FormInputs[] = [
@@ -18,7 +17,7 @@ const inputs: FormInputs[] = [
   {
     value: 0,
     label: 'Category Budget',
-    name: 'budget',
+    name: 'amount',
     placeholder: 'Category Budget',
     inputType: 'number',
   },
@@ -26,19 +25,27 @@ const inputs: FormInputs[] = [
 
 const schema = yup.object({
   name: yup.string().required('Category name is required'),
+  amount: yup.number().required('Category budget is required'),
 });
 
 const CreateCategoryForm = () => {
   const { mutateAsync: createCategory, isPending } = categoriesAPI.useCreateCategory();
 
   const handleSubmit = async (data: ICategory) => {
-    createCategory({ ...data, id: v4() });
+    createCategory(data);
   };
   return (
     <div className="flex justify-center">
       <Card variant="info">
         <Heading label="Create Category" variant="h5" />
-        <Form direction='row' inputs={inputs} submitLabel="Create" isSubmitting={isPending} submit={handleSubmit} schema={schema} />
+        <Form
+          direction="row"
+          inputs={inputs}
+          submitLabel="Create"
+          isSubmitting={isPending}
+          submit={handleSubmit}
+          schema={schema}
+        />
       </Card>
     </div>
   );

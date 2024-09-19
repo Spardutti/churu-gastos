@@ -2,9 +2,20 @@ import type { IExpense } from '@/features/expenses/types/IExpense';
 import { axiosHelper } from '@/lib/axios/axiosHelper';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
-const expenseURL = ({ ID, query }: { ID?: number; query?: string }) => {
-  if (query) {
-    return `/expenses?${query}`;
+interface IParams {
+  ID?: string;
+  year?: string;
+  month?: string;
+  categoryID?: string;
+}
+
+const expenseURL = ({ ID, year, month, categoryID }: IParams) => {
+  if (year && month && categoryID) {
+    return `/expenses/?year=${year}&month=${month}&categoryID=${categoryID}`;
+  }
+
+  if (year && month) {
+    return `/expenses/?year=${year}&month=${month}`;
   }
 
   if (ID) {
@@ -15,10 +26,17 @@ const expenseURL = ({ ID, query }: { ID?: number; query?: string }) => {
 };
 
 export const expensesAPI = {
-  useGetExpenses: ({ query, enabled = true }: { query?: string; enabled?: boolean } = {}) =>
+  useGetExpenses: ({
+    year,
+    month,
+    categoryID,
+    ID,
+    enabled = true,
+  }: { year?: string; month?: string; ID?: string; enabled?: boolean; categoryID?: string } = {}) =>
     useQuery({
-      queryFn: () => axiosHelper<IExpense[]>({ method: 'get', url: expenseURL({ query }) }),
-      queryKey: ['expenses', query],
+      queryFn: () =>
+        axiosHelper<{ data: IExpense[] }>({ method: 'get', url: expenseURL({ ID, year, month, categoryID }) }),
+      queryKey: ['expenses', [year, month]],
       enabled,
     }),
 

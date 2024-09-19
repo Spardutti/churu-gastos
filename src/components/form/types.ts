@@ -3,7 +3,7 @@ interface BaseInput {
   label?: string;
   name: string;
   placeholder?: string;
-  inputType: 'text' | 'file' | 'checkbox' | 'select' | 'date' | 'number';
+  inputType: 'text' | 'file' | 'checkbox' | 'select' | 'date' | 'number' | 'password';
 }
 
 interface NumberInput extends BaseInput {
@@ -12,7 +12,7 @@ interface NumberInput extends BaseInput {
 }
 
 interface TextOrFileInput extends BaseInput {
-  inputType: 'text' | 'file';
+  inputType: 'text' | 'file' | 'password';
 }
 
 interface CheckboxInput extends BaseInput {
