@@ -1,10 +1,10 @@
 import Heading from '@/components/heading';
-import { categoriesAPI } from '@/features/category/api/categories';
+import { budgetAPI } from '@/features/budget/api/budget';
 import Categories from '@/features/category/components/Categories';
 import CreateCategoryForm from '@/features/category/components/CreateCategoryForm/CreateCategoryForm';
 import ExpenseTracker from '@/features/dashboard/components/ExpenseTracker';
 import { expensesAPI } from '@/features/expenses/api/expenses';
-import { lazy, useMemo } from 'react';
+import { lazy } from 'react';
 // import { useMediaQuery } from 'react-responsive';
 const Layout = lazy(() => import('@/layout/Layout'));
 
@@ -13,19 +13,17 @@ const Dashboard = () => {
   //   query: '(min-width: 875px)',
   // });
 
-  const { data: expenses } = expensesAPI.useGetExpenses();
+  const { data: expenses } = expensesAPI.useGetExpenses({ year: '2024', month: '9' });
 
-  const { data: categories } = categoriesAPI.useGetCategories();
-
-  const budget = useMemo(() => categories?.reduce((acc, category) => acc + category.budget, 0), []);
+  const { data: budget } = budgetAPI.useGetBudget({ year: '2024', month: '9' });
 
   return (
     <Layout>
       <ExpenseTracker
-        expenses={expenses!}
+        expenses={expenses?.data}
         expensesLabel="Monthly Expenses"
         budgetLabel="Monthly Budget"
-        budget={budget!}
+        budget={budget?.data?.budget || 0}
       />
       <CreateCategoryForm />
       <Heading variant="h4" label="Choose a category to see the details" />

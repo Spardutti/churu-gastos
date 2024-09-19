@@ -5,13 +5,13 @@ import { useMemo } from 'react';
 interface ExpenseTrackerProps {
   budgetLabel: string;
   expensesLabel: string;
-  expenses: IExpense[];
+  expenses: IExpense[] | undefined;
   budget: number;
 }
 
 const ExpenseTracker = ({ budgetLabel, expensesLabel, expenses, budget }: ExpenseTrackerProps) => {
   const monthlyExpense = useMemo(() => {
-    if (!expenses) return 0;
+    if (!expenses || expenses.length === 0) return 0;
 
     const monthExpenses = expenses?.filter((expense) => {
       const currentDate = new Date();
