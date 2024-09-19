@@ -7,20 +7,20 @@ const categoryUrl = ({ categoryID }: { categoryID?: string } = {}) => {
     return `/categories/${categoryID}`;
   }
 
-  return '/categories';
+  return '/categories/';
 };
 
 export const categoriesAPI = {
   useGetCategories: () =>
     useQuery({
       queryKey: ['categories'],
-      queryFn: () => axiosHelper<ICategory[]>({ method: 'get', url: categoryUrl() }),
+      queryFn: () => axiosHelper<{ data: ICategory[] }>({ method: 'get', url: categoryUrl() }),
     }),
 
   useGetCategory: ({ categoryID }: { categoryID: string }) =>
     useQuery({
       queryKey: ['category', categoryID],
-      queryFn: () => axiosHelper<ICategory>({ method: 'get', url: categoryUrl({ categoryID }) }),
+      queryFn: () => axiosHelper<{ data: ICategory }>({ method: 'get', url: categoryUrl({ categoryID }) }),
       enabled: !!categoryID,
     }),
 

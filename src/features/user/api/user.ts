@@ -1,17 +1,24 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { axiosHelper } from '@/lib/axios/axiosHelper';
-import { IUser } from '@/features/user/types/user';
+import type { IUser } from '@/features/user/types/user';
 
-
-
-interface ILoginCredentials  {
+interface ILoginCredentials {
   email: string;
-  password: string; 
+  password: string;
 }
 
-const userUrl = ({ userID, login }: {userID?: number, login?: boolean}) => {
+interface IToken {
+  access: string;
+  refresh: string;
+}
+
+const userUrl = ({ userID, login, register }: { userID?: number; login?: boolean; register?: boolean }) => {
+  if (register) {
+    return '/register/';
+  }
+
   if (login) {
-    return '/users/login';
+    return '/token/';
   }
 
   if (userID) {
@@ -22,17 +29,22 @@ const userUrl = ({ userID, login }: {userID?: number, login?: boolean}) => {
 };
 
 export const userAPI = {
-  useGetUser: ({ userID }: { userID: number}) =>
+  useGetUser: ({ userID }: { userID: number }) =>
     useQuery({
       queryKey: ['user', userID],
-      queryFn: () => axiosHelper<IUser>({method: 'get', url: userUrl({userID})}),
+      queryFn: () => axiosHelper<IUser>({ method: 'get', url: userUrl({ userID }) }),
       enabled: !!userID,
     }),
 
   useLogin: () =>
-    useMutation<IUser, unknown, ILoginCredentials >({
-      mutationFn: (data) => axiosHelper<IUser, unknown, ILoginCredentials >({method: 'post', url: userUrl({ login: true }), data}),
+    useMutation<IToken, unknown, ILoginCredentials>({
+      mutationFn: (data) =>
+        axiosHelper<IToken, unknown, ILoginCredentials>({ method: 'post', url: userUrl({ login: true }), data }),
+    }),
+
+  useRegister: () =>
+    useMutation<IUser, unknown, ILoginCredentials>({
+      mutationFn: (data) =>
+        axiosHelper<IUser, unknown, ILoginCredentials>({ method: 'post', url: userUrl({ register: true }), data }),
     }),
 };
-
-

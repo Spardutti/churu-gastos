@@ -1,5 +1,6 @@
-import { IUser } from '@/features/user/types/user';
-import { createContext, useContext, useMemo, useState, ReactNode } from 'react';
+import type { IUser } from '@/features/user/types/user';
+import type { ReactNode } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 
 interface IUserContext {
   user: IUser | null;

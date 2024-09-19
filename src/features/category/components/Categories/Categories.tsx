@@ -1,9 +1,9 @@
 import Button from '@/components/button';
 import Spinner from '@/components/spinner';
 import { categoriesAPI } from '@/features/category/api/categories';
+import type { ICategory } from '@/features/category/types/ICategory';
 import routes from '@/routes/routes';
 import { useNavigate } from 'react-router-dom';
-
 
 const Categories = () => {
   const navigate = useNavigate();
@@ -20,13 +20,13 @@ const Categories = () => {
 
   return (
     <div className="flex flex-wrap gap-2">
-      {categories?.map((category) => (
+      {categories?.data?.map((category: ICategory) => (
         <Button
           type="button"
           variant="secondary"
           text={category.name}
           key={category.id}
-          onClick={() => onCategoryClick(category.id)}
+          onClick={() => onCategoryClick(category.id!)}
           isLoading={false}
         />
       ))}
