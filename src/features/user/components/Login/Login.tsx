@@ -6,8 +6,7 @@ import { useUserContext } from '@/context/UserContext/UserContext';
 import { userAPI } from '@/features/user/api/user';
 import { setDefaultHeaders } from '@/lib/axios/config';
 import routes from '@/routes/routes';
-import { formatErrorResponse } from '@/utils/formatErrorResponse';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 
 const inputs: FormInputs[] = [
@@ -57,15 +56,7 @@ const Login = () => {
             Sign up
           </Link>
         </p>
-        {error && (
-          <p>
-            {formatErrorResponse(error)?.map((error: string) => (
-              <span className="text-danger-main" key={error}>
-                {error}
-              </span>
-            ))}
-          </p>
-        )}
+        {error!! && <p>Something went wrong</p>}
       </Card>
     </div>
   );

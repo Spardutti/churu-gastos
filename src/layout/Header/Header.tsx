@@ -27,12 +27,3 @@ const Header = () => {
 };
 
 export default Header;
-
-interface AvatarProps {
-  label: string;
-}
-const Avatar = ({ label }: AvatarProps) => {
-  return (
-    <div className="rounded-full bg-primary-main text-white size-6 text-center">{label.charAt(0).toUpperCase()}</div>
-  );
-};
