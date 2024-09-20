@@ -3,7 +3,6 @@ import Form from '@/components/form';
 import type { FormInputs } from '@/components/form/types';
 import Heading from '@/components/heading';
 import { categoriesAPI } from '@/features/category/api/categories';
-import type { ICategory } from '@/features/category/types/ICategory';
 import * as yup from 'yup';
 
 const inputs: FormInputs[] = [
@@ -31,7 +30,7 @@ const schema = yup.object({
 const CreateCategoryForm = () => {
   const { mutateAsync: createCategory, isPending } = categoriesAPI.useCreateCategory();
 
-  const handleSubmit = async (data: {name: string, amount: number}) => {
+  const handleSubmit = async (data: { name: string; amount: number }) => {
     createCategory(data);
   };
   return (
