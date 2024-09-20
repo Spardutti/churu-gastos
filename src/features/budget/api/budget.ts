@@ -19,7 +19,7 @@ export const budgetAPI = {
   useGetBudget: ({ year, month, categoryID, enabled = true }: IParams & { enabled?: boolean }) =>
     useQuery({
       queryFn: () => axiosHelper<IResponse>({ method: 'get', url: budgetUrl({ year, month, categoryID }) }),
-      queryKey: ['budget', [year, month]],
+      queryKey: ['budget', [year, month, categoryID]],
       enabled,
     }),
 };

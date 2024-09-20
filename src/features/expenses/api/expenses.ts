@@ -1,6 +1,7 @@
 import type { IExpense } from '@/features/expenses/types/IExpense';
 import { axiosHelper } from '@/lib/axios/axiosHelper';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { appendToList } from '@/utils/onMutationSuccess';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface IParams {
   ID?: string;
@@ -13,7 +14,7 @@ interface IBody {
   amount: number;
   description?: string;
   category_id: string;
-  date: Date
+  date: Date;
 }
 
 const expenseURL = ({ ID, year, month, categoryID }: IParams) => {
@@ -47,8 +48,17 @@ export const expensesAPI = {
       enabled,
     }),
 
-  useCreateExpense: () =>
-    useMutation({
-      mutationFn: (data: IBody) => axiosHelper<IExpense>({ method: 'post', url: expenseURL({}), data }),
-    }),
+  useCreateExpense: () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+      mutationFn: (data: IBody) => axiosHelper<{ data: IExpense }>({ method: 'post', url: expenseURL({}), data }),
+      onSuccess: (response, { date }) =>
+        appendToList<IExpense[], IExpense>({
+          queryKey: ['expenses', [String(date.getFullYear()), String(date.getMonth() + 1)]],
+          queryClient,
+          newItem: response.data,
+        }),
+    });
+  },
 };
