@@ -23,15 +23,19 @@ const Dashboard = () => {
 
   return (
     <Layout>
-      <ExpenseTracker
-        expenses={expenses?.data}
-        expensesLabel="Monthly Expenses"
-        budgetLabel="Monthly Budget"
-        budget={budget?.data?.monthly_budget || 0}
-      />
-      <CreateCategoryForm />
-      <Heading variant="h4" label="Choose a category to see the details" />
-      <Categories />
+      <div className="flex flex-col gap-10">
+        <ExpenseTracker
+          expenses={expenses?.data}
+          expensesLabel="Monthly Expenses"
+          budgetLabel="Monthly Budget"
+          budget={budget?.data?.monthly_budget || 0}
+        />
+        <CreateCategoryForm />
+        <div className="text-center">
+          <Heading variant="h4" label="Choose a category to see the details" />
+        </div>
+        <Categories />
+      </div>
     </Layout>
   );
 };

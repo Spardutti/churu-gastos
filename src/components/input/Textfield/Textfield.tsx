@@ -28,7 +28,7 @@ const Textfield = ({ label, value = '', type = 'text', placeholder, onChange }: 
           value={value as string}
           onChange={onChange}
           type={type}
-          className="text-primary-light outline-none focus-within:ring placeholder:text-primary-light border border-black ring-primary-bg px-2 py-1 rounded-md  w-full"
+          className="bg-main-background text-main-default-text outline-none focus-within:ring placeholder:text-primary-light border border-black ring-primary-bg px-2 py-1 rounded-md  w-full"
         />
       </div>
     </div>

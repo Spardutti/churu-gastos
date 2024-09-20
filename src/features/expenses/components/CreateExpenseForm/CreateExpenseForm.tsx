@@ -40,7 +40,7 @@ const CreateExpenseForm = ({ categoryID }: CreateExpenseFormProps) => {
 
   return (
     <div className="flex justify-center">
-      <Card variant="info">
+      <Card>
         <Heading label="Create Expense" variant="h5" />
         <Form<IExpense>
           direction="row"
