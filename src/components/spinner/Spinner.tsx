@@ -14,7 +14,7 @@ const Spinner = ({ size = 'default' }: SpinnerProps) => {
         className={clsx(
           size === 'default' && 'size-8',
           size === 'small' && 'size-4',
-          'text-gray-200 animate-spin dark:text-main-light fill-main-primary',
+          'text-gray-200 animate-spin dark:text-main-default-text fill-main-primary-text',
         )}
         viewBox="0 0 100 101"
         fill="none"
