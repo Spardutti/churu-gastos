@@ -4,7 +4,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 
 const categoryUrl = ({ categoryID }: { categoryID?: string } = {}) => {
   if (categoryID) {
-    return `/categories/${categoryID}`;
+    return `/categories/${categoryID}/`;
   }
 
   return '/categories/';

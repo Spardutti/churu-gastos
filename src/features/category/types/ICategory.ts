@@ -1,5 +1,7 @@
 export interface ICategory {
   name: string;
   id?: string;
-  current_month_budget?: number
+  current_month_budget?: {
+    amount: number;
+  };
 }

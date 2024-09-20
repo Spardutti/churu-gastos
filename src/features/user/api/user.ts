@@ -21,7 +21,7 @@ const userUrl = ({ login, register }: { login?: boolean; register?: boolean }) =
     return '/token/';
   }
 
-  return '/user';
+  return '/user/';
 };
 
 export const userAPI = {
