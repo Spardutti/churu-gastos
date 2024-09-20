@@ -1,3 +1,4 @@
+import Card from '@/components/card';
 import type { IExpense } from '@/features/expenses/types/IExpense';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { useMemo } from 'react';
@@ -8,6 +9,11 @@ interface ExpenseTrackerProps {
   expenses: IExpense[] | undefined;
   budget: number;
 }
+
+const styles = {
+  card: 'flex flex-col gap-2 items-center min-w-44',
+  cardText: 'text-white font-bold',
+};
 
 const ExpenseTracker = ({ budgetLabel, expensesLabel, expenses, budget }: ExpenseTrackerProps) => {
   const monthlyExpense = useMemo(() => {
@@ -25,19 +31,25 @@ const ExpenseTracker = ({ budgetLabel, expensesLabel, expenses, budget }: Expens
   }, [expenses]);
 
   return (
-    <div className="flex gap-4">
-      <div className="flex flex-col gap-2 items-center">
-        <p>{budgetLabel}</p>
-        {formatCurrency({ amount: budget || 0 })}
-      </div>
-      <div className="flex flex-col gap-2 items-center">
-        <p>{expensesLabel}</p>
-        {formatCurrency({ amount: monthlyExpense! })}
-      </div>
-      <div className="flex flex-col gap-2 items-center">
-        <p>Balance </p>
-        {formatCurrency({ amount: budget - monthlyExpense })}
-      </div>
+    <div className="flex gap-10 justify-center">
+      <Card>
+        <div className={styles.card}>
+          <p>{budgetLabel}</p>
+          <p className={styles.cardText}>{formatCurrency({ amount: budget || 0 })}</p>
+        </div>
+      </Card>
+      <Card>
+        <div className={styles.card}>
+          <p>{expensesLabel}</p>
+          <p className={styles.cardText}>{formatCurrency({ amount: monthlyExpense! })}</p>
+        </div>
+      </Card>
+      <Card>
+        <div className={styles.card}>
+          <p>Balance </p>
+          <p className={styles.cardText}>{formatCurrency({ amount: budget - monthlyExpense })}</p>
+        </div>
+      </Card>
     </div>
   );
 };

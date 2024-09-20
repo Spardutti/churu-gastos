@@ -52,12 +52,14 @@ const Login = () => {
   return (
     <div className="p-4">
       <Heading variant="h1" label="Churu Gastos" />
-      <div className="h-24 flex items-center justify-center">something cool here</div>
-      <Card className="max-w-[600px]" variant="info">
+      <div className="h-24 flex items-center justify-center">
+        <Heading label="Welcome Back" variant="h3" />
+      </div>
+      <Card className="max-w-[600px] mx-auto">
         <Form inputs={inputs} submit={submit} submitLabel="Log in" schema={schema} isSubmitting={isPending} />
         <p className="text-center">
           Don&apos;t have an account?{' '}
-          <Link className="text-blue-500 underline" to={routes.SIGNUP()}>
+          <Link className="text-main-primary-text underline" to={routes.SIGNUP()}>
             Sign up
           </Link>
         </p>

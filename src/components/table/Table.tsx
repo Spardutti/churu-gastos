@@ -26,12 +26,12 @@ const Table = <TData,>({ columns, data, sortBy }: TableProps<TData>) => {
   return (
     <div className="px-4 py-1 rounded-md">
       <table>
-        <thead className="border-b border-main-tertiary">
+        <thead className="border-b border-main-card-border">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th
-                  className={clsx('text-start', header.column.getCanSort() ? 'cursor-pointer select-none' : '')}
+                  className={clsx('text-start text-main-primary-text', header.column.getCanSort() ? 'cursor-pointer select-none' : '')}
                   key={header.id}
                   style={{ width: header.getSize() }}
                   onClick={header.column.getToggleSortingHandler()}
@@ -46,7 +46,7 @@ const Table = <TData,>({ columns, data, sortBy }: TableProps<TData>) => {
           {table.getRowModel().rows.map((row, index) => (
             <tr
               key={row.id}
-              className={clsx('border-b border-main-tertiary last:border-b-0', index % 2 === 0 && 'bg-primary-light')}
+              className={clsx('border-b border-main-card-border last:border-b-0', index % 2 === 0 && '  text-main-secondary-text')}
             >
               {row.getVisibleCells().map((cell) => (
                 <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>

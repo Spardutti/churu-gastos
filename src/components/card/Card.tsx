@@ -4,17 +4,19 @@ import type { ReactNode } from 'react';
 interface CardProps {
   children: ReactNode;
   className?: string;
-  variant: 'info' | 'light';
+  variant?: 'default';
+  onClick?: () => void;
 }
 
-const Card = ({ children, className, variant }: CardProps) => {
+const Card = ({ children, className, variant = 'default', onClick }: CardProps) => {
   return (
     <div
+      onClick={onClick}
       className={clsx(
         className,
         'p-4 rounded-md shadow-md',
-        variant === 'info' && 'bg-info-main text-neutral-900',
-        variant === 'light' && 'bg-primary-bg',
+        !!onClick && 'cursor-pointer hover:bg-main-card-border',
+        variant === 'default' && 'bg-main-card-background border-main-card-border border text-main-secondary-text ',
       )}
     >
       {children}

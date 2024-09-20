@@ -58,12 +58,14 @@ const Signup = () => {
   return (
     <div className="p-4">
       <Heading variant="h1" label="Churu Gastos" />
-      <div className="h-24 flex items-center justify-center">something cool here</div>
-      <Card variant="info">
+      <div className="h-24 flex items-center justify-center">
+        <Heading label="Create your account" variant="h3" />
+      </div>
+      <Card className="max-w-[600px] mx-auto">
         <Form inputs={inputs} submit={submit} submitLabel="Sign up" isSubmitting={isPending} schema={schema} />
         <p className="text-center">
           Already have an account?{' '}
-          <Link className="text-blue-500 underline" to={routes.LOGIN()}>
+          <Link className="text-main-primary-text underline" to={routes.LOGIN()}>
             Log in
           </Link>
         </p>

@@ -3,6 +3,6 @@
 @tailwind utilities;
 
 body {
-  @apply bg-neutral-950 text-primary-bg;
+  @apply bg-main-background text-main-default-text;
   font-family: "Roboto Slab", serif;
 }
