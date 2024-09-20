@@ -1,4 +1,3 @@
-import Button from '@/components/button';
 import Card from '@/components/card';
 import Spinner from '@/components/spinner';
 import { categoriesAPI } from '@/features/category/api/categories';
