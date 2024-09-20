@@ -1,18 +1,24 @@
 import { axiosHelper } from '@/lib/axios/axiosHelper';
 import { useQuery } from '@tanstack/react-query';
 
-interface IBudget {
+interface IParams {
   year: string;
   month: string;
+  categoryID?: string;
 }
-const budgetUrl = ({ year, month }: IBudget) => {
-  return `/budget/?year=${year}&month=${month}`;
+
+interface IResponse {
+  data: { monthly_budget: number };
+}
+
+const budgetUrl = ({ year, month, categoryID }: IParams) => {
+  return `/budget/?year=${year}&month=${month}&category_id=${categoryID}`;
 };
 
 export const budgetAPI = {
-  useGetBudget: ({ year, month, enabled = true }: IBudget & { enabled?: boolean }) =>
+  useGetBudget: ({ year, month, categoryID, enabled = true }: IParams & { enabled?: boolean }) =>
     useQuery({
-      queryFn: () => axiosHelper<{ data: { budget: number } }>({ method: 'get', url: budgetUrl({ year, month }) }),
+      queryFn: () => axiosHelper<IResponse>({ method: 'get', url: budgetUrl({ year, month, categoryID }) }),
       queryKey: ['budget', [year, month]],
       enabled,
     }),

@@ -9,9 +9,16 @@ interface IParams {
   categoryID?: string;
 }
 
+interface IBody {
+  amount: number;
+  description?: string;
+  category_id: string;
+  date: Date
+}
+
 const expenseURL = ({ ID, year, month, categoryID }: IParams) => {
   if (year && month && categoryID) {
-    return `/expenses/?year=${year}&month=${month}&categoryID=${categoryID}`;
+    return `/expenses/?year=${year}&month=${month}&category_id=${categoryID}`;
   }
 
   if (year && month) {
@@ -19,10 +26,10 @@ const expenseURL = ({ ID, year, month, categoryID }: IParams) => {
   }
 
   if (ID) {
-    return `/expenses/${ID}`;
+    return `/expenses/${ID}/`;
   }
 
-  return '/expenses';
+  return '/expenses/';
 };
 
 export const expensesAPI = {
@@ -42,6 +49,6 @@ export const expensesAPI = {
 
   useCreateExpense: () =>
     useMutation({
-      mutationFn: (data: IExpense) => axiosHelper<IExpense>({ method: 'post', url: expenseURL({}), data }),
+      mutationFn: (data: IBody) => axiosHelper<IExpense>({ method: 'post', url: expenseURL({}), data }),
     }),
 };

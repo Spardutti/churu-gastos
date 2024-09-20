@@ -1,4 +1,5 @@
 import Card from '@/components/card';
+import ErrorMessage from '@/components/ErrorMessage';
 import Form from '@/components/form';
 import type { FormInputs } from '@/components/form/types';
 import Heading from '@/components/heading';
@@ -6,7 +7,7 @@ import { useUserContext } from '@/context/UserContext/UserContext';
 import { userAPI } from '@/features/user/api/user';
 import { setDefaultHeaders } from '@/lib/axios/config';
 import routes from '@/routes/routes';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 
 const inputs: FormInputs[] = [
@@ -18,7 +19,7 @@ const inputs: FormInputs[] = [
     placeholder: 'Enter your email',
   },
   {
-    inputType: 'text',
+    inputType: 'password',
     name: 'password',
     value: '',
     label: 'Password',
@@ -37,11 +38,15 @@ const Login = () => {
   const { mutateAsync: login, isPending, error } = userAPI.useLogin();
   const { setUser } = useUserContext();
 
+  const navigate = useNavigate();
+
   const submit = async (formData: { email: string; password: string }) => {
     const { refresh, access } = await login(formData);
     setUser({ authorizationToken: access, refreshToken: refresh });
     localStorage.setItem('authorizationToken', access);
     setDefaultHeaders(access);
+
+    navigate(routes.DASHBOARD());
   };
 
   return (
@@ -51,12 +56,12 @@ const Login = () => {
       <Card className="max-w-[600px]" variant="info">
         <Form inputs={inputs} submit={submit} submitLabel="Log in" schema={schema} isSubmitting={isPending} />
         <p className="text-center">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <Link className="text-blue-500 underline" to={routes.SIGNUP()}>
             Sign up
           </Link>
         </p>
-        {error!! && <p>Something went wrong</p>}
+        <ErrorMessage error={error} />
       </Card>
     </div>
   );
