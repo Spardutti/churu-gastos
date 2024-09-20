@@ -27,7 +27,7 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   if (error) {
     setUser(null);
     localStorage.removeItem('authorizationToken');
-    setDefaultHeaders('');
+    setDefaultHeaders(null);
     return <Navigate to={routes.LOGIN()} />;
   }
 
