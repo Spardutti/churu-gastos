@@ -1,5 +1,5 @@
-import { axiosInstance } from "@/lib/axios/config";
-import { AxiosResponse } from "axios";
+import { axiosInstance } from '@/lib/axios/config';
+import type { AxiosResponse } from 'axios';
 
 export const axiosHelper = async <T, P = unknown, D = unknown>({
   method,
@@ -12,6 +12,7 @@ export const axiosHelper = async <T, P = unknown, D = unknown>({
   urlParams?: P;
   data?: D;
 }): Promise<T> => {
-  return axiosInstance[method]<T>(url, method === 'get' ? { params: urlParams } : data)
-    .then((res: AxiosResponse<T>) => res.data);
+  return axiosInstance[method]<T>(url, method === 'get' ? { params: urlParams } : data).then(
+    (res: AxiosResponse<T>) => res.data,
+  );
 };

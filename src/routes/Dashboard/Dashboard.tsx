@@ -8,14 +8,18 @@ import { lazy } from 'react';
 // import { useMediaQuery } from 'react-responsive';
 const Layout = lazy(() => import('@/layout/Layout'));
 
+const date = new Date();
+const year = String(date.getFullYear());
+const month = String(date.getMonth() + 1);
+
 const Dashboard = () => {
   // const isDesktop = useMediaQuery({
   //   query: '(min-width: 875px)',
   // });
 
-  const { data: expenses } = expensesAPI.useGetExpenses({ year: '2024', month: '9' });
+  const { data: expenses } = expensesAPI.useGetExpenses({ year, month });
 
-  const { data: budget } = budgetAPI.useGetBudget({ year: '2024', month: '9' });
+  const { data: budget } = budgetAPI.useGetBudget({ year, month });
 
   return (
     <Layout>
@@ -23,7 +27,7 @@ const Dashboard = () => {
         expenses={expenses?.data}
         expensesLabel="Monthly Expenses"
         budgetLabel="Monthly Budget"
-        budget={budget?.data?.budget || 0}
+        budget={budget?.data?.monthly_budget || 0}
       />
       <CreateCategoryForm />
       <Heading variant="h4" label="Choose a category to see the details" />

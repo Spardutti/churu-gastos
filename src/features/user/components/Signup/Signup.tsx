@@ -1,4 +1,5 @@
 import Card from '@/components/card';
+import ErrorMessage from '@/components/ErrorMessage';
 import Form from '@/components/form';
 import type { FormInputs } from '@/components/form/types';
 import Heading from '@/components/heading';
@@ -66,7 +67,7 @@ const Signup = () => {
             Log in
           </Link>
         </p>
-        {error!! && <p>Something went wrong</p>}
+        <ErrorMessage error={error} />
       </Card>
     </div>
   );
