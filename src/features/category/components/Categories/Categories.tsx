@@ -1,4 +1,5 @@
 import Button from '@/components/button';
+import Card from '@/components/card';
 import Spinner from '@/components/spinner';
 import { categoriesAPI } from '@/features/category/api/categories';
 import type { ICategory } from '@/features/category/types/ICategory';
@@ -19,16 +20,15 @@ const Categories = () => {
   }
 
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-4 justify-center">
       {categories?.data?.map((category: ICategory) => (
-        <Button
-          type="button"
-          variant="secondary"
-          text={category.name}
-          key={category.id}
-          onClick={() => onCategoryClick(category.id!)}
-          isLoading={false}
-        />
+        <div key={category.name} className="min-w-44 flex-shrink-0">
+          <Card onClick={() => onCategoryClick(category.id!)}>
+            <div className="flex flex-col items-center">
+              <p>{category.name}</p>
+            </div>
+          </Card>
+        </div>
       ))}
     </div>
   );

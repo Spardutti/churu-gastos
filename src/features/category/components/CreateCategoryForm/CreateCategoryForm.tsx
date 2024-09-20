@@ -35,16 +35,18 @@ const CreateCategoryForm = () => {
   };
   return (
     <div className="flex justify-center">
-      <Card variant="info">
-        <Heading label="Create Category" variant="h5" />
-        <Form
-          direction="row"
-          inputs={inputs}
-          submitLabel="Create"
-          isSubmitting={isPending}
-          submit={handleSubmit}
-          schema={schema}
-        />
+      <Card>
+        <div className="flex flex-col gap-4">
+          <Heading label="Create Category" variant="h4" />
+          <Form
+            direction="row"
+            inputs={inputs}
+            submitLabel="Create"
+            isSubmitting={isPending}
+            submit={handleSubmit}
+            schema={schema}
+          />
+        </div>
       </Card>
     </div>
   );

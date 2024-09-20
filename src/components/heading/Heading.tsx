@@ -1,17 +1,35 @@
+import { text } from 'stream/consumers';
+
 interface HeadingProps {
   variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   label: string;
 }
 
 const Heading = ({ variant, label }: HeadingProps) => {
-  // return a h tag depending on the variant
-  const styles = {
+  const colors = {
+    text: 'text-main-primary-text',
+  };
+
+  const sizes = {
     h1: 'text-4xl',
     h2: 'text-3xl',
     h3: 'text-2xl',
     h4: 'text-xl',
     h5: 'text-lg',
     h6: 'text-md',
+  };
+
+  const weight = {
+    bold: 'font-bold',
+  };
+
+  const styles = {
+    h1: `${colors.text} ${sizes.h1} ${weight.bold}`,
+    h2: `${colors.text} ${sizes.h2} ${weight.bold}`,
+    h3: `${colors.text} ${sizes.h3} ${weight.bold}`,
+    h4: `${colors.text} ${sizes.h4} ${weight.bold}`,
+    h5: `${colors.text} ${sizes.h5} ${weight.bold}`,
+    h6: `${colors.text} ${sizes.h6} ${weight.bold}`,
   };
 
   if (variant === 'h1') return <h1 className={styles.h1}>{label}</h1>;

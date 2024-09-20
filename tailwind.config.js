@@ -4,15 +4,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        gray: '#6F6E77',
-        primary: {
-          main: '#274156',
-          light: '#1b998b',
-          bg: '#E9EBF8',
-        },
-        hover: {
-          main: '#2E7D32',
-          light: '#4CAF50',
+        main: {
+          background: '#1a202c',
+          'default-text': '#f7fafc',
+          'card-background': '#2d3748',
+          'card-border': '#4a5568',
+          'primary-text': '#9f7aea',
+          'secondary-text': '#38b2ac',
+          active: '#67E8F9',
         },
 
         danger: {
