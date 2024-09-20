@@ -4,11 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 interface IParams {
   year: string;
   month: string;
-  categoryID?: string
+  categoryID?: string;
 }
 
 interface IResponse {
-  monthly_budget: number;
+  data: { monthly_budget: number };
 }
 
 const budgetUrl = ({ year, month, categoryID }: IParams) => {

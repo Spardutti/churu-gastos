@@ -2,12 +2,12 @@ import { categoriesAPI } from '@/features/category/api/categories';
 import ExpenseTracker from '@/features/dashboard/components/ExpenseTracker';
 import { expensesAPI } from '@/features/expenses/api/expenses';
 import CreateExpenseForm from '@/features/expenses/components/CreateExpenseForm';
-// import ExpenseTable from '@/features/expenses/components/ExpenseTable';
 import Layout from '@/layout/Layout';
 import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '@/components/spinner';
 import { ArrowLeftIcon } from '@radix-ui/react-icons';
 import Button from '@/components/button';
+import ExpenseTable from '@/features/expenses/components/ExpenseTable';
 
 const Category = () => {
   const { categoryID } = useParams();
@@ -48,7 +48,7 @@ const Category = () => {
         />
         <CreateExpenseForm categoryID={categoryID!} />
 
-        {/* <ExpenseTable categoryID={categoryID!} /> */}
+        <ExpenseTable categoryID={categoryID!} />
       </div>
     </Layout>
   );

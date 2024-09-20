@@ -26,8 +26,16 @@ const columns = [
   }),
 ];
 
+const date = new Date();
+const year = String(date.getFullYear());
+const month = String(date.getMonth() + 1);
+
 const ExpenseTable = ({ categoryID }: ExpenseTableProps) => {
-  const { data: expenses, isPending } = expensesAPI.useGetExpenses({ categoryID });
+  const { data: expenses, isPending } = expensesAPI.useGetExpenses({
+    categoryID,
+    year,
+    month,
+  });
 
   if (isPending) {
     return <Spinner />;
