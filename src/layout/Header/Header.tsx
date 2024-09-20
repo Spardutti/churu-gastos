@@ -8,10 +8,6 @@ const navItems: INavItems[] = [
     label: 'Dashboard',
     href: routes.DASHBOARD(),
   },
-  {
-    label: 'Insights',
-    href: routes.INSIGHTS(),
-  },
 ];
 
 const Header = () => {
