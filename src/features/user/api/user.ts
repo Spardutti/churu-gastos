@@ -12,7 +12,7 @@ interface IToken {
   refresh: string;
 }
 
-const userUrl = ({ userID, login, register }: { userID?: number; login?: boolean; register?: boolean }) => {
+const userUrl = ({ login, register }: { login?: boolean; register?: boolean }) => {
   if (register) {
     return '/register/';
   }
@@ -21,19 +21,15 @@ const userUrl = ({ userID, login, register }: { userID?: number; login?: boolean
     return '/token/';
   }
 
-  if (userID) {
-    return `/users/${userID}`;
-  }
-
-  return '/users';
+  return '/user';
 };
 
 export const userAPI = {
-  useGetUser: ({ userID }: { userID: number }) =>
+  useGetUser: () =>
     useQuery({
-      queryKey: ['user', userID],
-      queryFn: () => axiosHelper<IUser>({ method: 'get', url: userUrl({ userID }) }),
-      enabled: !!userID,
+      queryKey: ['user'],
+      queryFn: () => axiosHelper<IUser>({ method: 'get', url: userUrl({}) }),
+      // enabled: false,
     }),
 
   useLogin: () =>
