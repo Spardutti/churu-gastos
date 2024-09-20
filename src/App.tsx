@@ -1,11 +1,13 @@
+import { lazy } from 'react';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
 import routes from '@/routes/routes.ts';
 import LazyComponent from '@/components/lazyComponent';
 import ProtectedRoute from '@/features/protectedRoute';
-import Login from '@/features/user/components/Login';
-import SignupPage from '@/routes/SignupPage';
-import Dashboard from '@/routes/Dashboard';
-import Category from '@/routes/Category';
+
+const Dashboard = lazy(() => import('@/routes/Dashboard'));
+const SignupPage = lazy(() => import('@/features/user/components/Signup/Signup'));
+const Login = lazy(() => import('@/features/user/components/Login/Login'));
+const Category = lazy(() => import('@/routes/Category'));
 
 const App = () => {
   const router = createBrowserRouter([
