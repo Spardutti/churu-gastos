@@ -31,7 +31,7 @@ const schema = yup.object({
 const CreateCategoryForm = () => {
   const { mutateAsync: createCategory, isPending } = categoriesAPI.useCreateCategory();
 
-  const handleSubmit = async (data: ICategory) => {
+  const handleSubmit = async (data: {name: string, amount: number}) => {
     createCategory(data);
   };
   return (

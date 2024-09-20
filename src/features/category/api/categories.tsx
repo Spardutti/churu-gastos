@@ -1,6 +1,7 @@
 import type { ICategory } from '@/features/category/types/ICategory';
 import { axiosHelper } from '@/lib/axios/axiosHelper';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { addToBudget, appendToList } from '@/utils/onMutationSuccess';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const categoryUrl = ({ categoryID }: { categoryID?: string } = {}) => {
   if (categoryID) {
@@ -9,6 +10,11 @@ const categoryUrl = ({ categoryID }: { categoryID?: string } = {}) => {
 
   return '/categories/';
 };
+
+interface IBody {
+  name: string;
+  amount: number;
+}
 
 export const categoriesAPI = {
   useGetCategories: () =>
@@ -24,8 +30,18 @@ export const categoriesAPI = {
       enabled: !!categoryID,
     }),
 
-  useCreateCategory: () =>
-    useMutation({
-      mutationFn: (data: ICategory) => axiosHelper<ICategory>({ method: 'post', url: categoryUrl(), data }),
-    }),
+  useCreateCategory: () => {
+    const queryClient = useQueryClient();
+    const date = new Date();
+    const year = String(date.getFullYear());
+    const month = String(date.getMonth() + 1);
+
+    return useMutation({
+      mutationFn: (data: IBody) => axiosHelper<{ data: IBody }>({ method: 'post', url: categoryUrl(), data }),
+      onSuccess: (response, data) => {
+        appendToList<ICategory[], ICategory>({ queryKey: ['categories'], queryClient, newItem: response.data });
+        addToBudget({ queryClient, queryKey: ['budget', [year, month, undefined]], amount: data.amount });
+      },
+    });
+  },
 };
