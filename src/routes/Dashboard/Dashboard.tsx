@@ -4,9 +4,8 @@ import Categories from '@/features/category/components/Categories';
 import CreateCategoryForm from '@/features/category/components/CreateCategoryForm/CreateCategoryForm';
 import ExpenseTracker from '@/features/dashboard/components/ExpenseTracker';
 import { expensesAPI } from '@/features/expenses/api/expenses';
-import { lazy } from 'react';
 // import { useMediaQuery } from 'react-responsive';
-const Layout = lazy(() => import('@/layout/Layout'));
+import Layout from '@/layout/Layout';
 
 const date = new Date();
 const year = String(date.getFullYear());

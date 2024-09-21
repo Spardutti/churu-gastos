@@ -1,10 +1,9 @@
 import Button from '@/components/button';
 import Spinner from '@/components/spinner';
-
-import React, { lazy, Suspense } from 'react';
+import Layout from '@/layout/Layout';
+import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
-const Layout = lazy(() => import('@/layout/Layout'));
 interface LazyComponentProps {
   children: React.ReactNode;
 }
