@@ -62,7 +62,7 @@ const Signup = () => {
         <Heading label="Create your account" variant="h3" />
       </div>
       <Card className="max-w-[600px] mx-auto">
-        <Form inputs={inputs} submit={submit} submitLabel="Sign up" isSubmitting={isPending} schema={schema} />
+        <Form inputs={inputs} submit={submit} submitLabel="Sign up" isSubmitting={isPending} schema={schema} className='flex-col'/>
         <p className="text-center">
           Already have an account?{' '}
           <Link className="text-main-primary-text underline" to={routes.LOGIN()}>
