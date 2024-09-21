@@ -31,14 +31,16 @@ const Category = () => {
 
   return (
     <Layout>
-      <div className="space-y-4">
-        <Button
-          variant="ghost"
-          type="button"
-          onClick={onClick}
-          text={category.data.name}
-          prependIcon={<ArrowLeftIcon />}
-        />
+      <div className="flex flex-col gap-10">
+        <div>
+          <Button
+            variant="ghost"
+            type="button"
+            onClick={onClick}
+            text={category.data.name}
+            prependIcon={<ArrowLeftIcon />}
+          />
+        </div>
 
         <ExpenseTracker
           budgetLabel="Budget"
