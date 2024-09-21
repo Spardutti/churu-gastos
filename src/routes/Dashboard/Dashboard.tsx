@@ -1,5 +1,5 @@
 import Heading from '@/components/heading';
-import { budgetAPI } from '@/features/budget/api/budget';
+import { categoriesAPI } from '@/features/category/api/categories';
 import Categories from '@/features/category/components/Categories';
 import CreateCategoryForm from '@/features/category/components/CreateCategoryForm/CreateCategoryForm';
 import ExpenseTracker from '@/features/dashboard/components/ExpenseTracker';
@@ -18,7 +18,7 @@ const Dashboard = () => {
 
   const { data: expenses } = expensesAPI.useGetExpenses({ year, month });
 
-  const { data: budget } = budgetAPI.useGetBudget({ year, month });
+  const { data: categories } = categoriesAPI.useGetCategories({ year, month });
 
   return (
     <Layout>
@@ -27,7 +27,7 @@ const Dashboard = () => {
           expenses={expenses?.data}
           expensesLabel="Monthly Expenses"
           budgetLabel="Monthly Budget"
-          budget={budget?.data?.monthly_budget || 0}
+          budget={categories?.monthly_budget || 0}
         />
         <CreateCategoryForm />
         <div className="text-center">
