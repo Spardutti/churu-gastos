@@ -33,18 +33,24 @@ export const appendToList = <T, Q>({ queryKey, queryClient, newItem }: List<Q>) 
 
 interface Budget extends Base {
   amount: number;
+  type: 'expense' | 'income';
 }
 
-export const addToBudget = ({ queryClient, queryKey, amount }: Budget) => {
-  queryClient.setQueryData(queryKey, (oldData: { data: { monthly_budget: number } }) => {
+export const updateBudget = ({ queryClient, queryKey, amount, type }: Budget) => {
+  queryClient.setQueryData(queryKey, (oldData: { monthly_budget: number }) => {
     if (!oldData) return;
+
+    let budget = Number(oldData.monthly_budget);
+
+    if (type === 'expense') {
+      budget -= Number(amount);
+    } else if (type === 'income') {
+      budget += Number(amount);
+    }
 
     const newData = {
       ...oldData,
-      data: {
-        ...oldData.data,
-        monthly_budget: oldData.data.monthly_budget + amount,
-      },
+      monthly_budget: budget,
     };
 
     return newData;

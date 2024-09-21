@@ -46,7 +46,7 @@ const Category = () => {
           budgetLabel="Budget"
           expensesLabel="Expenses"
           expenses={expenses?.data}
-          budget={category.data.current_month_budget?.amount || 0}
+          budget={category.data.budget || 0}
         />
         <CreateExpenseForm categoryID={categoryID!} />
 

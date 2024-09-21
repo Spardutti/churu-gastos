@@ -16,7 +16,7 @@ const inputs: FormInputs[] = [
   {
     value: 0,
     label: 'Category Budget',
-    name: 'amount',
+    name: 'budget',
     placeholder: 'Category Budget',
     inputType: 'number',
   },
@@ -24,13 +24,13 @@ const inputs: FormInputs[] = [
 
 const schema = yup.object({
   name: yup.string().required('Category name is required'),
-  amount: yup.number().required('Category budget is required'),
+  budget: yup.number().required('Category budget is required'),
 });
 
 const CreateCategoryForm = () => {
   const { mutateAsync: createCategory, isPending } = categoriesAPI.useCreateCategory();
 
-  const handleSubmit = async (data: { name: string; amount: number }) => {
+  const handleSubmit = async (data: { name: string; budget: number }) => {
     createCategory(data);
   };
   return (
