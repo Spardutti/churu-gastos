@@ -17,6 +17,7 @@ interface FormProps<T extends FieldValues> {
   response?: { type: 'success' | 'error'; message: string };
   schema: AnyObjectSchema;
   direction?: 'col' | 'row';
+  className?: string;
 }
 
 const Form = <T extends FieldValues>({
@@ -26,20 +27,22 @@ const Form = <T extends FieldValues>({
   isSubmitting,
   response,
   schema,
-  direction = 'col',
+  className,
 }: FormProps<T>) => {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   }: UseFormReturn<T> = useForm<T>({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data: T) => {
     await submit(data);
+    reset();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={clsx('flex flex-grow gap-4', direction === 'col' && 'flex-col')}>
+    <form onSubmit={handleSubmit(onSubmit)} className={clsx('flex flex-grow gap-4', className)}>
       {inputs.map((input, index) => {
         const { label, name, placeholder, inputType, value } = input;
 
