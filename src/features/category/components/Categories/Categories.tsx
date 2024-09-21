@@ -12,7 +12,7 @@ const month = String(date.getMonth() + 1);
 const Categories = () => {
   const navigate = useNavigate();
 
-  const { data: categories, isPending } = categoriesAPI.useGetCategories({year, month});
+  const { data: categories, isPending } = categoriesAPI.useGetCategories({ year, month });
 
   const onCategoryClick = (ID: string) => {
     navigate(routes.CATEGORY({ categoryID: ID }));

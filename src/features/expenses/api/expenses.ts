@@ -44,7 +44,7 @@ export const expensesAPI = {
     useQuery({
       queryFn: () =>
         axiosHelper<{ data: IExpense[] }>({ method: 'get', url: expenseURL({ ID, year, month, categoryID }) }),
-      queryKey: ['expenses', [year, month]],
+      queryKey: ['expenses', [categoryID, year, month]],
       enabled,
     }),
 
@@ -53,9 +53,9 @@ export const expensesAPI = {
 
     return useMutation({
       mutationFn: (data: IBody) => axiosHelper<{ data: IExpense }>({ method: 'post', url: expenseURL({}), data }),
-      onSuccess: (response, { date }) =>
+      onSuccess: (response, { date, category_id }) =>
         appendToList<IExpense[], IExpense>({
-          queryKey: ['expenses', [String(date.getFullYear()), String(date.getMonth() + 1)]],
+          queryKey: ['expenses', [category_id, String(date.getFullYear()), String(date.getMonth() + 1)]],
           queryClient,
           newItem: response.data,
         }),

@@ -55,4 +55,11 @@ export const categoriesAPI = {
       },
     });
   },
+
+  useDeleteCategory: () => {
+    return useMutation({
+      mutationFn: ({ categoryID }: { categoryID: string }) =>
+        axiosHelper<{ data: ICategory }>({ method: 'delete', url: `/categories/${categoryID}/` }),
+    });
+  },
 };

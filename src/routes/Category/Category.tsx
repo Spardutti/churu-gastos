@@ -5,7 +5,7 @@ import CreateExpenseForm from '@/features/expenses/components/CreateExpenseForm'
 import Layout from '@/layout/Layout';
 import { useNavigate, useParams } from 'react-router-dom';
 import Spinner from '@/components/spinner';
-import { ArrowLeftIcon } from '@radix-ui/react-icons';
+import { ArrowLeftIcon, TrashIcon } from '@radix-ui/react-icons';
 import Button from '@/components/button';
 import ExpenseTable from '@/features/expenses/components/ExpenseTable';
 
@@ -17,7 +17,14 @@ const Category = () => {
 
   const { data: expenses } = expensesAPI.useGetExpenses({ year: '2024', month: '9', categoryID });
 
+  const { mutateAsync: deleteCategory, isPending: isDeleting } = categoriesAPI.useDeleteCategory();
+
   const onClick = () => {
+    navigate(-1);
+  };
+
+  const onDelete = async () => {
+    await deleteCategory({ categoryID: categoryID! });
     navigate(-1);
   };
 
@@ -32,13 +39,21 @@ const Category = () => {
   return (
     <Layout>
       <div className="flex flex-col gap-10">
-        <div>
+        <div className="flex flex-grow justify-between">
           <Button
             variant="ghost"
             type="button"
             onClick={onClick}
             text={category.data.name}
             prependIcon={<ArrowLeftIcon />}
+          />
+          <Button
+            variant="danger"
+            type="button"
+            text="Delete"
+            prependIcon={<TrashIcon />}
+            onClick={onDelete}
+            isLoading={isDeleting}
           />
         </div>
 
