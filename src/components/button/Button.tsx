@@ -6,7 +6,7 @@ interface ButtonProps {
   type: 'button' | 'submit' | 'reset';
   onClick?: () => void;
   isLoading?: boolean;
-  variant: 'primary' | 'secondary' | 'ghost';
+  variant: 'primary' | 'secondary' | 'ghost' | 'danger';
   prependIcon?: React.ReactNode;
   isActive?: boolean;
 }
@@ -20,6 +20,7 @@ const Button = ({ text, type = 'button', onClick, isLoading, variant, isActive, 
         variant === 'primary' && 'bg-main-primary-text text-main-background hover:bg-main-secondary-text',
         variant === 'secondary' && 'bg-primary-light hover:bg-hover-light text-primary-main ',
         variant === 'ghost' && 'hover:bg-main-card-border',
+        variant === 'danger' && 'bg-danger-main hover:bg-main-card-border',
         isActive && 'ring-2',
       )}
       type={type}

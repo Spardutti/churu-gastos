@@ -1,32 +1,34 @@
 import type { ICategory } from '@/features/category/types/ICategory';
 import { axiosHelper } from '@/lib/axios/axiosHelper';
-import { addToBudget, appendToList } from '@/utils/onMutationSuccess';
+import { appendToList, updateBudget } from '@/utils/onMutationSuccess';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-
-const categoryUrl = ({ categoryID }: { categoryID?: string } = {}) => {
-  if (categoryID) {
-    return `/categories/${categoryID}/`;
-  }
-
-  return '/categories/';
-};
 
 interface IBody {
   name: string;
-  amount: number;
+  id?: string;
+  budget: number;
+}
+
+interface IParams {
+  year: string;
+  month: string;
 }
 
 export const categoriesAPI = {
-  useGetCategories: () =>
+  useGetCategories: ({ year, month }: IParams) =>
     useQuery({
-      queryKey: ['categories'],
-      queryFn: () => axiosHelper<{ data: ICategory[] }>({ method: 'get', url: categoryUrl() }),
+      queryKey: ['categories', [year, month]],
+      queryFn: () =>
+        axiosHelper<{ data: ICategory[]; monthly_budget: number }>({
+          method: 'get',
+          url: `/categories/?year=${year}&month=${month}`,
+        }),
     }),
 
   useGetCategory: ({ categoryID }: { categoryID: string }) =>
     useQuery({
       queryKey: ['category', categoryID],
-      queryFn: () => axiosHelper<{ data: ICategory }>({ method: 'get', url: categoryUrl({ categoryID }) }),
+      queryFn: () => axiosHelper<{ data: ICategory }>({ method: 'get', url: `/categories/${categoryID}/` }),
       enabled: !!categoryID,
     }),
 
@@ -37,11 +39,27 @@ export const categoriesAPI = {
     const month = String(date.getMonth() + 1);
 
     return useMutation({
-      mutationFn: (data: IBody) => axiosHelper<{ data: IBody }>({ method: 'post', url: categoryUrl(), data }),
-      onSuccess: (response, data) => {
-        appendToList<ICategory[], ICategory>({ queryKey: ['categories'], queryClient, newItem: response.data });
-        addToBudget({ queryClient, queryKey: ['budget', [year, month, undefined]], amount: data.amount });
+      mutationFn: (data: IBody) => axiosHelper<{ data: IBody }>({ method: 'post', url: '/categories/', data }),
+      onSuccess: (response) => {
+        appendToList<ICategory[], ICategory>({
+          queryKey: ['categories', [year, month]],
+          queryClient,
+          newItem: response.data,
+        });
+        updateBudget({
+          queryClient,
+          queryKey: ['categories', [year, month]],
+          amount: response.data.budget,
+          type: 'income',
+        });
       },
+    });
+  },
+
+  useDeleteCategory: () => {
+    return useMutation({
+      mutationFn: ({ categoryID }: { categoryID: string }) =>
+        axiosHelper<{ data: ICategory }>({ method: 'delete', url: `/categories/${categoryID}/` }),
     });
   },
 };

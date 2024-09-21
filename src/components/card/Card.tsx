@@ -14,7 +14,7 @@ const Card = ({ children, className, variant = 'default', onClick }: CardProps) 
       onClick={onClick}
       className={clsx(
         className,
-        'p-4 rounded-md shadow-md',
+        'relative p-4 rounded-md shadow-md',
         !!onClick && 'cursor-pointer hover:bg-main-card-border',
         variant === 'default' && 'bg-main-card-background border-main-card-border border text-main-secondary-text ',
       )}
