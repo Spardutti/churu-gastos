@@ -24,7 +24,12 @@ const inputs: FormInputs[] = [
 ];
 
 const schema = yup.object({
-  amount: yup.number().required(),
+  amount: yup
+    .number()
+    .nullable()
+    .transform((value, originalValue) => (originalValue === '' ? null : value))
+    .required('Amount is required')
+    .test('is-positive', 'Amount must be positive', (value) => value > 0),
 });
 
 interface CreateExpenseFormProps {
@@ -32,7 +37,7 @@ interface CreateExpenseFormProps {
 }
 
 const CreateExpenseForm = ({ categoryID }: CreateExpenseFormProps) => {
-  const { mutateAsync: createExpense } = expensesAPI.useCreateExpense();
+  const { mutateAsync: createExpense, isPending } = expensesAPI.useCreateExpense();
 
   const onSubmit = async (data: IExpense) => {
     await createExpense({ ...data, date: new Date(), category_id: categoryID });
@@ -40,17 +45,19 @@ const CreateExpenseForm = ({ categoryID }: CreateExpenseFormProps) => {
 
   return (
     <div className="flex justify-center">
-      <Card>
-        <Heading label="Create Expense" variant="h5" />
-        <Form<IExpense>
-          direction="row"
-          isSubmitting={false}
-          inputs={inputs}
-          schema={schema}
-          submitLabel="Create"
-          submit={onSubmit}
-        />
-      </Card>
+      <div className="flex flex-col gap-4 lg:flex-grow-0 flex-grow">
+        <Card>
+          <Heading label="Create Expense" variant="h5" />
+          <Form<IExpense>
+            isSubmitting={isPending}
+            inputs={inputs}
+            schema={schema}
+            submitLabel="Create"
+            submit={onSubmit}
+            className="lg:flex-row flex-col"
+          />
+        </Card>
+      </div>
     </div>
   );
 };

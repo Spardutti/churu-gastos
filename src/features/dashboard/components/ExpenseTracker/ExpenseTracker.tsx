@@ -11,7 +11,7 @@ interface ExpenseTrackerProps {
 }
 
 const styles = {
-  card: 'flex flex-col gap-2 items-center min-w-44',
+  card: 'flex flex-col gap-2 items-center lg:min-w-44',
   cardText: 'text-white font-bold',
 };
 
@@ -31,7 +31,7 @@ const ExpenseTracker = ({ budgetLabel, expensesLabel, expenses, budget }: Expens
   }, [expenses]);
 
   return (
-    <div className="flex gap-10 justify-center">
+    <div className="flex lg:flex-row flex-col gap-10 justify-center">
       <Card>
         <div className={styles.card}>
           <p>{budgetLabel}</p>
