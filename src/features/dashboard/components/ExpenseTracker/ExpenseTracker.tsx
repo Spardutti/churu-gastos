@@ -39,7 +39,7 @@ const ExpenseTracker = ({ budgetLabel, expensesLabel, expenses, budget }: Expens
       <Card>
         <div className={styles.card}>
           <p>Balance </p>
-          <p className={styles.cardText}>{formatCurrency({ amount: budget - monthlyExpense })}</p>
+          <p className={styles.cardText}>{formatCurrency({ amount: budget - monthlyExpense! })}</p>
         </div>
       </Card>
     </div>
