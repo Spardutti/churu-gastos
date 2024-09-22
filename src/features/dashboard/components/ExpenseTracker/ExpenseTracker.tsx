@@ -17,17 +17,9 @@ const styles = {
 
 const ExpenseTracker = ({ budgetLabel, expensesLabel, expenses, budget }: ExpenseTrackerProps) => {
   const monthlyExpense = useMemo(() => {
-    if (!expenses || expenses.length === 0) return 0;
-
-    const monthExpenses = expenses?.filter((expense) => {
-      const currentDate = new Date();
-      const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1); // First day of the current month
-      const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0); // Last day of the current month
-      const expenseDate = new Date(expense.date);
-      return expenseDate >= startOfMonth && expenseDate <= endOfMonth;
-    });
-
-    return monthExpenses?.reduce((acc, expense) => acc + Number(expense.amount), 0);
+    return expenses?.reduce((acc, expense) => {
+      return acc + Number(expense.amount);
+    }, 0);
   }, [expenses]);
 
   return (

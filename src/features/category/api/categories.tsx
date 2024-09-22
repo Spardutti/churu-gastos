@@ -1,6 +1,7 @@
 import type { ICategory } from '@/features/category/types/ICategory';
 import { axiosHelper } from '@/lib/axios/axiosHelper';
 import { appendToList, updateBudget } from '@/utils/onMutationSuccess';
+import { yearAndMonth } from '@/utils/yearAndMonth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface IBody {
@@ -34,9 +35,7 @@ export const categoriesAPI = {
 
   useCreateCategory: () => {
     const queryClient = useQueryClient();
-    const date = new Date();
-    const year = String(date.getFullYear());
-    const month = String(date.getMonth() + 1);
+    const { year, month } = yearAndMonth();
 
     return useMutation({
       mutationFn: (data: IBody) => axiosHelper<{ data: IBody }>({ method: 'post', url: '/categories/', data }),

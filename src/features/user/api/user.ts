@@ -7,9 +7,12 @@ interface ILoginCredentials {
   password: string;
 }
 
-interface IToken {
+interface IProfile {
   access: string;
   refresh: string;
+  email: string;
+  id: string;
+  timezone: string;
 }
 
 const userUrl = ({ login, register }: { login?: boolean; register?: boolean }) => {
@@ -33,9 +36,9 @@ export const userAPI = {
     }),
 
   useLogin: () =>
-    useMutation<IToken, unknown, ILoginCredentials>({
+    useMutation<IProfile, unknown, ILoginCredentials>({
       mutationFn: (data) =>
-        axiosHelper<IToken, unknown, ILoginCredentials>({ method: 'post', url: userUrl({ login: true }), data }),
+        axiosHelper<IProfile, unknown, ILoginCredentials>({ method: 'post', url: userUrl({ login: true }), data }),
     }),
 
   useRegister: () =>

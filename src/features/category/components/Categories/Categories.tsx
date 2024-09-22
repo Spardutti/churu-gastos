@@ -3,11 +3,10 @@ import Spinner from '@/components/spinner';
 import { categoriesAPI } from '@/features/category/api/categories';
 import type { ICategory } from '@/features/category/types/ICategory';
 import routes from '@/routes/routes';
+import { yearAndMonth } from '@/utils/yearAndMonth';
 import { useNavigate } from 'react-router-dom';
 
-const date = new Date();
-const year = String(date.getFullYear());
-const month = String(date.getMonth() + 1);
+const { year, month } = yearAndMonth();
 
 const Categories = () => {
   const navigate = useNavigate();

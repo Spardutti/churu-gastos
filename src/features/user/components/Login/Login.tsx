@@ -41,8 +41,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   const submit = async (formData: { email: string; password: string }) => {
-    const { refresh, access } = await login(formData);
-    setUser({ authorizationToken: access, refreshToken: refresh });
+    const { refresh, access, timezone, id, email } = await login(formData);
+    setUser({ authorizationToken: access, refreshToken: refresh, timezone, id, email });
     localStorage.setItem('authorizationToken', access);
     setDefaultHeaders(access);
 
@@ -56,7 +56,14 @@ const Login = () => {
         <Heading label="Welcome Back" variant="h3" />
       </div>
       <Card className="max-w-[600px] mx-auto">
-        <Form inputs={inputs} submit={submit} submitLabel="Log in" schema={schema} isSubmitting={isPending} className='flex-col' />
+        <Form
+          inputs={inputs}
+          submit={submit}
+          submitLabel="Log in"
+          schema={schema}
+          isSubmitting={isPending}
+          className="flex-col"
+        />
         <p className="text-center">
           Don&apos;t have an account?{' '}
           <Link className="text-main-primary-text underline" to={routes.SIGNUP()}>
