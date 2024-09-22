@@ -41,7 +41,7 @@ const CreateExpenseForm = () => {
   };
 
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center self-stretch">
       <div className="flex flex-col gap-4 lg:flex-grow-0 flex-grow">
         <Card>
           <Heading label="Create Unique Expense" variant="h5" />
