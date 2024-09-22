@@ -4,6 +4,7 @@ import routes from '@/routes/routes';
 import { setDefaultHeaders } from '@/lib/axios/config';
 import { userAPI } from '@/features/user/api/user';
 import Spinner from '@/components/spinner';
+import { useEffect } from 'react';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -13,12 +14,18 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { user, setUser } = useUserContext();
   const access = localStorage.getItem('authorizationToken');
 
-  const { error, isLoading } = userAPI.useGetUser();
+  const { data, error, isLoading } = userAPI.useGetUser();
 
   if (access && !user?.authorizationToken) {
-    setUser({ authorizationToken: access, refreshToken: '' });
+    setUser(null);
     setDefaultHeaders(access);
   }
+
+  useEffect(() => {
+    if (data) {
+      setUser({ ...data, authorizationToken: access!, refreshToken: '' });
+    }
+  }, [data]);
 
   if (isLoading) {
     return <Spinner />;

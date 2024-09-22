@@ -6,10 +6,9 @@ import ExpenseTracker from '@/features/dashboard/components/ExpenseTracker';
 import { expensesAPI } from '@/features/expenses/api/expenses';
 // import { useMediaQuery } from 'react-responsive';
 import Layout from '@/layout/Layout';
+import { yearAndMonth } from '@/utils/yearAndMonth';
 
-const date = new Date();
-const year = String(date.getFullYear());
-const month = String(date.getMonth() + 1);
+const { year, month } = yearAndMonth();
 
 const Dashboard = () => {
   // const isDesktop = useMediaQuery({

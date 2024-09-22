@@ -14,7 +14,7 @@ const ReactLink = ({ href, ...props }: { href: string; children: ReactNode }) =>
 
   return (
     <Navigation.Link asChild active={isActive}>
-      <Link to={href} className={clsx(isActive && 'underline text-main-active', 'text-main-secondary-text')} {...props} />
+      <Link to={href} className={clsx(isActive && 'underline text-main-active font-semibold', 'text-main-secondary-text')} {...props} />
     </Navigation.Link>
   );
 };
