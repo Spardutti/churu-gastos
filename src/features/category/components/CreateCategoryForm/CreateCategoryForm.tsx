@@ -24,7 +24,10 @@ const inputs: FormInputs[] = [
 
 const schema = yup.object({
   name: yup.string().required('Category name is required'),
-  budget: yup.number().required('Category budget is required'),
+  budget: yup
+    .number()
+    .required('Category budget is required')
+    .transform((value, originalValue) => (originalValue === '' ? null : value)),
 });
 
 const CreateCategoryForm = () => {

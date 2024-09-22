@@ -1,25 +1,22 @@
 import Spinner from '@/components/spinner';
 import Table from '@/components/table';
-import { expensesAPI } from '@/features/expenses/api/expenses';
-import type { IExpense } from '@/features/expenses/types/IExpense';
+import { uniqueExpenseAPI } from '@/features/uniqueExpenses/api/uniqueExpenses';
+import type { IUniqueExpense } from '@/features/uniqueExpenses/types/IUniqueExpense';
+import { formatCurrency } from '@/utils/formatCurrency';
 import { formattedDate } from '@/utils/formatDate';
 import { yearAndMonth } from '@/utils/yearAndMonth';
 import { createColumnHelper } from '@tanstack/react-table';
 
-interface ExpenseTableProps {
-  categoryID: string;
-}
-
-const columnHelper = createColumnHelper<IExpense>();
+const columnHelper = createColumnHelper<IUniqueExpense>();
 
 const columns = [
-  columnHelper.accessor('description', {
-    header: () => <span>Description</span>,
+  columnHelper.accessor('name', {
+    header: () => <span>Name</span>,
     cell: (info) => info.getValue(),
   }),
   columnHelper.accessor('amount', {
     header: () => <span>Amount</span>,
-    cell: (info) => info.getValue(),
+    cell: (info) => formatCurrency({ amount: info.getValue() }),
   }),
   columnHelper.accessor('date', {
     header: () => <span>Date</span>,
@@ -29,9 +26,8 @@ const columns = [
 
 const { year, month } = yearAndMonth();
 
-const ExpenseTable = ({ categoryID }: ExpenseTableProps) => {
-  const { data: expenses, isPending } = expensesAPI.useGetExpenses({
-    categoryID,
+const UniqueExpenseTable = () => {
+  const { data: expenses, isPending } = uniqueExpenseAPI.useGetUniqueExpenses({
     year,
     month,
   });
@@ -46,4 +42,4 @@ const ExpenseTable = ({ categoryID }: ExpenseTableProps) => {
   );
 };
 
-export default ExpenseTable;
+export default UniqueExpenseTable;

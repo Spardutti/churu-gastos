@@ -8,6 +8,7 @@ const Dashboard = lazy(() => import('@/routes/Dashboard'));
 const SignupPage = lazy(() => import('@/features/user/components/Signup/Signup'));
 const Login = lazy(() => import('@/features/user/components/Login/Login'));
 const Category = lazy(() => import('@/routes/Category'));
+const Extras = lazy(() => import('@/routes/Extras'));
 
 const App = () => {
   const router = createBrowserRouter([
@@ -50,6 +51,16 @@ const App = () => {
         <LazyComponent>
           <ProtectedRoute>
             <Category />
+          </ProtectedRoute>
+        </LazyComponent>
+      ),
+    },
+    {
+      path: routes.EXTRAS(),
+      element: (
+        <LazyComponent>
+          <ProtectedRoute>
+            <Extras />
           </ProtectedRoute>
         </LazyComponent>
       ),
