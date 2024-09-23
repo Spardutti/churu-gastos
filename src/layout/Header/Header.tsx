@@ -12,6 +12,10 @@ const navItems: INavItems[] = [
     label: 'Extras',
     href: routes.EXTRAS(),
   },
+  {
+    label: 'Cards',
+    href: routes.CARDS(),
+  },
 ];
 
 const Header = () => {
