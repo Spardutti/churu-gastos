@@ -8,6 +8,7 @@ import Spinner from '@/components/spinner';
 import { ArrowLeftIcon, TrashIcon } from '@radix-ui/react-icons';
 import Button from '@/components/button';
 import ExpenseTable from '@/features/expenses/components/ExpenseTable';
+import { useMemo } from 'react';
 
 const Category = () => {
   const { categoryID } = useParams();
@@ -27,6 +28,13 @@ const Category = () => {
     await deleteCategory({ categoryID: categoryID! });
     navigate(-1);
   };
+
+  const monthlyExpense = useMemo(() => {
+    if (!expenses || expenses?.data.length === 0) return 0;
+    return expenses.data.reduce((acc, expense) => {
+      return acc + Number(expense.amount);
+    }, 0);
+  }, [expenses]);
 
   if (!category || isPending) {
     return (
@@ -60,7 +68,7 @@ const Category = () => {
         <ExpenseTracker
           budgetLabel="Budget"
           expensesLabel="Expenses"
-          expenses={expenses?.data}
+          expenses={monthlyExpense}
           budget={category.data.budget || 0}
         />
         <CreateExpenseForm categoryID={categoryID!} />

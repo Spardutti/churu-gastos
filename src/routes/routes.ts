@@ -7,5 +7,6 @@ const routes = {
   INSIGHTS: () => '/insights',
   CATEGORY: ({ categoryID = ':categoryID' }: { categoryID: string }) => `/category/${categoryID}`,
   EXTRAS: () => '/extras',
+  CARDS: () => '/cards',
 };
 export default routes;

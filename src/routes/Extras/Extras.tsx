@@ -25,7 +25,7 @@ const Extras = () => {
       <div className="flex items-center flex-col gap-10">
         <div className="lg:w-44 flex justify-center">
           <Card>
-            <div className="flex flex-col gap-2 items-center lg:min-w-44">
+            <div className="flex flex-col gap-2 items-center min-w-44">
               <p>Extras</p>
               <p className="text-white font-bold">{formatCurrency({ amount: totalExtrasExpenses })}</p>
             </div>

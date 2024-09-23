@@ -7,6 +7,7 @@ import { expensesAPI } from '@/features/expenses/api/expenses';
 // import { useMediaQuery } from 'react-responsive';
 import Layout from '@/layout/Layout';
 import { yearAndMonth } from '@/utils/yearAndMonth';
+import { useMemo } from 'react';
 
 const { year, month } = yearAndMonth();
 
@@ -19,11 +20,18 @@ const Dashboard = () => {
 
   const { data: categories } = categoriesAPI.useGetCategories({ year, month });
 
+  const monthlyExpense = useMemo(() => {
+    if (!expenses) return 0;
+    return expenses.data.reduce((acc, expense) => {
+      return acc + Number(expense.amount);
+    }, 0);
+  }, [expenses]);
+
   return (
     <Layout>
       <div className="flex flex-col gap-10">
         <ExpenseTracker
-          expenses={expenses?.data}
+          expenses={monthlyExpense}
           expensesLabel="Monthly Expenses"
           budgetLabel="Monthly Budget"
           budget={categories?.monthly_budget || 0}
