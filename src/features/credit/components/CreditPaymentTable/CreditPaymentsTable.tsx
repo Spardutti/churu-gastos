@@ -1,22 +1,20 @@
 import Spinner from '@/components/spinner';
 import Table from '@/components/table';
-import { cardPaymentAPI } from '@/features/cardPayments/api/cardPayments';
-import type { ICardPayment } from '@/features/cardPayments/types/ICardPayment';
+import { creditPaymentAPI } from '@/features/credit/api/creditPayment';
+import type { ICreditPayment } from '@/features/credit/types/ICreditPayment';
+
 import { formatCurrency } from '@/utils/formatCurrency';
 import { formattedDate } from '@/utils/formatDate';
 import { createColumnHelper } from '@tanstack/react-table';
 
-const columnHelper = createColumnHelper<ICardPayment>();
+const columnHelper = createColumnHelper<ICreditPayment>();
 
 const columns = [
   columnHelper.accessor('description', {
     header: () => <span>Description</span>,
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor('total_amount', {
-    header: () => <span>Total Amount</span>,
-    cell: (info) => formatCurrency({ amount: info.getValue() }),
-  }),
+
   columnHelper.accessor('next_payment_date', {
     header: () => <span>Next Payment</span>,
     cell: (info) => formattedDate(info.getValue()),
@@ -33,19 +31,33 @@ const columns = [
     header: () => <span>Per Month</span>,
     cell: (info) => formatCurrency({ amount: info.getValue() }),
   }),
+  columnHelper.accessor('is_payment_complete', {
+    header: () => <span>Status</span>,
+    cell: (info) => {
+      const status = info.getValue();
+      if (status) {
+        return <span className="text-green-500">Completed</span>;
+      } else {
+        return <span className="text-red-500">Pending</span>;
+      }
+    },
+  }),
 ];
 
-const CreditCardPaymentsTable = () => {
-  const { data: cardPayments, isPending } = cardPaymentAPI.useGetCardPayments();
+interface CreditPaymentsTableProps {
+  creditPayments: ICreditPayment[];
+  isPending: boolean;
+}
 
+const CreditPaymentsTable = ({ creditPayments, isPending }: CreditPaymentsTableProps) => {
   if (isPending) {
     return <Spinner />;
   }
   return (
-    <div className="flex justify-center">
-      <Table data={cardPayments!.data!} columns={columns} sortBy="next_payment_date" />
+    <div className="flex md:justify-center">
+      <Table data={creditPayments} columns={columns} sortBy="next_payment_date" />
     </div>
   );
 };
 
-export default CreditCardPaymentsTable;
+export default CreditPaymentsTable;

@@ -1,5 +1,4 @@
 interface BaseInput {
-  value: string | number | boolean;
   label?: string;
   name: string;
   placeholder?: string;
@@ -13,6 +12,7 @@ interface NumberInput extends BaseInput {
 
 interface TextOrFileInput extends BaseInput {
   inputType: 'text' | 'file' | 'password';
+  value: string;
 }
 
 interface CheckboxInput extends BaseInput {
@@ -22,6 +22,7 @@ interface CheckboxInput extends BaseInput {
 
 interface SelectInput extends BaseInput {
   inputType: 'select';
+  value: string;
   options: {
     value: string;
     label: string;
@@ -30,6 +31,7 @@ interface SelectInput extends BaseInput {
 
 interface DateInput extends BaseInput {
   inputType: 'date';
+  value: string;
 }
 
 export type FormInputs = TextOrFileInput | SelectInput | DateInput | NumberInput | CheckboxInput;
