@@ -1,6 +1,5 @@
 import Spinner from '@/components/spinner';
 import Table from '@/components/table';
-import { creditPaymentAPI } from '@/features/credit/api/creditPayment';
 import type { ICreditPayment } from '@/features/credit/types/ICreditPayment';
 
 import { formatCurrency } from '@/utils/formatCurrency';
