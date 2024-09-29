@@ -4,6 +4,7 @@ import Categories from '@/features/category/components/Categories';
 import CreateCategoryForm from '@/features/category/components/CreateCategoryForm/CreateCategoryForm';
 import ExpenseTracker from '@/features/dashboard/components/ExpenseTracker';
 import { expensesAPI } from '@/features/expenses/api/expenses';
+import MonthSelector from '@/features/month/components/MonthSelector';
 // import { useMediaQuery } from 'react-responsive';
 import Layout from '@/layout/Layout';
 import { yearAndMonth } from '@/utils/yearAndMonth';
@@ -29,6 +30,7 @@ const Dashboard = () => {
 
   return (
     <Layout>
+      <MonthSelector />
       <div className="flex flex-col gap-10">
         <ExpenseTracker
           expenses={monthlyExpense}
