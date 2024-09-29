@@ -5,8 +5,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface IParams {
   ID?: string;
-  year: number | null;
-  month: number | null;
+  year?: number | null;
+  month?: number | null;
   categoryID?: string;
 }
 

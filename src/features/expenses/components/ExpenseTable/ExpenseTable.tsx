@@ -2,8 +2,8 @@ import Spinner from '@/components/spinner';
 import Table from '@/components/table';
 import { expensesAPI } from '@/features/expenses/api/expenses';
 import type { IExpense } from '@/features/expenses/types/IExpense';
+import useDateSelector from '@/features/month/hooks/useDateSelector';
 import { formattedDate } from '@/utils/formatDate';
-import { yearAndMonth } from '@/utils/yearAndMonth';
 import { createColumnHelper } from '@tanstack/react-table';
 
 interface ExpenseTableProps {
@@ -27,13 +27,12 @@ const columns = [
   }),
 ];
 
-const { year, month } = yearAndMonth();
-
 const ExpenseTable = ({ categoryID }: ExpenseTableProps) => {
+  const { activeDate } = useDateSelector();
   const { data: expenses, isPending } = expensesAPI.useGetExpenses({
     categoryID,
-    year,
-    month,
+    year: activeDate.year,
+    month: activeDate.month,
   });
 
   if (isPending) {

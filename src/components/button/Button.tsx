@@ -14,7 +14,7 @@ interface TextButtonProps extends BaseButtonProps {
   text: string;
   prependIcon?: ReactNode;
   isIconOnly?: never;
-  icon: never;
+  icon?: never;
 }
 
 interface IconButtonProps extends BaseButtonProps {
