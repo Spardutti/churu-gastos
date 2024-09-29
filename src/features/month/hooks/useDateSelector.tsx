@@ -22,30 +22,37 @@ const months: Record<string, number> = {
   December: 11,
 };
 
-const useSetMonth = () => {
-  const [activeDate, setActiveDate] = useState<{ month: string; year: string }>({
-    month: '',
-    year: '',
-  });
+const useDateSelector = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [activeDate, setActiveDate] = useState<{ month: number | null; year: number | null }>({
+    month: null,
+    year: null,
+  });
+  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
 
-  const setMonth = ({ increment, decrement }: IParams) => {
+  const updateActiveDate = () => {
     const currentMonth = searchParams.get('month');
     const currentYear = searchParams.get('year');
 
-    const isValidMonth = currentMonth && months[currentMonth] !== undefined;
-    const isValidYear = currentYear && !isNaN(Number(currentYear));
+    if (currentMonth && currentYear) {
+      const monthNumber = months[currentMonth];
+      if (monthNumber !== undefined) {
+        setActiveDate({ month: monthNumber + 1, year: Number(currentYear) });
+        setSelectedMonth(currentMonth);
+      }
+    }
+  };
 
+  const setMonth = ({ increment, decrement }: IParams) => {
     let baseDate: dayjs.Dayjs;
 
-    if (isValidMonth && isValidYear) {
-      baseDate = dayjs().set('month', months[currentMonth!]).set('year', Number(currentYear));
+    const currentMonth = searchParams.get('month');
+    const currentYear = searchParams.get('year');
+
+    if (currentMonth && currentYear && months[currentMonth] !== undefined) {
+      baseDate = dayjs().set('month', months[currentMonth]).set('year', Number(currentYear));
     } else {
-      // Fallback to the current date
       baseDate = dayjs();
-      searchParams.set('month', baseDate.format('MMMM'));
-      searchParams.set('year', baseDate.format('YYYY'));
-      setSearchParams(searchParams);
     }
 
     if (increment) {
@@ -57,17 +64,21 @@ const useSetMonth = () => {
     searchParams.set('month', baseDate.format('MMMM'));
     searchParams.set('year', baseDate.format('YYYY'));
     setSearchParams(searchParams);
-    setActiveDate({ month: baseDate.format('MMMM'), year: baseDate.format('YYYY') });
   };
 
   useEffect(() => {
+    updateActiveDate();
+  }, [searchParams]);
+
+  useEffect(() => {
     setMonth({});
-  }, [location.pathname]);
+  }, []);
 
   return {
     setActiveMonth: setMonth,
     activeDate,
+    selectedMonth,
   };
 };
 
-export default useSetMonth;
+export default useDateSelector;

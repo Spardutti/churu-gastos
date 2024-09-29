@@ -1,9 +1,9 @@
 import Button from '@/components/button/Button';
-import useSetMonth from '@/features/month/hooks/useSetMonth';
+import useDateSelector from '@/features/month/hooks/useDateSelector';
 import { ArrowLeftIcon, ArrowRightIcon } from '@radix-ui/react-icons';
 
 const MonthSelector = () => {
-  const { setActiveMonth, activeDate } = useSetMonth();
+  const { setActiveMonth, selectedMonth } = useDateSelector();
 
   return (
     <div className="flex gap-4 items-center justify-center mx-auto">
@@ -14,7 +14,7 @@ const MonthSelector = () => {
         icon={<ArrowLeftIcon />}
         onClick={() => setActiveMonth({ decrement: true })}
       />
-      <p className="w-[80px] text-center">{activeDate.month}</p>
+      <p className="w-[80px] text-center">{selectedMonth}</p>
       <Button
         type="button"
         variant="secondary"

@@ -2,16 +2,20 @@ import Card from '@/components/card';
 import Spinner from '@/components/spinner';
 import { categoriesAPI } from '@/features/category/api/categories';
 import type { ICategory } from '@/features/category/types/ICategory';
+import useDateSelector from '@/features/month/hooks/useDateSelector';
 import routes from '@/routes/routes';
-import { yearAndMonth } from '@/utils/yearAndMonth';
 import { useNavigate } from 'react-router-dom';
-
-const { year, month } = yearAndMonth();
 
 const Categories = () => {
   const navigate = useNavigate();
 
-  const { data: categories, isPending } = categoriesAPI.useGetCategories({ year, month });
+  const { activeDate } = useDateSelector();
+
+  const { data: categories, isPending } = categoriesAPI.useGetCategories({
+    year: activeDate.year,
+    month: activeDate.month,
+  });
+  console.log('categories:', categories);
 
   const onCategoryClick = (ID: string) => {
     navigate(routes.CATEGORY({ categoryID: ID }));

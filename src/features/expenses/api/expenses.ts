@@ -5,8 +5,8 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 interface IParams {
   ID?: string;
-  year?: string;
-  month?: string;
+  year: number | null;
+  month: number | null;
   categoryID?: string;
 }
 
@@ -40,7 +40,13 @@ export const expensesAPI = {
     categoryID,
     ID,
     enabled = true,
-  }: { year?: string; month?: string; ID?: string; enabled?: boolean; categoryID?: string } = {}) =>
+  }: {
+    year: number | null;
+    month: number | null;
+    ID?: string;
+    enabled?: boolean;
+    categoryID?: string;
+  }) =>
     useQuery({
       queryFn: () =>
         axiosHelper<{ data: IExpense[] }>({ method: 'get', url: expenseURL({ ID, year, month, categoryID }) }),

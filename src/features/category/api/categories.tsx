@@ -11,8 +11,8 @@ interface IBody {
 }
 
 interface IParams {
-  year: string;
-  month: string;
+  year: number | null;
+  month: number | null;
 }
 
 export const categoriesAPI = {
@@ -24,6 +24,7 @@ export const categoriesAPI = {
           method: 'get',
           url: `/categories/?year=${year}&month=${month}`,
         }),
+      enabled: !!year && !!month,
     }),
 
   useGetCategory: ({ categoryID }: { categoryID: string }) =>
