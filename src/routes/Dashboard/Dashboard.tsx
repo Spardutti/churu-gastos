@@ -4,21 +4,22 @@ import Categories from '@/features/category/components/Categories';
 import CreateCategoryForm from '@/features/category/components/CreateCategoryForm/CreateCategoryForm';
 import ExpenseTracker from '@/features/dashboard/components/ExpenseTracker';
 import { expensesAPI } from '@/features/expenses/api/expenses';
+import MonthSelector from '@/features/month/components/MonthSelector';
+import useDateSelector from '@/features/month/hooks/useDateSelector';
 // import { useMediaQuery } from 'react-responsive';
 import Layout from '@/layout/Layout';
-import { yearAndMonth } from '@/utils/yearAndMonth';
 import { useMemo } from 'react';
-
-const { year, month } = yearAndMonth();
 
 const Dashboard = () => {
   // const isDesktop = useMediaQuery({
   //   query: '(min-width: 875px)',
   // });
 
-  const { data: expenses } = expensesAPI.useGetExpenses({ year, month });
+  const { activeDate } = useDateSelector();
 
-  const { data: categories } = categoriesAPI.useGetCategories({ year, month });
+  const { data: expenses } = expensesAPI.useGetExpenses({ year: activeDate.year, month: activeDate.month });
+
+  const { data: categories } = categoriesAPI.useGetCategories({ year: activeDate.year, month: activeDate.month });
 
   const monthlyExpense = useMemo(() => {
     if (!expenses) return 0;
@@ -29,6 +30,7 @@ const Dashboard = () => {
 
   return (
     <Layout>
+      <MonthSelector />
       <div className="flex flex-col gap-10">
         <ExpenseTracker
           expenses={monthlyExpense}

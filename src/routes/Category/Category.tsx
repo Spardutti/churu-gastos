@@ -9,14 +9,17 @@ import { ArrowLeftIcon, TrashIcon } from '@radix-ui/react-icons';
 import Button from '@/components/button';
 import ExpenseTable from '@/features/expenses/components/ExpenseTable';
 import { useMemo } from 'react';
+import useDateSelector from '@/features/month/hooks/useDateSelector';
 
 const Category = () => {
   const { categoryID } = useParams();
   const navigate = useNavigate();
 
+  const { activeDate } = useDateSelector();
+
   const { data: category, isPending } = categoriesAPI.useGetCategory({ categoryID: categoryID! });
 
-  const { data: expenses } = expensesAPI.useGetExpenses({ year: '2024', month: '9', categoryID });
+  const { data: expenses } = expensesAPI.useGetExpenses({ year: activeDate.year, month: activeDate.month, categoryID });
 
   const { mutateAsync: deleteCategory, isPending: isDeleting } = categoriesAPI.useDeleteCategory();
 
