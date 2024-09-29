@@ -15,7 +15,6 @@ const Categories = () => {
     year: activeDate.year,
     month: activeDate.month,
   });
-  console.log('categories:', categories);
 
   const onCategoryClick = (ID: string) => {
     navigate(routes.CATEGORY({ categoryID: ID }));
@@ -27,6 +26,7 @@ const Categories = () => {
 
   return (
     <div className="flex flex-wrap gap-4 justify-center">
+      {categories?.data?.length === 0 && <p className="text-center">No categories found</p>}
       {categories?.data?.map((category: ICategory, index) => (
         <div key={category.name + index} className="min-w-44 flex-shrink-0">
           <Card onClick={() => onCategoryClick(category.id!)}>
