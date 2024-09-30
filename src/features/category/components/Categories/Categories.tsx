@@ -3,11 +3,11 @@ import Spinner from '@/components/spinner';
 import { categoriesAPI } from '@/features/category/api/categories';
 import type { ICategory } from '@/features/category/types/ICategory';
 import useDateSelector from '@/features/month/hooks/useDateSelector';
+import useNavigateWithParams from '@/hooks/useNavigateWithParams';
 import routes from '@/routes/routes';
-import { useNavigate } from 'react-router-dom';
 
 const Categories = () => {
-  const navigate = useNavigate();
+  const onNavigate = useNavigateWithParams();
 
   const { activeDate } = useDateSelector();
 
@@ -17,7 +17,9 @@ const Categories = () => {
   });
 
   const onCategoryClick = (ID: string) => {
-    navigate(routes.CATEGORY({ categoryID: ID }));
+    onNavigate({
+      pathname: routes.CATEGORY({ categoryID: ID }),
+    });
   };
 
   if (isPending) {

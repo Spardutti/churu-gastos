@@ -5,6 +5,7 @@ import Heading from '@/components/heading';
 import type { ICreditPayment } from '@/features/credit/types/ICreditPayment';
 import { creditPaymentAPI } from '@/features/credit/api/creditPayment';
 import type { FormInputs } from '@/components/form/types';
+import dayjs from 'dayjs';
 
 const inputs: FormInputs[] = [
   {
@@ -20,14 +21,29 @@ const inputs: FormInputs[] = [
     inputType: 'number',
     value: 0,
     placeholder: 'amount',
+    min: 0,
   },
 
   {
     name: 'next_payment_date',
     label: 'Next payment',
-    inputType: 'date',
+    inputType: 'select',
     value: '',
     placeholder: 'next payment',
+    options: [
+      { value: 0, label: 'January' },
+      { value: 1, label: 'February' },
+      { value: 2, label: 'March' },
+      { value: 3, label: 'April' },
+      { value: 4, label: 'May' },
+      { value: 5, label: 'June' },
+      { value: 6, label: 'July' },
+      { value: 7, label: 'August' },
+      { value: 8, label: 'September' },
+      { value: 9, label: 'October' },
+      { value: 10, label: 'November' },
+      { value: 11, label: 'December' },
+    ],
   },
   {
     name: 'number_of_payments',
@@ -35,6 +51,7 @@ const inputs: FormInputs[] = [
     inputType: 'number',
     value: 0,
     placeholder: 'payments to be done',
+    min: 0,
   },
 ];
 
@@ -44,10 +61,7 @@ const schema = yup.object({
     .number()
     .transform((value, originalValue) => (originalValue === '' ? null : value))
     .required('amount is required'),
-  next_payment_date: yup
-    .date()
-    .transform((value, originalValue) => (originalValue === '' ? null : value))
-    .required('date is required'),
+  next_payment_date: yup.string().required('date is required'),
   number_of_payments: yup
     .number()
     .transform((value, originalValue) => (originalValue === '' ? null : value))
@@ -58,7 +72,13 @@ const CreateCreditPaymentForm = () => {
   const { mutateAsync: createPayment, isPending } = creditPaymentAPI.useCreateCreditPayment();
 
   const onSubmit = async (data: ICreditPayment) => {
-    await createPayment(data);
+    const currentYear = dayjs().year();
+
+    const month = Number(data.next_payment_date) + 1;
+
+    const date = new Date(`${currentYear}-${month}-01`);
+
+    await createPayment({ ...data, next_payment_date: date });
   };
 
   return (

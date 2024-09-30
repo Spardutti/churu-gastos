@@ -3,11 +3,12 @@ import Button from '@/components/button';
 import type { FormInputs } from '@/components/form/types';
 import Select from '@/components/input/Select';
 import Textfield from '@/components/input/Textfield';
-import type { Path, FieldValues, UseFormReturn } from 'react-hook-form';
+import type { Path, FieldValues, UseFormReturn, DefaultValues } from 'react-hook-form';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { AnyObjectSchema } from 'yup';
 import clsx from 'clsx';
+import Checkbox from '@/components/input/Checkbox';
 
 interface FormProps<T extends FieldValues> {
   inputs: FormInputs[];
@@ -29,12 +30,26 @@ const Form = <T extends FieldValues>({
   schema,
   className,
 }: FormProps<T>) => {
+  const formDefaultValues = inputs?.reduce((acc: { [key: string]: string | boolean }, input) => {
+    if (input.inputType === 'checkbox') {
+      return {
+        ...acc,
+        [input.name]: false,
+      };
+    }
+    acc[input.name] = '';
+
+    return acc;
+  }, {});
   const {
     control,
     handleSubmit,
     reset,
     formState: { errors },
-  }: UseFormReturn<T> = useForm<T>({ resolver: yupResolver(schema) });
+  }: UseFormReturn<T> = useForm<T>({
+    resolver: yupResolver(schema),
+    defaultValues: formDefaultValues as DefaultValues<T>,
+  });
 
   const onSubmit = async (data: T) => {
     await submit(data);
@@ -42,9 +57,9 @@ const Form = <T extends FieldValues>({
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={clsx('flex flex-grow gap-4', className)}>
+    <form onSubmit={handleSubmit(onSubmit)} className={clsx('flex flex-grow gap-4 items-center', className)}>
       {inputs.map((input, index) => {
-        const { label, name, placeholder, inputType, value } = input;
+        const { label, name, placeholder, inputType, min } = input;
 
         if (inputType === 'select') {
           return (
@@ -57,7 +72,8 @@ const Form = <T extends FieldValues>({
                     label={label}
                     options={input.options}
                     placeholder={placeholder}
-                    onChange={(e) => field.onChange(e)}
+                    value={field.value}
+                    onChange={(selectedValue) => field.onChange(selectedValue)}
                   />
                 )}
               />
@@ -73,18 +89,12 @@ const Form = <T extends FieldValues>({
                 name={name as Path<T>}
                 control={control}
                 render={({ field }) => (
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      id={name}
-                      className="h-4 w-4 text-primary-main border-gray-300 rounded"
-                      onChange={(e) => field.onChange(e.target.checked)}
-                      defaultChecked={value}
-                    />
-                    <label htmlFor={name} className="text-sm text-gray-900">
-                      {label}
-                    </label>
-                  </div>
+                  <Checkbox
+                    label={input.label!}
+                    defaultChecked={false}
+                    checked={field.value}
+                    onChange={(event) => field.onChange(event.target.checked)}
+                  />
                 )}
               />
               {errors[name]?.message && <p className="text-danger-main">{errors[name]?.message as React.ReactNode}</p>}
@@ -99,6 +109,7 @@ const Form = <T extends FieldValues>({
               control={control}
               render={({ field }) => (
                 <Textfield
+                  min={min}
                   type={inputType}
                   label={label}
                   value={field.value}

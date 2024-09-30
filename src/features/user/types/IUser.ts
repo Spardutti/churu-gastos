@@ -4,4 +4,5 @@ export interface IUser {
   id: string;
   email: string;
   timezone: string;
+  language: string;
 }

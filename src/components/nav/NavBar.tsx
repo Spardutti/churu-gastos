@@ -11,10 +11,16 @@ interface NavigationMenuDemoProps {
 const ReactLink = ({ href, ...props }: { href: string; children: ReactNode }) => {
   const pathname = location.pathname;
   const isActive = href === pathname;
+  const searchParams = new URLSearchParams(location.search);
+  const hrefWithParams = `${href}?${searchParams.toString()}`;
 
   return (
     <Navigation.Link asChild active={isActive}>
-      <Link to={href} className={clsx(isActive && 'underline text-main-active font-semibold', 'text-main-secondary-text')} {...props} />
+      <Link
+        to={hrefWithParams}
+        className={clsx(isActive && 'underline text-main-active font-semibold', 'text-main-secondary-text')}
+        {...props}
+      />
     </Navigation.Link>
   );
 };

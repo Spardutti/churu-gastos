@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import type { IExpense } from '@/features/expenses/types/IExpense';
 import { expensesAPI } from '@/features/expenses/api/expenses';
 import Heading from '@/components/heading';
+import useGenerateDateFromParams from '@/hooks/useGenerateDateFromParams';
 
 const inputs: FormInputs[] = [
   {
@@ -21,6 +22,12 @@ const inputs: FormInputs[] = [
     value: 0,
     placeholder: 'Enter Amount',
   },
+  {
+    name: 'is_recursive',
+    label: 'Repeat Each Month',
+    inputType: 'checkbox',
+    value: false,
+  },
 ];
 
 const schema = yup.object({
@@ -28,7 +35,7 @@ const schema = yup.object({
     .number()
     .nullable()
     .transform((value, originalValue) => (originalValue === '' ? null : value))
-    .required('Amount is required')
+    .required('Amount is required'),
 });
 
 interface CreateExpenseFormProps {
@@ -37,9 +44,12 @@ interface CreateExpenseFormProps {
 
 const CreateExpenseForm = ({ categoryID }: CreateExpenseFormProps) => {
   const { mutateAsync: createExpense, isPending } = expensesAPI.useCreateExpense();
+  const generateCurrentDateFromParams = useGenerateDateFromParams();
 
   const onSubmit = async (data: IExpense) => {
-    await createExpense({ ...data, date: new Date(), category_id: categoryID });
+    const date = generateCurrentDateFromParams();
+
+    await createExpense({ ...data, date, category_id: categoryID });
   };
 
   return (

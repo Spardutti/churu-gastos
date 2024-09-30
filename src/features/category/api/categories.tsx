@@ -1,13 +1,14 @@
 import type { ICategory } from '@/features/category/types/ICategory';
 import { axiosHelper } from '@/lib/axios/axiosHelper';
 import { appendToList, updateBudget } from '@/utils/onMutationSuccess';
-import { yearAndMonth } from '@/utils/yearAndMonth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import type { Dayjs } from 'dayjs';
 
 interface IBody {
   name: string;
   id?: string;
   budget: number;
+  date: Dayjs;
 }
 
 interface IParams {
@@ -18,9 +19,9 @@ interface IParams {
 export const categoriesAPI = {
   useGetCategories: ({ year, month }: IParams) =>
     useQuery({
-      queryKey: ['categories', [year, month]],
+      queryKey: ['categories', [String(year), String(month)]],
       queryFn: () =>
-        axiosHelper<{ data: ICategory[]; monthly_budget: number }>({
+        axiosHelper<{ data: ICategory[]; monthly_budget: number; is_new_month: boolean }>({
           method: 'get',
           url: `/categories/?year=${year}&month=${month}`,
         }),
@@ -36,19 +37,18 @@ export const categoriesAPI = {
 
   useCreateCategory: () => {
     const queryClient = useQueryClient();
-    const { year, month } = yearAndMonth();
 
     return useMutation({
       mutationFn: (data: IBody) => axiosHelper<{ data: IBody }>({ method: 'post', url: '/categories/', data }),
-      onSuccess: (response) => {
+      onSuccess: (response, data) => {
         appendToList<ICategory[], ICategory>({
-          queryKey: ['categories', [year, month]],
+          queryKey: ['categories', [String(data.date.year()), String(data.date.month() + 1)]],
           queryClient,
           newItem: response.data,
         });
         updateBudget({
           queryClient,
-          queryKey: ['categories', [year, month]],
+          queryKey: ['categories', [String(data.date.year()), String(data.date.month() + 1)]],
           amount: response.data.budget,
           type: 'income',
         });

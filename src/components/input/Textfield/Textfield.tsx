@@ -4,6 +4,8 @@ interface TextfieldPropsBase {
   value: string | number | {} | [];
   type: string;
   placeholder?: string;
+  min?: number;
+  max?: number;
   onChange: (...event: any[]) => void;
 }
 
@@ -17,7 +19,7 @@ interface TextfieldWithoutLabel extends TextfieldPropsBase {
 
 type TextfieldProps = TextfieldWithLabel | TextfieldWithoutLabel;
 
-const Textfield = ({ label, value = '', type = 'text', placeholder, onChange }: TextfieldProps) => {
+const Textfield = ({ label, value = '', type = 'text', placeholder, onChange, min, max }: TextfieldProps) => {
   const today = new Date().toISOString().split('T')[0];
   return (
     <div className="flex gap-1 flex-col ">
@@ -25,11 +27,12 @@ const Textfield = ({ label, value = '', type = 'text', placeholder, onChange }: 
 
       <div>
         <input
+          max={max}
           placeholder={placeholder}
           value={value as string}
           onChange={onChange}
           type={type}
-          min={type === 'date' ? today : undefined}
+          min={type === 'date' ? today : min}
           className="bg-main-background text-main-default-text outline-none focus-within:ring placeholder:text-primary-light border border-black ring-primary-bg px-2 py-1 rounded-md  w-full"
         />
       </div>

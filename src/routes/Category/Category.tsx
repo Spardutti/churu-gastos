@@ -3,17 +3,20 @@ import ExpenseTracker from '@/features/dashboard/components/ExpenseTracker';
 import { expensesAPI } from '@/features/expenses/api/expenses';
 import CreateExpenseForm from '@/features/expenses/components/CreateExpenseForm';
 import Layout from '@/layout/Layout';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Spinner from '@/components/spinner';
 import { ArrowLeftIcon, TrashIcon } from '@radix-ui/react-icons';
 import Button from '@/components/button';
 import ExpenseTable from '@/features/expenses/components/ExpenseTable';
 import { useMemo } from 'react';
 import useDateSelector from '@/features/month/hooks/useDateSelector';
+import useNavigateWithParams from '@/hooks/useNavigateWithParams';
+import routes from '@/routes/routes';
+import MonthSelector from '@/features/month/components/MonthSelector';
 
 const Category = () => {
   const { categoryID } = useParams();
-  const navigate = useNavigate();
+  const onNavigate = useNavigateWithParams();
 
   const { activeDate } = useDateSelector();
 
@@ -24,12 +27,12 @@ const Category = () => {
   const { mutateAsync: deleteCategory, isPending: isDeleting } = categoriesAPI.useDeleteCategory();
 
   const onClick = () => {
-    navigate(-1);
+    onNavigate({ pathname: routes.DASHBOARD() });
   };
 
   const onDelete = async () => {
     await deleteCategory({ categoryID: categoryID! });
-    navigate(-1);
+    onNavigate({ pathname: routes.DASHBOARD() });
   };
 
   const monthlyExpense = useMemo(() => {
@@ -49,6 +52,7 @@ const Category = () => {
 
   return (
     <Layout>
+      <MonthSelector allowSelection={false} />
       <div className="flex flex-col gap-10">
         <div className="flex flex-grow justify-between">
           <Button
