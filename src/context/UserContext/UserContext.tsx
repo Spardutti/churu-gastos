@@ -1,4 +1,4 @@
-import type { IUser } from '@/features/user/types/user';
+import type { IUser } from '@/features/user/types/IUser';
 import type { ReactNode } from 'react';
 import { createContext, useContext, useMemo, useState } from 'react';
 

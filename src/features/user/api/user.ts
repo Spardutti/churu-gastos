@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { axiosHelper } from '@/lib/axios/axiosHelper';
-import type { IUser } from '@/features/user/types/user';
+import type { IUser } from '@/features/user/types/IUser';
 
 interface ILoginCredentials {
   email: string;
@@ -13,6 +13,7 @@ interface IProfile {
   email: string;
   id: string;
   timezone: string;
+  language: string;
 }
 
 const userUrl = ({ login, register }: { login?: boolean; register?: boolean }) => {

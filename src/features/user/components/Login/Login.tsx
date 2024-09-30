@@ -41,8 +41,8 @@ const Login = () => {
   const navigate = useNavigate();
 
   const submit = async (formData: { email: string; password: string }) => {
-    const { refresh, access, timezone, id, email } = await login(formData);
-    setUser({ authorizationToken: access, refreshToken: refresh, timezone, id, email });
+    const { refresh, access, timezone, id, email, language } = await login(formData);
+    setUser({ authorizationToken: access, refreshToken: refresh, timezone, id, email, language });
     localStorage.setItem('authorizationToken', access);
     setDefaultHeaders(access);
 

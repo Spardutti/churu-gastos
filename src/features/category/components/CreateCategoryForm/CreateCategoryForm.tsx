@@ -3,6 +3,7 @@ import Form from '@/components/form';
 import type { FormInputs } from '@/components/form/types';
 import Heading from '@/components/heading';
 import { categoriesAPI } from '@/features/category/api/categories';
+import useGenerateDateFromParams from '@/hooks/useGenerateDateFromParams';
 import * as yup from 'yup';
 
 const inputs: FormInputs[] = [
@@ -32,9 +33,11 @@ const schema = yup.object({
 
 const CreateCategoryForm = () => {
   const { mutateAsync: createCategory, isPending } = categoriesAPI.useCreateCategory();
+  const generateCurrentDateFromParams = useGenerateDateFromParams();
 
   const handleSubmit = async (data: { name: string; budget: number }) => {
-    createCategory(data);
+    const date = generateCurrentDateFromParams();
+    createCategory({ ...data, date });
   };
   return (
     <div className="flex justify-center">

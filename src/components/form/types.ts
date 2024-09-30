@@ -3,6 +3,8 @@ interface BaseInput {
   name: string;
   placeholder?: string;
   inputType: 'text' | 'file' | 'checkbox' | 'select' | 'date' | 'number' | 'password';
+  min?: number;
+  max?: number;
 }
 
 interface NumberInput extends BaseInput {
@@ -24,7 +26,7 @@ interface SelectInput extends BaseInput {
   inputType: 'select';
   value: string;
   options: {
-    value: string;
+    value: string | number;
     label: string;
   }[];
 }
