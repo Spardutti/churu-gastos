@@ -47,7 +47,6 @@ export const expensesAPI = {
     enabled?: boolean;
     categoryID?: string;
   }) => {
-    console.log(!!year && !!month);
     return useQuery({
       queryFn: () =>
         axiosHelper<{ data: IExpense[] }>({ method: 'get', url: expenseURL({ ID, year, month, categoryID }) }),

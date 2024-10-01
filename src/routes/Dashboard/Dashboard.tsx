@@ -39,7 +39,6 @@ const Dashboard = () => {
 
   const onNewMonth = async () => {
     const date = generateCurrentDateFromParams();
-    console.log('date:', date);
 
     await generateNewMonth({ date });
     refetchCategories();

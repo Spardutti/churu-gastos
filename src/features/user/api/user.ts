@@ -7,6 +7,13 @@ interface ILoginCredentials {
   password: string;
 }
 
+interface IRegisterCredentials {
+  email: string;
+  password: string;
+  language: string;
+  timezone: string;
+}
+
 interface IProfile {
   access: string;
   refresh: string;
@@ -16,35 +23,22 @@ interface IProfile {
   language: string;
 }
 
-const userUrl = ({ login, register }: { login?: boolean; register?: boolean }) => {
-  if (register) {
-    return '/register/';
-  }
-
-  if (login) {
-    return '/token/';
-  }
-
-  return '/user/';
-};
-
 export const userAPI = {
   useGetUser: () =>
     useQuery({
       queryKey: ['user'],
-      queryFn: () => axiosHelper<IUser>({ method: 'get', url: userUrl({}) }),
+      queryFn: () => axiosHelper<IUser>({ method: 'get', url: '/user/' }),
       // enabled: false,
     }),
 
   useLogin: () =>
     useMutation<IProfile, unknown, ILoginCredentials>({
-      mutationFn: (data) =>
-        axiosHelper<IProfile, unknown, ILoginCredentials>({ method: 'post', url: userUrl({ login: true }), data }),
+      mutationFn: (data) => axiosHelper<IProfile, unknown, ILoginCredentials>({ method: 'post', url: '/token/', data }),
     }),
 
   useRegister: () =>
-    useMutation<IUser, unknown, ILoginCredentials>({
+    useMutation<IUser, unknown, IRegisterCredentials>({
       mutationFn: (data) =>
-        axiosHelper<IUser, unknown, ILoginCredentials>({ method: 'post', url: userUrl({ register: true }), data }),
+        axiosHelper<IUser, unknown, IRegisterCredentials>({ method: 'post', url: '/register/', data }),
     }),
 };

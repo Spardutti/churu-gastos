@@ -15,9 +15,7 @@ interface List<Q> extends Base {
 }
 
 export const appendToList = <T, Q>({ queryKey, queryClient, newItem }: List<Q>) => {
-  console.log('queryKey:', queryKey);
   queryClient.setQueryData(queryKey, (oldData: { data: T[] }) => {
-    console.log("oldData:", oldData)
     if (!oldData?.data) return;
 
     const newData = {
