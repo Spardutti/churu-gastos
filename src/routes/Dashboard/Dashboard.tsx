@@ -1,5 +1,6 @@
 import Button from '@/components/button';
 import Heading from '@/components/heading';
+import Modal from '@/components/modal';
 import { categoriesAPI } from '@/features/category/api/categories';
 import Categories from '@/features/category/components/Categories';
 import CreateCategoryForm from '@/features/category/components/CreateCategoryForm/CreateCategoryForm';
@@ -54,7 +55,11 @@ const Dashboard = () => {
           budgetLabel="Monthly Budget"
           budget={categories?.monthly_budget || 0}
         />
-        <CreateCategoryForm />
+        <div className="flex justify-center">
+          <Modal text="Create Category" title="Create Category">
+            {({ closeModal }) => <CreateCategoryForm closeModal={closeModal} />}
+          </Modal>
+        </div>
         <div className="text-center">
           <Heading variant="h4" label="Choose a category to see the details" />
         </div>

@@ -63,7 +63,7 @@ const Form = <T extends FieldValues>({
 
         if (inputType === 'select') {
           return (
-            <div key={index + name}>
+            <div key={index + name} className='self-stretch'>
               <Controller
                 name={name as Path<T>}
                 control={control}
@@ -103,7 +103,7 @@ const Form = <T extends FieldValues>({
         }
 
         return (
-          <div key={index + name}>
+          <div className="self-stretch" key={index + name}>
             <Controller
               name={name as Path<T>}
               control={control}

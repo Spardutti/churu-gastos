@@ -1,7 +1,5 @@
-import Card from '@/components/card';
 import Form from '@/components/form';
 import * as yup from 'yup';
-import Heading from '@/components/heading';
 import type { ICreditPayment } from '@/features/credit/types/ICreditPayment';
 import { creditPaymentAPI } from '@/features/credit/api/creditPayment';
 import type { FormInputs } from '@/components/form/types';
@@ -68,7 +66,11 @@ const schema = yup.object({
     .required('payments are required'),
 });
 
-const CreateCreditPaymentForm = () => {
+interface FormProps {
+  closeModal: () => void;
+}
+
+const CreateCreditPaymentForm = ({ closeModal }: FormProps) => {
   const { mutateAsync: createPayment, isPending } = creditPaymentAPI.useCreateCreditPayment();
 
   const onSubmit = async (data: ICreditPayment) => {
@@ -79,23 +81,19 @@ const CreateCreditPaymentForm = () => {
     const date = new Date(`${currentYear}-${month}-01`);
 
     await createPayment({ ...data, next_payment_date: date });
+    closeModal();
   };
 
   return (
     <div className="flex justify-center">
-      <div className="flex flex-col gap-4 lg:flex-grow-0 flex-grow">
-        <Card>
-          <Heading label="Card Expense" variant="h5" />
-          <Form<ICreditPayment>
-            isSubmitting={isPending}
-            inputs={inputs}
-            schema={schema}
-            submitLabel="Create"
-            submit={onSubmit}
-            className="lg:flex-row flex-col"
-          />
-        </Card>
-      </div>
+      <Form<ICreditPayment>
+        isSubmitting={isPending}
+        inputs={inputs}
+        schema={schema}
+        submitLabel="Create"
+        submit={onSubmit}
+        className="flex-col"
+      />
     </div>
   );
 };
