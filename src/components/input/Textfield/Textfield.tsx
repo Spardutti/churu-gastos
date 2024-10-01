@@ -22,7 +22,7 @@ type TextfieldProps = TextfieldWithLabel | TextfieldWithoutLabel;
 const Textfield = ({ label, value = '', type = 'text', placeholder, onChange, min, max }: TextfieldProps) => {
   const today = new Date().toISOString().split('T')[0];
   return (
-    <div className="flex gap-1 flex-col ">
+    <div className="flex gap-1 flex-col">
       {label && <InputLabel text={label} />}
 
       <div>

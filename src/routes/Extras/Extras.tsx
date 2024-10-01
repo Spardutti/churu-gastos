@@ -1,4 +1,5 @@
 import Card from '@/components/card';
+import Modal from '@/components/modal';
 import MonthSelector from '@/features/month/components/MonthSelector';
 import { uniqueExpenseAPI } from '@/features/uniqueExpenses/api/uniqueExpenses';
 import CreateUniqueExpenseForm from '@/features/uniqueExpenses/components/CreateUniqueExpenseForm';
@@ -33,7 +34,9 @@ const Extras = () => {
             </div>
           </Card>
         </div>
-        <CreateUniqueExpenseForm />
+        <Modal text="Create Expense" title="Create Expense">
+          {({ closeModal }) => <CreateUniqueExpenseForm closeModal={closeModal} />}
+        </Modal>
         <UniqueExpenseTable />
       </div>
     </Layout>

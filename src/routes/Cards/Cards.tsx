@@ -1,4 +1,5 @@
 import Card from '@/components/card';
+import Modal from '@/components/modal';
 import Spinner from '@/components/spinner';
 import { creditPaymentAPI } from '@/features/credit/api/creditPayment';
 import CreateCreditPaymentForm from '@/features/credit/components/CreateCreditPaymentForm';
@@ -24,7 +25,9 @@ const Cards = () => {
             </div>
           </Card>
         </div>
-        <CreateCreditPaymentForm />
+        <Modal text="Create Payment" title="Create Payment">
+          {({ closeModal }) => <CreateCreditPaymentForm closeModal={closeModal} />}
+        </Modal>
         <div className="overflow-auto w-full">
           <CreditPaymentTable creditPayments={creditPayments!.data} isPending={isPending} />
         </div>
