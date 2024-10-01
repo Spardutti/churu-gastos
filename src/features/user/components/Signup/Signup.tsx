@@ -51,8 +51,10 @@ const schema = yup
 const Signup = () => {
   const { mutateAsync: register, isPending, error } = userAPI.useRegister();
 
-  const submit = async (formData: { email: string; password: string }) => {
-    await register({ email: formData.email, password: formData.password });
+  const submit = async (formData: { email: string; password: string; language: string }) => {
+    const language = window.navigator.language;
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    await register({ email: formData.email, password: formData.password, language, timezone });
   };
 
   return (
@@ -62,7 +64,14 @@ const Signup = () => {
         <Heading label="Create your account" variant="h3" />
       </div>
       <Card className="max-w-[600px] mx-auto">
-        <Form inputs={inputs} submit={submit} submitLabel="Sign up" isSubmitting={isPending} schema={schema} className='flex-col'/>
+        <Form
+          inputs={inputs}
+          submit={submit}
+          submitLabel="Sign up"
+          isSubmitting={isPending}
+          schema={schema}
+          className="flex-col"
+        />
         <p className="text-center">
           Already have an account?{' '}
           <Link className="text-main-primary-text underline" to={routes.LOGIN()}>

@@ -4,10 +4,12 @@ import Form from '@/components/form';
 import type { FormInputs } from '@/components/form/types';
 import Heading from '@/components/heading';
 import { useUserContext } from '@/context/UserContext/UserContext';
+import useDateSelector from '@/features/month/hooks/useDateSelector';
 import { userAPI } from '@/features/user/api/user';
+import useNavigateWithParams from '@/hooks/useNavigateWithParams';
 import { setDefaultHeaders } from '@/lib/axios/config';
 import routes from '@/routes/routes';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 
 const inputs: FormInputs[] = [
@@ -36,17 +38,16 @@ const schema = yup
 
 const Login = () => {
   const { mutateAsync: login, isPending, error } = userAPI.useLogin();
+  useDateSelector();
+  const onNavigate = useNavigateWithParams();
   const { setUser } = useUserContext();
-
-  const navigate = useNavigate();
 
   const submit = async (formData: { email: string; password: string }) => {
     const { refresh, access, timezone, id, email, language } = await login(formData);
     setUser({ authorizationToken: access, refreshToken: refresh, timezone, id, email, language });
     localStorage.setItem('authorizationToken', access);
     setDefaultHeaders(access);
-
-    navigate(routes.DASHBOARD());
+    onNavigate({ pathname: routes.DASHBOARD() });
   };
 
   return (
