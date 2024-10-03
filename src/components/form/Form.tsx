@@ -30,7 +30,7 @@ const Form = <T extends FieldValues>({
   schema,
   className,
 }: FormProps<T>) => {
-  const formDefaultValues = inputs?.reduce((acc: { [key: string]: string | boolean }, input) => {
+  const formDefaultValues = inputs?.reduce((acc: { [key: string]: string | boolean | number }, input) => {
     if (input.inputType === 'checkbox') {
       return {
         ...acc,
