@@ -15,7 +15,7 @@ const inputs: FormInputs[] = [
   {
     name: 'amount',
     label: 'Amount',
-    inputType: 'number',
+    inputType: 'currency',
     value: 0,
     placeholder: 'Enter Amount',
   },

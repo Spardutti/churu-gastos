@@ -16,7 +16,7 @@ const inputs: FormInputs[] = [
   {
     name: 'monthly_payment_amount',
     label: 'Monthly Amount ',
-    inputType: 'number',
+    inputType: 'currency',
     value: 0,
     placeholder: 'amount',
     min: 0,

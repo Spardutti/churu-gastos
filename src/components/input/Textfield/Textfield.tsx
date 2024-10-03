@@ -1,4 +1,5 @@
 import InputLabel from '@/components/input/InputLabel';
+import { formatCurrency } from '@/utils/formatCurrency';
 
 interface TextfieldPropsBase {
   value: string | number | {} | [];
@@ -21,6 +22,17 @@ type TextfieldProps = TextfieldWithLabel | TextfieldWithoutLabel;
 
 const Textfield = ({ label, value = '', type = 'text', placeholder, onChange, min, max }: TextfieldProps) => {
   const today = new Date().toISOString().split('T')[0];
+
+  const formatValue = (value: string | number | {} | []) => {
+    if (type === 'currency') {
+      const amount = parseFloat(String(value).replace(/[^0-9.-]+/g, ''));
+      return formatCurrency({ amount });
+    }
+
+    if (type === 'number') return Number(value);
+    return value as string;
+  };
+
   return (
     <div className="flex gap-1 flex-col">
       {label && <InputLabel text={label} />}
@@ -29,7 +41,7 @@ const Textfield = ({ label, value = '', type = 'text', placeholder, onChange, mi
         <input
           max={max}
           placeholder={placeholder}
-          value={value as string}
+          value={formatValue(value)}
           onChange={onChange}
           type={type}
           min={type === 'date' ? today : min}

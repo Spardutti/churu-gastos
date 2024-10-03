@@ -17,7 +17,7 @@ const inputs: FormInputs[] = [
     label: 'Category Budget',
     name: 'budget',
     placeholder: 'Category Budget',
-    inputType: 'number',
+    inputType: 'currency',
   },
 ];
 

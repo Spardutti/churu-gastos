@@ -37,6 +37,13 @@ const Form = <T extends FieldValues>({
         [input.name]: false,
       };
     }
+
+    if (input.inputType === 'number' || input.inputType === 'currency') {
+      return {
+        ...acc,
+        [input.name]: 0,
+      };
+    }
     acc[input.name] = '';
 
     return acc;
@@ -63,7 +70,7 @@ const Form = <T extends FieldValues>({
 
         if (inputType === 'select') {
           return (
-            <div key={index + name} className='self-stretch'>
+            <div key={index + name} className="self-stretch">
               <Controller
                 name={name as Path<T>}
                 control={control}

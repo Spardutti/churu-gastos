@@ -2,13 +2,13 @@ interface BaseInput {
   label?: string;
   name: string;
   placeholder?: string;
-  inputType: 'text' | 'file' | 'checkbox' | 'select' | 'date' | 'number' | 'password';
+  inputType: 'text' | 'file' | 'checkbox' | 'select' | 'date' | 'number' | 'password' | 'currency';
   min?: number;
   max?: number;
 }
 
 interface NumberInput extends BaseInput {
-  inputType: 'number';
+  inputType: 'number' | 'currency';
   value: number;
 }
 

@@ -13,7 +13,7 @@ const Modal = ({ text, title, children }: ModalProps) => {
 
   return (
     <>
-      <ModalMantine.Root opened={opened} onClose={close}>
+      <ModalMantine.Root opened={opened} onClose={close} centered>
         <ModalMantine.Overlay className="opacity-10" />
 
         <ModalMantine.Content>

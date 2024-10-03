@@ -17,6 +17,7 @@ const Table = <TData,>({ columns, data, sortBy }: TableProps<TData>) => {
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     onSortingChange: setSorting,
+
     state: {
       sorting,
     },
@@ -25,14 +26,14 @@ const Table = <TData,>({ columns, data, sortBy }: TableProps<TData>) => {
 
   return (
     <div className="px-4 py-1 rounded-md">
-      <table>
-        <thead className="border-b border-main-card-border">
+      <table className="">
+        <thead className="border-b border-main-card-border ">
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th
                   className={clsx(
-                    'text-start text-main-primary-text',
+                    'text-start text-main-primary-text whitespace-nowrap pr-4',
                     header.column.getCanSort() ? 'cursor-pointer select-none' : '',
                   )}
                   key={header.id}
@@ -46,6 +47,13 @@ const Table = <TData,>({ columns, data, sortBy }: TableProps<TData>) => {
           ))}
         </thead>
         <tbody>
+          {data.length === 0 && (
+            <tr>
+              <td colSpan={columns.length} className="text-center text-main-secondary-text">
+                No information yet
+              </td>
+            </tr>
+          )}
           {table.getRowModel().rows.map((row, index) => (
             <tr
               key={row.id}
@@ -55,7 +63,9 @@ const Table = <TData,>({ columns, data, sortBy }: TableProps<TData>) => {
               )}
             >
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                <td className="" key={cell.id}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </td>
               ))}
             </tr>
           ))}

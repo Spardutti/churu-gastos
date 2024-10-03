@@ -13,6 +13,7 @@ import useDateSelector from '@/features/month/hooks/useDateSelector';
 import useNavigateWithParams from '@/hooks/useNavigateWithParams';
 import routes from '@/routes/routes';
 import MonthSelector from '@/features/month/components/MonthSelector';
+import Modal from '@/components/modal';
 
 const Category = () => {
   const { categoryID } = useParams();
@@ -78,7 +79,11 @@ const Category = () => {
           expenses={monthlyExpense}
           budget={category.data.budget || 0}
         />
-        <CreateExpenseForm categoryID={categoryID!} />
+        <div className="flex justify-center">
+          <Modal text="Create Expense" title="Create Expense">
+            {({ closeModal }) => <CreateExpenseForm categoryID={categoryID!} closeModal={closeModal} />}
+          </Modal>
+        </div>
 
         <ExpenseTable categoryID={categoryID!} />
       </div>
