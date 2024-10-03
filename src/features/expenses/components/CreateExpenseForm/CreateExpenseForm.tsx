@@ -1,10 +1,8 @@
-import Card from '@/components/card';
 import Form from '@/components/form';
 import type { FormInputs } from '@/components/form/types';
 import * as yup from 'yup';
 import type { IExpense } from '@/features/expenses/types/IExpense';
 import { expensesAPI } from '@/features/expenses/api/expenses';
-import Heading from '@/components/heading';
 import useGenerateDateFromParams from '@/hooks/useGenerateDateFromParams';
 
 const inputs: FormInputs[] = [
@@ -18,7 +16,7 @@ const inputs: FormInputs[] = [
   {
     name: 'amount',
     label: 'Amount',
-    inputType: 'number',
+    inputType: 'currency',
     value: 0,
     placeholder: 'Enter Amount',
   },
@@ -40,9 +38,10 @@ const schema = yup.object({
 
 interface CreateExpenseFormProps {
   categoryID: string;
+  closeModal?: () => void;
 }
 
-const CreateExpenseForm = ({ categoryID }: CreateExpenseFormProps) => {
+const CreateExpenseForm = ({ categoryID, closeModal }: CreateExpenseFormProps) => {
   const { mutateAsync: createExpense, isPending } = expensesAPI.useCreateExpense();
   const generateCurrentDateFromParams = useGenerateDateFromParams();
 
@@ -50,23 +49,21 @@ const CreateExpenseForm = ({ categoryID }: CreateExpenseFormProps) => {
     const date = generateCurrentDateFromParams();
 
     await createExpense({ ...data, date, category_id: categoryID });
+    if (closeModal) {
+      closeModal();
+    }
   };
 
   return (
     <div className="flex justify-center">
-      <div className="flex flex-col gap-4 lg:flex-grow-0 flex-grow">
-        <Card>
-          <Heading label="Create Expense" variant="h5" />
-          <Form<IExpense>
-            isSubmitting={isPending}
-            inputs={inputs}
-            schema={schema}
-            submitLabel="Create"
-            submit={onSubmit}
-            className="lg:flex-row flex-col"
-          />
-        </Card>
-      </div>
+      <Form<IExpense>
+        isSubmitting={isPending}
+        inputs={inputs}
+        schema={schema}
+        submitLabel="Create"
+        submit={onSubmit}
+        className="flex-col"
+      />
     </div>
   );
 };

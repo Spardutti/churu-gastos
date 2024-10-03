@@ -30,11 +30,18 @@ const Form = <T extends FieldValues>({
   schema,
   className,
 }: FormProps<T>) => {
-  const formDefaultValues = inputs?.reduce((acc: { [key: string]: string | boolean }, input) => {
+  const formDefaultValues = inputs?.reduce((acc: { [key: string]: string | boolean | number }, input) => {
     if (input.inputType === 'checkbox') {
       return {
         ...acc,
         [input.name]: false,
+      };
+    }
+
+    if (input.inputType === 'number' || input.inputType === 'currency') {
+      return {
+        ...acc,
+        [input.name]: 0,
       };
     }
     acc[input.name] = '';
@@ -63,7 +70,7 @@ const Form = <T extends FieldValues>({
 
         if (inputType === 'select') {
           return (
-            <div key={index + name} className='self-stretch'>
+            <div key={index + name} className="self-stretch">
               <Controller
                 name={name as Path<T>}
                 control={control}
