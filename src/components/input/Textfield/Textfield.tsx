@@ -43,7 +43,7 @@ const Textfield = ({ label, value = '', type = 'text', placeholder, onChange, mi
           placeholder={placeholder}
           value={formatValue(value)}
           onChange={onChange}
-          type={type}
+          type={type === 'currency' ? 'number' : type}
           min={type === 'date' ? today : min}
           className="bg-main-background text-main-default-text outline-none focus-within:ring placeholder:text-primary-light border border-black ring-primary-bg px-2 py-1 rounded-md  w-full"
         />
