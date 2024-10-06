@@ -14,23 +14,23 @@ const columns = [
     cell: (info) => info.getValue(),
   }),
 
-  columnHelper.accessor('next_payment_date', {
+  columnHelper.accessor('nextPaymentDate', {
     header: () => <span>Next Payment</span>,
     cell: (info) => formattedDate(info.getValue()),
   }),
-  columnHelper.accessor('number_of_payments', {
+  columnHelper.accessor('numberOfPayments', {
     header: () => <span>Total Payments</span>,
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor('payments_made', {
+  columnHelper.accessor('paymentsMade', {
     header: () => <span>Payments Done</span>,
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor('monthly_payment_amount', {
+  columnHelper.accessor('monthlyPaymentAmount', {
     header: () => <span>Per Month</span>,
     cell: (info) => formatCurrency({ amount: info.getValue() }),
   }),
-  columnHelper.accessor('is_payment_complete', {
+  columnHelper.accessor('isPaymentComplete', {
     header: () => <span>Status</span>,
     cell: (info) => {
       const status = info.getValue();
