@@ -1,6 +1,6 @@
 import Button from '@/components/button/Button';
 import useDateSelector from '@/features/month/hooks/useDateSelector';
-import { ArrowLeftIcon, ArrowRightIcon, ResetIcon } from '@radix-ui/react-icons';
+import { IconArrowLeft, IconArrowRight, IconRestore } from '@tabler/icons-react';
 import dayjs from 'dayjs';
 import { useSearchParams } from 'react-router-dom';
 interface MonthSelectorProps {
@@ -28,7 +28,7 @@ const MonthSelector = ({ allowSelection = true }: MonthSelectorProps) => {
             type="button"
             variant="secondary"
             isIconOnly
-            icon={<ArrowLeftIcon />}
+            icon={<IconArrowLeft size="14px" />}
             onClick={() => setActiveMonth({ decrement: true })}
           />
         )}
@@ -40,13 +40,13 @@ const MonthSelector = ({ allowSelection = true }: MonthSelectorProps) => {
             type="button"
             variant="secondary"
             isIconOnly
-            icon={<ArrowRightIcon />}
+            icon={<IconArrowRight size="14px" />}
             onClick={() => setActiveMonth({ increment: true })}
           />
         )}
       </div>
       {today.split(' ')[1] !== selectedMonth && (
-        <Button variant="secondary" isIconOnly icon={<ResetIcon />} onClick={resetDate} />
+        <Button variant="secondary" isIconOnly icon={<IconRestore size="14px" />} onClick={resetDate} />
       )}
     </div>
   );

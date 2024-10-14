@@ -8,17 +8,17 @@ interface IParams {
 }
 
 interface IResponse {
-  data: { monthly_budget: number };
+  data: { monthlyBudget: number };
 }
-
-const budgetUrl = ({ year, month, categoryID }: IParams) => {
-  return `/budget/?year=${year}&month=${month}&category_id=${categoryID}`;
-};
 
 export const budgetAPI = {
   useGetBudget: ({ year, month, categoryID, enabled = true }: IParams & { enabled?: boolean }) =>
     useQuery({
-      queryFn: () => axiosHelper<IResponse>({ method: 'get', url: budgetUrl({ year, month, categoryID }) }),
+      queryFn: () =>
+        axiosHelper<IResponse>({
+          method: 'get',
+          url: `/budget/?year=${year}&month=${month}&category_id=${categoryID}`,
+        }),
       queryKey: ['budget', [year, month, categoryID]],
       enabled,
     }),

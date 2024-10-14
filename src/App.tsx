@@ -3,13 +3,14 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import routes from '@/routes/routes.ts';
 import LazyComponent from '@/components/lazyComponent';
 import ProtectedRoute from '@/features/protectedRoute';
-import Cards from '@/routes/Cards';
 
 const Dashboard = lazy(() => import('@/routes/Dashboard'));
 const SignupPage = lazy(() => import('@/features/user/components/Signup/Signup'));
 const Login = lazy(() => import('@/features/user/components/Login/Login'));
 const Category = lazy(() => import('@/routes/Category'));
 const Extras = lazy(() => import('@/routes/Extras'));
+const Cards = lazy(() => import('@/routes/Cards'));
+const Accounts = lazy(() => import('@/routes/Accounts'));
 
 const App = () => {
   const router = createBrowserRouter([
@@ -72,6 +73,26 @@ const App = () => {
         <LazyComponent>
           <ProtectedRoute>
             <Cards />
+          </ProtectedRoute>
+        </LazyComponent>
+      ),
+    },
+    {
+      path: routes.ACCOUNTS(),
+      element: (
+        <LazyComponent>
+          <ProtectedRoute>
+            <Accounts />
+          </ProtectedRoute>
+        </LazyComponent>
+      ),
+    },
+    {
+      path: routes.ACCOUNT_DETAILS({ accountId: ':accountId' }),
+      element: (
+        <LazyComponent>
+          <ProtectedRoute>
+            <Accounts />
           </ProtectedRoute>
         </LazyComponent>
       ),

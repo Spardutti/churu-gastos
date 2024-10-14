@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import type { AnyObjectSchema } from 'yup';
 import clsx from 'clsx';
 import Checkbox from '@/components/input/Checkbox';
+import CurrencyInput from '@/components/input/CurrencyInput';
 
 interface FormProps<T extends FieldValues> {
   inputs: FormInputs[];
@@ -105,6 +106,26 @@ const Form = <T extends FieldValues>({
                 )}
               />
               {errors[name]?.message && <p className="text-danger-main">{errors[name]?.message as React.ReactNode}</p>}
+            </div>
+          );
+        }
+
+        if (inputType === 'currency') {
+          return (
+            <div key={index + name} className="self-stretch">
+              <Controller
+                name={name as Path<T>}
+                control={control}
+                render={({ field }) => (
+                  <CurrencyInput
+                    min={min ?? 0}
+                    label={label}
+                    value={field.value}
+                    placeholder={placeholder}
+                    onChange={field.onChange}
+                  />
+                )}
+              />
             </div>
           );
         }

@@ -53,7 +53,7 @@ const Dashboard = () => {
           expenses={monthlyExpense}
           expensesLabel="Monthly Expenses"
           budgetLabel="Monthly Budget"
-          budget={categories?.monthly_budget || 0}
+          budget={categories?.monthlyBudget || 0}
         />
         <div className="flex justify-center">
           <Modal text="Create Category" title="Create Category">
@@ -64,7 +64,7 @@ const Dashboard = () => {
           <Heading variant="h4" label="Choose a category to see the details" />
         </div>
         <Categories />
-        {categories?.is_new_month && (
+        {categories?.isNewMonth && (
           <div className="flex justify-center">
             <Button text="Copy categories" variant="primary" onClick={onNewMonth} isLoading={isPending} />
           </div>
