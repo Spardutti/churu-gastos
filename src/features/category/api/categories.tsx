@@ -21,7 +21,7 @@ export const categoriesAPI = {
     useQuery({
       queryKey: ['categories', [String(year), String(month)]],
       queryFn: () =>
-        axiosHelper<{ data: ICategory[]; monthly_budget: number; is_new_month: boolean }>({
+        axiosHelper<{ data: ICategory[]; monthlyBudget: number; isNewMonth: boolean }>({
           method: 'get',
           url: `/categories/?year=${year}&month=${month}`,
         }),

@@ -76,11 +76,11 @@ const CreateCreditPaymentForm = ({ closeModal }: FormProps) => {
   const onSubmit = async (data: ICreditPayment) => {
     const currentYear = dayjs().year();
 
-    const month = Number(data.next_payment_date) + 1;
+    const month = Number(data.nextPaymentDate) + 1;
 
     const date = new Date(`${currentYear}-${month}-01`);
 
-    await createPayment({ ...data, next_payment_date: date });
+    await createPayment({ ...data, nextPaymentDate: date });
     closeModal();
   };
 

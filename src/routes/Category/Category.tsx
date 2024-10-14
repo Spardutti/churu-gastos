@@ -5,7 +5,6 @@ import CreateExpenseForm from '@/features/expenses/components/CreateExpenseForm'
 import Layout from '@/layout/Layout';
 import { useParams } from 'react-router-dom';
 import Spinner from '@/components/spinner';
-import { ArrowLeftIcon, TrashIcon } from '@radix-ui/react-icons';
 import Button from '@/components/button';
 import ExpenseTable from '@/features/expenses/components/ExpenseTable';
 import { useMemo } from 'react';
@@ -14,6 +13,7 @@ import useNavigateWithParams from '@/hooks/useNavigateWithParams';
 import routes from '@/routes/routes';
 import MonthSelector from '@/features/month/components/MonthSelector';
 import Modal from '@/components/modal';
+import { IconArrowLeft, IconTrash } from '@tabler/icons-react';
 
 const Category = () => {
   const { categoryID } = useParams();
@@ -61,13 +61,13 @@ const Category = () => {
             type="button"
             onClick={onClick}
             text={category.data.name}
-            prependIcon={<ArrowLeftIcon />}
+            prependIcon={<IconArrowLeft />}
           />
           <Button
             variant="danger"
             type="button"
             text="Delete"
-            prependIcon={<TrashIcon />}
+            prependIcon={<IconTrash />}
             onClick={onDelete}
             isLoading={isDeleting}
           />
