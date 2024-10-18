@@ -9,7 +9,7 @@ interface CreateAccountBudgetFormProps {
 }
 
 const CreateAccountBudgetForm = ({ closeModal }: CreateAccountBudgetFormProps) => {
-  const { createBudget, isLoading } = useCreateAccountBudget({ closeModal });
+  const { createBudget, isLoading, error } = useCreateAccountBudget({ closeModal });
   const { data: accounts } = accountAPI.useGetAccounts();
 
   const accountsOptions = accounts?.data?.map((account) => ({
@@ -20,10 +20,11 @@ const CreateAccountBudgetForm = ({ closeModal }: CreateAccountBudgetFormProps) =
   const inputs: FormInputs[] = [
     {
       label: 'Account',
-      name: 'category_id',
+      name: 'account_id',
       inputType: 'select',
       value: '',
       options: accountsOptions ?? [],
+      placeholder: 'Select an account',
     },
     {
       label: 'Amount',
@@ -35,13 +36,14 @@ const CreateAccountBudgetForm = ({ closeModal }: CreateAccountBudgetFormProps) =
 
   return (
     <div className="flex justify-center">
-      <Form<{ category_id: string; amount: number }>
+      <Form<{ account_id: string; amount: number }>
         isSubmitting={isLoading}
         inputs={inputs}
         schema={schema}
         submitLabel="Create"
         submit={createBudget}
         className="flex-col"
+        response={error && { message: error.message, type: 'error' }}
       />
     </div>
   );
@@ -50,6 +52,6 @@ const CreateAccountBudgetForm = ({ closeModal }: CreateAccountBudgetFormProps) =
 export default CreateAccountBudgetForm;
 
 const schema = yup.object({
-  name: yup.string().required('Name is required'),
-  description: yup.string().required('Description is required'),
+  account_id: yup.string().required('Category is required'),
+  amount: yup.string().required('Amount is required'),
 });

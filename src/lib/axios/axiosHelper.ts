@@ -25,12 +25,12 @@ export const axiosHelper = async <T, P = unknown, D = unknown>({
       return toCamelCase(res.data) as T;
     })
     .catch((err) => {
-      if (err.response.data.errors) {
-        throw err.response.data.errors;
-      } else if (err.response.data.message) {
-        throw err.response.data.message;
+      if (err.response?.data?.errors) {
+				throw new Error(JSON.stringify(err.response.data.errors));
+			} else if (err.response?.data?.error) {
+				throw new Error(JSON.stringify(err.response.data.error));
       } else {
-        throw err; // If the error is not a response error, rethrow it
-      }
+				throw err;
+			}
     });
 };

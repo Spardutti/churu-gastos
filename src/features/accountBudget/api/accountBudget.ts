@@ -3,7 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import type { IAccountBudget } from '../types/IAccountBudget';
 
 interface IAccountBudgetBody {
-  category_id: string;
+  account_id: string;
   amount: number;
 }
 

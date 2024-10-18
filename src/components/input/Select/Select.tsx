@@ -1,10 +1,13 @@
 import InputLabel from '@/components/input/InputLabel';
+import { NativeSelect } from '@mantine/core';
+import clsx from 'clsx';
+import { useMemo, type ChangeEventHandler } from 'react';
 
 interface SelectProps {
-  onChange: (value: string) => void;
+  onChange: ChangeEventHandler<HTMLSelectElement>;
   label: string | undefined;
   options: {
-    value: string | number;
+    value: string;
     label: string;
   }[];
   placeholder?: string;
@@ -12,25 +15,24 @@ interface SelectProps {
 }
 
 const Select = ({ options, onChange, label, placeholder, value }: SelectProps) => {
+  const optionsWithLabel = useMemo(() => {
+    const placeHolder = { label: placeholder ?? '', value: '', disabled: true };
+    return [placeHolder, ...options];
+  }, [options]);
+
   return (
     <div className="flex gap-1 flex-col w-full">
       {label && <InputLabel text={label} />}
-      <select
+      <NativeSelect
+        classNames={{
+          input: clsx(
+            'border rounded-md px-2 cursor-pointer flex flex-col gap-4 bg-main-background outline-none border-black text-white',
+          ),
+        }}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="border rounded-md px-2 py-1 cursor-pointer flex flex-col gap-4 bg-main-background outline-none border-black"
-      >
-        {placeholder && (
-          <option value="" disabled>
-            {placeholder}
-          </option>
-        )}
-        {options.map((option) => (
-          <option className="" key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+        onChange={onChange}
+        data={optionsWithLabel}
+      />
     </div>
   );
 };
