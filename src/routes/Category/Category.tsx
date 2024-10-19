@@ -2,7 +2,6 @@ import { categoriesAPI } from '@/features/category/api/categories';
 import ExpenseTracker from '@/features/dashboard/components/ExpenseTracker';
 import { expensesAPI } from '@/features/expenses/api/expenses';
 import CreateExpenseForm from '@/features/expenses/components/CreateExpenseForm';
-import Layout from '@/layout/Layout';
 import { useParams } from 'react-router-dom';
 import Spinner from '@/components/spinner';
 import Button from '@/components/button';
@@ -44,15 +43,11 @@ const Category = () => {
   }, [expenses]);
 
   if (!category || isPending) {
-    return (
-      <Layout>
-        <Spinner />
-      </Layout>
-    );
+    return <Spinner />;
   }
 
   return (
-    <Layout>
+    <>
       <MonthSelector allowSelection={false} />
       <div className="flex flex-col gap-10">
         <div className="flex flex-grow justify-between">
@@ -87,7 +82,7 @@ const Category = () => {
 
         <ExpenseTable categoryID={categoryID!} />
       </div>
-    </Layout>
+    </>
   );
 };
 

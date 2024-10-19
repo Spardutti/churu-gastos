@@ -11,7 +11,6 @@ import MonthSelector from '@/features/month/components/MonthSelector';
 import useDateSelector from '@/features/month/hooks/useDateSelector';
 import useGenerateDateFromParams from '@/hooks/useGenerateDateFromParams';
 // import { useMediaQuery } from 'react-responsive';
-import Layout from '@/layout/Layout';
 import { useMemo } from 'react';
 
 const Dashboard = () => {
@@ -46,7 +45,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Layout>
+    <>
       <MonthSelector />
       <div className="flex flex-col gap-10">
         <ExpenseTracker
@@ -70,7 +69,7 @@ const Dashboard = () => {
           </div>
         )}
       </div>
-    </Layout>
+    </>
   );
 };
 

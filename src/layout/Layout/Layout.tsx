@@ -1,15 +1,13 @@
 import Header from '@/layout/Header';
-import React from 'react';
+import { Outlet } from 'react-router-dom';
 
-interface DesktopLayoutProps {
-  children: React.ReactNode;
-}
-
-const Layout = ({ children }: DesktopLayoutProps) => {
+const Layout = () => {
   return (
     <div className="h-screen flex flex-col overflow-hidden">
       <Header />
-      <div className="overflow-auto flex flex-col gap-4 p-4">{children}</div>
+      <div className="overflow-auto flex flex-col gap-4 p-4">
+        <Outlet />
+      </div>
     </div>
   );
 };

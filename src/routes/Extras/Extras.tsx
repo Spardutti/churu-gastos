@@ -4,7 +4,6 @@ import MonthSelector from '@/features/month/components/MonthSelector';
 import { uniqueExpenseAPI } from '@/features/uniqueExpenses/api/uniqueExpenses';
 import CreateUniqueExpenseForm from '@/features/uniqueExpenses/components/CreateUniqueExpenseForm';
 import UniqueExpenseTable from '@/features/uniqueExpenses/components/UniqueExpensesTable/UniqueExpensesTable';
-import Layout from '@/layout/Layout';
 import { formatCurrency } from '@/utils/formatCurrency';
 import { yearAndMonth } from '@/utils/yearAndMonth';
 import { useMemo } from 'react';
@@ -23,7 +22,7 @@ const Extras = () => {
   }, [expenses]);
 
   return (
-    <Layout>
+    <>
       <MonthSelector allowSelection={false} />
       <div className="flex items-center flex-col gap-10">
         <div className="lg:w-44 flex justify-center">
@@ -39,7 +38,7 @@ const Extras = () => {
         </Modal>
         <UniqueExpenseTable />
       </div>
-    </Layout>
+    </>
   );
 };
 

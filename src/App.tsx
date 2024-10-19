@@ -3,6 +3,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import routes from '@/routes/routes.ts';
 import LazyComponent from '@/components/lazyComponent';
 import ProtectedRoute from '@/features/protectedRoute';
+import Layout from '@/layout/Layout';
 
 const Dashboard = lazy(() => import('@/routes/Dashboard'));
 const SignupPage = lazy(() => import('@/features/user/components/Signup/Signup'));
@@ -38,64 +39,63 @@ const router = createBrowserRouter([
   },
 
   {
-    path: routes.DASHBOARD(),
     element: (
       <LazyComponent>
         <ProtectedRoute>
-          <Dashboard />
+          <Layout />  
         </ProtectedRoute>
       </LazyComponent>
     ),
-  },
-  {
-    path: routes.CATEGORY({ categoryID: ':categoryID' }),
-    element: (
-      <LazyComponent>
-        <ProtectedRoute>
-          <Category />
-        </ProtectedRoute>
-      </LazyComponent>
-    ),
-  },
-  {
-    path: routes.EXTRAS(),
-    element: (
-      <LazyComponent>
-        <ProtectedRoute>
-          <Extras />
-        </ProtectedRoute>
-      </LazyComponent>
-    ),
-  },
-  {
-    path: routes.CARDS(),
-    element: (
-      <LazyComponent>
-        <ProtectedRoute>
-          <Cards />
-        </ProtectedRoute>
-      </LazyComponent>
-    ),
-  },
-  {
-    path: routes.ACCOUNTS(),
-    element: (
-      <LazyComponent>
-        <ProtectedRoute>
-          <Accounts />
-        </ProtectedRoute>
-      </LazyComponent>
-    ),
-  },
-  {
-    path: routes.ACCOUNT_DETAILS({ accountId: ':accountId' }),
-    element: (
-      <LazyComponent>
-        <ProtectedRoute>
-          <AccountDetail />
-        </ProtectedRoute>
-      </LazyComponent>
-    ),
+    children: [
+      {
+        path: routes.DASHBOARD(),
+        element: (
+          <LazyComponent>
+            <Dashboard />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: routes.CATEGORY({ categoryID: ':categoryID' }),
+        element: (
+          <LazyComponent>
+            <Category />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: routes.EXTRAS(),
+        element: (
+          <LazyComponent>
+            <Extras />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: routes.CARDS(),
+        element: (
+          <LazyComponent>
+            <Cards />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: routes.ACCOUNTS(),
+        element: (
+          <LazyComponent>
+            <Accounts />
+          </LazyComponent>
+        ),
+      },
+      {
+        path: routes.ACCOUNT_DETAILS({ accountId: ':accountId' }),
+        element: (
+          <LazyComponent>
+            <AccountDetail />
+          </LazyComponent>
+        ),
+      },
+    ],
   },
 ]);
 
