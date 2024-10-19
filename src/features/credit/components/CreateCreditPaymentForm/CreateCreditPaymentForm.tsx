@@ -1,6 +1,6 @@
 import Form from '@/components/form';
 import * as yup from 'yup';
-import type { ICreditPayment } from '@/features/credit/types/ICreditPayment';
+import type { ICreatePaymentBody } from '@/features/credit/api/creditPayment';
 import { creditPaymentAPI } from '@/features/credit/api/creditPayment';
 import type { FormInputs } from '@/components/form/types';
 import dayjs from 'dayjs';
@@ -38,7 +38,7 @@ const inputs: FormInputs[] = [
       { value: '6', label: 'July' },
       { value: '7', label: 'August' },
       { value: '8', label: 'September' },
-      { value: '8', label: 'October' },
+      { value: '9', label: 'October' },
       { value: '10', label: 'November' },
       { value: '11', label: 'December' },
     ],
@@ -73,20 +73,20 @@ interface FormProps {
 const CreateCreditPaymentForm = ({ closeModal }: FormProps) => {
   const { mutateAsync: createPayment, isPending } = creditPaymentAPI.useCreateCreditPayment();
 
-  const onSubmit = async (data: ICreditPayment) => {
+  const onSubmit = async (data: ICreatePaymentBody) => {
     const currentYear = dayjs().year();
 
-    const month = Number(data.nextPaymentDate) + 1;
+    const month = Number(data.next_payment_date);
 
-    const date = new Date(`${currentYear}-${month}-01`);
+    const date = dayjs().set('year', Number(currentYear)).set('month', month).set('date', 1);
 
-    await createPayment({ ...data, nextPaymentDate: date });
+    await createPayment({ ...data, next_payment_date: date });
     closeModal();
   };
 
   return (
     <div className="flex justify-center">
-      <Form<ICreditPayment>
+      <Form<ICreatePaymentBody>
         isSubmitting={isPending}
         inputs={inputs}
         schema={schema}

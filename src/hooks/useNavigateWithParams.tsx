@@ -4,13 +4,19 @@ const useNavigateWithParams = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const onNavigate = ({ pathname }: { pathname: string }) => {
+  const onNavigate = ({ pathname }: { pathname: string | number }) => {
     const searchParams = new URLSearchParams(location.search);
-    navigate({
-      pathname,
-      search: searchParams.toString(),
-    });
+
+    if (typeof pathname === 'string') {
+      navigate({
+        pathname,
+        search: searchParams.toString(),
+      });
+    } else if (typeof pathname === 'number') {
+      navigate(pathname);
+    }
   };
+
   return onNavigate;
 };
 
