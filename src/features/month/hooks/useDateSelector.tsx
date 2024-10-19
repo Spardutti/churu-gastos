@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 interface IParams {
   increment?: boolean;
@@ -23,11 +23,14 @@ const months: Record<string, number> = {
 };
 
 const useDateSelector = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [activeDate, setActiveDate] = useState<{ month: number | null; year: number | null }>({
     month: null,
     year: null,
   });
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
 
   const updateActiveDate = () => {
@@ -61,9 +64,22 @@ const useDateSelector = () => {
       baseDate = baseDate.subtract(1, 'month');
     }
 
-    searchParams.set('month', baseDate.format('MMMM'));
-    searchParams.set('year', baseDate.format('YYYY'));
-    setSearchParams(searchParams);
+    const newMonth = baseDate.format('MMMM');
+    const newYear = baseDate.format('YYYY');
+
+    // Only update the search params if they're different
+    if (newMonth !== currentMonth || newYear !== currentYear) {
+      // Navigate with updated search params, preserving location.state
+      const newSearchParams = new URLSearchParams(searchParams);
+      newSearchParams.set('month', newMonth);
+      newSearchParams.set('year', newYear);
+
+      // Use navigate to update search params and preserve state
+      navigate(`${location.pathname}?${newSearchParams.toString()}`, {
+        state: location.state,
+        replace: true,
+      });
+    }
   };
 
   useEffect(() => {

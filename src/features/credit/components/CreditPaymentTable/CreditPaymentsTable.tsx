@@ -54,7 +54,7 @@ const CreditPaymentsTable = ({ creditPayments, isPending }: CreditPaymentsTableP
   }
   return (
     <div className="flex md:justify-center">
-      <Table data={creditPayments} columns={columns} sortBy="next_payment_date" />
+      <Table data={creditPayments} columns={columns} sortBy="nextPaymentDate" />
     </div>
   );
 };

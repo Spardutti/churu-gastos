@@ -8,16 +8,17 @@ interface IAccountBudgetBody {
 }
 
 export const accountBudgetAPI = {
-  useGetAccountBudget: ({ year, month }: { year: number | null; month: number | null }) =>
+  useGetAccountBudget: ({ year, month, accountId }: { year: number | null; month: number | null, accountId: string | null }) =>
     useQuery({
-      queryKey: ['accountBudget', String(year), String(month)],
+      queryKey: ['accountBudget', String(year), String(month), accountId],
       queryFn: () =>
-        axiosHelper<{ data: IAccountBudget[] }>({
+        axiosHelper<{data: IAccountBudget}>({
           method: 'get',
-          url: `/account-budget/?year=${year}&month=${month}`,
+          url: `/account-budget/?year=${year}&month=${month}&account_id=${accountId}`,
         }),
       enabled: !!year && !!month,
     }),
+  
 
   useCreateAccountBudget: () =>
     useMutation({
