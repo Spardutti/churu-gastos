@@ -1,5 +1,6 @@
 import Heading from '@/components/heading';
 import NavBar from '@/components/nav/NavBar';
+import Pill from '@/components/pill';
 import useGetTotalAccountMonthBudget from '@/features/totalAccountBalance/hooks/useGetAccountMonthBudget';
 import type { INavItems } from '@/layout/Header/types';
 import routes from '@/routes/routes';
@@ -35,7 +36,11 @@ const Header = () => {
     <div className="flex flex-col  self-stretch bg-primary-light px-4 py-2 gap-2 text-white ">
       <div className="flex justify-between flex-grow self-stretch items-center">
         <Heading label="Churu Gastos" variant="h4" />
-        <div> {formatCurrency({ amount: Number(totalAccountBudget ?? 0) })} </div>
+        <Pill
+          variant={Number(totalAccountBudget) < 0 ? 'danger' : 'default'}
+          size="lg"
+          label={formatCurrency({ amount: Number(totalAccountBudget ?? 0) })}
+        />
       </div>
 
       <NavBar items={navItems} />
