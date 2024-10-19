@@ -9,7 +9,7 @@ const Accounts = () => {
       <Modal text="Create Account" title="Create Account">
         {({ closeModal }) => <CreateAccountForm closeModal={closeModal} />}
       </Modal>
-      <Heading variant="h4" label="Select An Account to see its details" />
+      <Heading color="default" variant="h4" label="Select An Account to see its details" />
       <AccountList />
     </div>
   );

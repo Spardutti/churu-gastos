@@ -1,11 +1,13 @@
 interface HeadingProps {
   variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   label: string;
+  color: 'default' | 'light';
 }
 
-const Heading = ({ variant, label }: HeadingProps) => {
+const Heading = ({ variant, label, color }: HeadingProps) => {
   const colors = {
-    text: 'text-main-primary-text',
+    default: 'text-main-primary-text',
+    light: 'text-main-secondary-text',
   };
 
   const sizes = {
@@ -22,12 +24,12 @@ const Heading = ({ variant, label }: HeadingProps) => {
   };
 
   const styles = {
-    h1: `${colors.text} ${sizes.h1} ${weight.bold}`,
-    h2: `${colors.text} ${sizes.h2} ${weight.bold}`,
-    h3: `${colors.text} ${sizes.h3} ${weight.bold}`,
-    h4: `${colors.text} ${sizes.h4} ${weight.bold}`,
-    h5: `${colors.text} ${sizes.h5} ${weight.bold}`,
-    h6: `${colors.text} ${sizes.h6} ${weight.bold}`,
+    h1: `${colors[color]} ${sizes.h1} ${weight.bold}`,
+    h2: `${colors[color]} ${sizes.h2} ${weight.bold}`,
+    h3: `${colors[color]} ${sizes.h3} ${weight.bold}`,
+    h4: `${colors[color]} ${sizes.h4} ${weight.bold}`,
+    h5: `${colors[color]} ${sizes.h5} ${weight.bold}`,
+    h6: `${colors[color]} ${sizes.h6} ${weight.bold}`,
   };
 
   if (variant === 'h1') return <h1 className={styles.h1}>{label}</h1>;

@@ -7,9 +7,10 @@ interface PageHeaderProps {
   backText: string;
   title: string;
   onClick?: () => void;
+  subtitle?: string;
 }
 
-const PageHeader = ({ backText, title, onClick }: PageHeaderProps) => {
+const PageHeader = ({ backText, title, onClick, subtitle }: PageHeaderProps) => {
   const onNavigate = useNavigateWithParams();
 
   return (
@@ -23,7 +24,10 @@ const PageHeader = ({ backText, title, onClick }: PageHeaderProps) => {
       />
 
       <div className="absolute left-1/2 transform -translate-x-1/2">
-        <Heading label={title} variant="h4" />
+        <div className="flex flex-col gap-2 items-center">
+          <Heading color="default" label={title} variant="h4" />
+          {subtitle && <Heading color="light" label={subtitle} variant="h6" />}
+        </div>
       </div>
 
       {onClick && <Button onClick={onClick} variant="danger" type="button" text="Delete" prependIcon={<IconTrash />} />}

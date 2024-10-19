@@ -40,13 +40,13 @@ const AccountDetail = () => {
   }
 
   return (
-    <div className="flex justify-center flex-col items-center gap-4  ">
+    <div className="flex justify-center flex-col items-center gap-6 ">
       <div className="flex flex-grow justify-between self-stretch">
-        <PageHeader backText="Accounts" title={state?.accountName} />
+        <PageHeader subtitle={accountBudget.data.account.description} backText="Accounts" title={state?.accountName} />
       </div>
-      <Modal text="Create Account Budget" title="Create Account Budget">
+      {/* <Modal text="Create Account Budget" title="Create Account Budget">
         {({ closeModal }) => <CreateAccountBudgetForm closeModal={closeModal} />}
-      </Modal>
+      </Modal> */}
       <AccountMonthlyBudget budget={accountBudget.data} />
     </div>
   );

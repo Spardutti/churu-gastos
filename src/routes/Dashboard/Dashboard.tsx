@@ -60,7 +60,7 @@ const Dashboard = () => {
           </Modal>
         </div>
         <div className="text-center">
-          <Heading variant="h4" label="Choose a category to see the details" />
+          <Heading color="default" variant="h4" label="Choose a category to see the details" />
         </div>
         <Categories />
         {categories?.isNewMonth && (
