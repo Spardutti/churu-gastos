@@ -16,6 +16,7 @@ interface IBody {
   description?: string;
   category_id: string;
   date: Dayjs;
+  account_budget_id: string
 }
 
 const expenseURL = ({ ID, year, month, categoryID }: IParams) => {

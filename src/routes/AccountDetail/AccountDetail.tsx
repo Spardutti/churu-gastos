@@ -6,6 +6,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import Spinner from '@/components/spinner';
 import AccountMonthlyBudget from '@/features/accountBudget/components/AccountMonthlyBudget';
 import PageHeader from '@/layout/PageHeader';
+import AccountBudgetExpenses from '@/features/accountBudgetExpenses/components/AccountBudgetExpenses';
 
 const AccountDetail = () => {
   const { activeDate } = useDateSelector();
@@ -15,9 +16,8 @@ const AccountDetail = () => {
   const { data: accountBudget, isLoading } = accountBudgetAPI.useGetAccountBudget({
     year: activeDate.year,
     month: activeDate.month,
-    accountId: accountId!,
+    accountId: accountId,
   });
-  console.log('accountBudget:', accountBudget);
 
   if (isLoading) {
     return (
@@ -27,11 +27,11 @@ const AccountDetail = () => {
     );
   }
 
-  if (!accountBudget) {
+  if (!accountBudget || !accountBudget.data) {
     return (
       <div className="flex justify-center flex-col items-center gap-4">
         <PageHeader backText="Accounts" title={state?.accountName} />
-        <p> No Data</p>
+        <p> No budget found for this month, please create one below</p>
         <Modal text="Create Account Budget" title="Create Account Budget">
           {({ closeModal }) => <CreateAccountBudgetForm closeModal={closeModal} />}
         </Modal>
@@ -42,12 +42,11 @@ const AccountDetail = () => {
   return (
     <div className="flex justify-center flex-col items-center gap-6 ">
       <div className="flex flex-grow justify-between self-stretch">
-        <PageHeader subtitle={accountBudget.data.account.description} backText="Accounts" title={state?.accountName} />
+        <PageHeader subtitle={accountBudget.data.account?.description} backText="Accounts" title={state?.accountName} />
       </div>
-      {/* <Modal text="Create Account Budget" title="Create Account Budget">
-        {({ closeModal }) => <CreateAccountBudgetForm closeModal={closeModal} />}
-      </Modal> */}
+
       <AccountMonthlyBudget budget={accountBudget.data} />
+      <AccountBudgetExpenses accountBudgetId={accountBudget.data.id} />
     </div>
   );
 };

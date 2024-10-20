@@ -1,5 +1,5 @@
 export interface IUniqueExpense {
-  name: string
+  description: string
   amount: number
   date: Date
   id: string

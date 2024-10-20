@@ -67,15 +67,11 @@ const useDateSelector = () => {
     const newMonth = baseDate.format('MMMM');
     const newYear = baseDate.format('YYYY');
 
-    // Only update the search params if they're different
     if (newMonth !== currentMonth || newYear !== currentYear) {
-      // Navigate with updated search params, preserving location.state
-      const newSearchParams = new URLSearchParams(searchParams);
-      newSearchParams.set('month', newMonth);
-      newSearchParams.set('year', newYear);
+      searchParams.set('month', newMonth);
+      searchParams.set('year', newYear);
 
-      // Use navigate to update search params and preserve state
-      navigate(`${location.pathname}?${newSearchParams.toString()}`, {
+      navigate(`${location.pathname}?${searchParams.toString()}`, {
         state: location.state,
         replace: true,
       });

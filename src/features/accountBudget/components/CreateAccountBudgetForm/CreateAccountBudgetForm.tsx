@@ -27,8 +27,8 @@ const CreateAccountBudgetForm = ({ closeModal }: CreateAccountBudgetFormProps) =
       placeholder: 'Select an account',
     },
     {
-      label: 'Amount',
-      name: 'amount',
+      label: 'Budget',
+      name: 'budget',
       inputType: 'currency',
       value: 0,
     },
@@ -36,7 +36,7 @@ const CreateAccountBudgetForm = ({ closeModal }: CreateAccountBudgetFormProps) =
 
   return (
     <div className="flex justify-center">
-      <Form<{ account_id: string; amount: number }>
+      <Form<{ account_id: string; budget: number }>
         isSubmitting={isLoading}
         inputs={inputs}
         schema={schema}
@@ -53,5 +53,5 @@ export default CreateAccountBudgetForm;
 
 const schema = yup.object({
   account_id: yup.string().required('Category is required'),
-  amount: yup.string().required('Amount is required'),
+  budget: yup.string().required('Amount is required'),
 });
