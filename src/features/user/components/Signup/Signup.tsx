@@ -59,9 +59,9 @@ const Signup = () => {
 
   return (
     <div className="p-4">
-      <Heading variant="h1" label="Churu Gastos" />
+      <Heading color="default" variant="h1" label="Churu Gastos" />
       <div className="h-24 flex items-center justify-center">
-        <Heading label="Create your account" variant="h3" />
+        <Heading color="default" label="Create your account" variant="h3" />
       </div>
       <Card className="max-w-[600px] mx-auto">
         <Form

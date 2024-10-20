@@ -30,21 +30,15 @@ const NavBar = ({ items }: NavigationMenuDemoProps) => {
         <div key={item.href}>
           <NavLink
             component={ReactLink}
-            className="hover:bg-main-card-background rounded text-main-default-text"
             href={item.href}
             label={item.label}
             leftSection={item.icon}
             active={location.pathname === item.href}
             variant="filled"
-            styles={(theme) => ({
-              root: {
-                backgroundColor: location.pathname === item.href ? '#9f7aea' : 'transparent',
-                color: location.pathname === item.href ? '#2d3748' : '#38b2ac',
-                '&:hover': {
-                  backgroundColor: location.pathname === item.href ? theme.colors.blue[7] : theme.colors.gray[0],
-                },
-              },
-            })}
+            classNames={{
+              root: 'hover:bg-main-card-background rounded text-main-secondary-text data-[active]:bg-main-primary-text data-[active]:text-main-card-background',
+              body: 'hidden md:block ',
+            }}
           />
         </div>
       ))}

@@ -16,7 +16,7 @@ interface FormProps<T extends FieldValues> {
   submit: (data: T) => Promise<void>;
   submitLabel: string;
   isSubmitting: boolean;
-  response?: { type: 'success' | 'error'; message: string };
+  response?: { type: 'success' | 'error'; message: string } | null;
   schema: AnyObjectSchema;
   direction?: 'col' | 'row';
   className?: string;

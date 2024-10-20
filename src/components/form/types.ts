@@ -26,7 +26,7 @@ interface SelectInput extends BaseInput {
   inputType: 'select';
   value: string;
   options: {
-    value: string | number;
+    value: string;
     label: string;
   }[];
 }

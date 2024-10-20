@@ -33,8 +33,4 @@ const ErrorFallback = ({ error, resetErrorBoundary }: ErrorFallbackProps) => {
   );
 };
 
-const LoadingFallback = () => (
-  <Layout>
-    <Spinner />
-  </Layout>
-);
+const LoadingFallback = () => <Spinner />;
