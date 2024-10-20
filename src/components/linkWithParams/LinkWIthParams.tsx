@@ -10,7 +10,6 @@ interface LinkWithParamsProps {
 
 const LinkWithParams: React.FC<LinkWithParamsProps> = ({ to, children, className, state }) => {
   const location = useLocation();
-  console.log('state:', state);
 
   return (
     <Link

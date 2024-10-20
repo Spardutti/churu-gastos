@@ -23,7 +23,7 @@ export const uniqueExpenseAPI = {
     const queryClient = useQueryClient();
 
     return useMutation({
-      mutationFn: (data: IUniqueExpense) =>
+      mutationFn: (data: { description: string; amount: number; account_budget_id: string }) =>
         axiosHelper<{ data: IUniqueExpense }>({
           method: 'post',
           url: '/unique-expenses/',

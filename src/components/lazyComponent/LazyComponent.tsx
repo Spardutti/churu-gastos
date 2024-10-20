@@ -1,6 +1,5 @@
 import Button from '@/components/button';
 import Spinner from '@/components/spinner';
-import Layout from '@/layout/Layout';
 import React, { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 

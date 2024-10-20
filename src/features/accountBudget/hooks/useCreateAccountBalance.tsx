@@ -7,9 +7,9 @@ interface useCreateAccountBudgetProps {
 const useCreateAccountBudget = ({ closeModal }: useCreateAccountBudgetProps) => {
   const { mutateAsync, isPending, error } = accountBudgetAPI.useCreateAccountBudget();
 
-  const createBudget = async ({ amount, account_id }: { account_id: string; amount: number }) => {
+  const createBudget = async ({ budget, account_id }: { account_id: string; budget: number }) => {
     try {
-      await mutateAsync({ amount, account_id });
+      await mutateAsync({ budget, account_id });
       if (closeModal) {
         closeModal();
       }

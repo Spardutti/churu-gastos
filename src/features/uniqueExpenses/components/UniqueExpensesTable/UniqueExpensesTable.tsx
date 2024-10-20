@@ -10,7 +10,7 @@ import { createColumnHelper } from '@tanstack/react-table';
 const columnHelper = createColumnHelper<IUniqueExpense>();
 
 const columns = [
-  columnHelper.accessor('name', {
+  columnHelper.accessor('description', {
     header: () => <span>Name</span>,
     cell: (info) => info.getValue(),
   }),

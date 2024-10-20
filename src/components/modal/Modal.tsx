@@ -18,7 +18,7 @@ const Modal = ({ text, title, children }: ModalProps) => {
 
         <ModalMantine.Content>
           <ModalMantine.Header className="bg-main-card-background">
-            <ModalMantine.Title>{title && <Heading label={title} variant="h2" />}</ModalMantine.Title>
+            <ModalMantine.Title>{title && <Heading label={title} variant="h2" color="default" />}</ModalMantine.Title>
             <ModalMantine.CloseButton className="hover:bg-main-primary-text" />
           </ModalMantine.Header>
 

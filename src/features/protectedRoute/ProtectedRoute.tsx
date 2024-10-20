@@ -1,5 +1,5 @@
 import { useUserContext } from '@/context/UserContext/UserContext';
-import { Navigate, useSearchParams } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import routes from '@/routes/routes';
 import { setDefaultHeaders } from '@/lib/axios/config';
 import { userAPI } from '@/features/user/api/user';
@@ -13,7 +13,10 @@ interface ProtectedRouteProps {
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { user, setUser } = useUserContext();
   const access = localStorage.getItem('authorizationToken');
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const { data, error, isLoading } = userAPI.useGetUser();
 
@@ -25,8 +28,12 @@ const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   useEffect(() => {
     if (data) {
       setUser({ ...data, authorizationToken: access!, refreshToken: '' });
+
       searchParams.set('language', data.language);
-      setSearchParams(searchParams);
+      navigate(`${location.pathname}?${searchParams.toString()}`, {
+        state: location.state,
+        replace: true,
+      });
     }
   }, [data]);
 
