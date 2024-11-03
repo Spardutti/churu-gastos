@@ -2,15 +2,17 @@ import Button from '@/components/button';
 import Heading from '@/components/heading';
 import useNavigateWithParams from '@/hooks/useNavigateWithParams';
 import { IconArrowLeft, IconTrash } from '@tabler/icons-react';
+import type { ReactNode } from 'react';
 
 interface PageHeaderProps {
   backText: string;
   title: string;
   onClick?: () => void;
   subtitle?: string;
+  children?: ReactNode;
 }
 
-const PageHeader = ({ backText, title, onClick, subtitle }: PageHeaderProps) => {
+const PageHeader = ({ backText, title, onClick, subtitle, children }: PageHeaderProps) => {
   const onNavigate = useNavigateWithParams();
 
   return (
@@ -31,6 +33,7 @@ const PageHeader = ({ backText, title, onClick, subtitle }: PageHeaderProps) => 
       </div>
 
       {onClick && <Button onClick={onClick} variant="danger" type="button" text="Delete" prependIcon={<IconTrash />} />}
+      {children}
     </div>
   );
 };

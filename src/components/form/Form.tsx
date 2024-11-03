@@ -18,7 +18,6 @@ interface FormProps<T extends FieldValues> {
   isSubmitting: boolean;
   response?: { type: 'success' | 'error'; message: string } | null;
   schema: AnyObjectSchema;
-  direction?: 'col' | 'row';
   className?: string;
 }
 
@@ -42,10 +41,10 @@ const Form = <T extends FieldValues>({
     if (input.inputType === 'number' || input.inputType === 'currency') {
       return {
         ...acc,
-        [input.name]: 0,
+        [input.name]: input.value ?? 0,
       };
     }
-    acc[input.name] = '';
+    acc[input.name] = input.value ?? '';
 
     return acc;
   }, {});

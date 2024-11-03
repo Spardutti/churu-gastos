@@ -3,8 +3,8 @@ import type { FormInputs } from '@/components/form/types';
 import * as yup from 'yup';
 import { uniqueExpenseAPI } from '@/features/uniqueExpenses/api/uniqueExpenses';
 import useDateSelector from '@/features/month/hooks/useDateSelector';
-import { accountBudgetAPI } from '@/features/accountBudget/api/accountBudget';
 import Spinner from '@/components/spinner';
+import { accountBalanceAPI } from '@/features/accountBalance/api/accountBalance';
 
 const schema = yup.object({
   amount: yup
@@ -24,7 +24,7 @@ const CreateExpenseForm = ({ closeModal }: FormProps) => {
   const { mutateAsync: createUniqueExpense, isPending } = uniqueExpenseAPI.useCreateUniqueExpense();
 
   const { activeDate } = useDateSelector();
-  const { data } = accountBudgetAPI.useGetAccountBudgets({ month: activeDate.month, year: activeDate.year });
+  const { data } = accountBalanceAPI.useGetAccountBalances({ month: activeDate.month, year: activeDate.year });
 
   const onSubmit = async (data: { description: string; amount: number; account_budget_id: string }) => {
     await createUniqueExpense(data);

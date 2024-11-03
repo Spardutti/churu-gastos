@@ -11,7 +11,7 @@ export default {
           'card-border': '#4a5568',
           'primary-text': '#9f7aea',
           'secondary-text': '#38b2ac',
-          active: '#67E8F9',
+          active: '#38b2ac',
         },
 
         danger: {

@@ -1,19 +1,20 @@
-import { accountBudgetAPI } from '@/features/accountBudget/api/accountBudget';
-import CreateAccountBudgetForm from '@/features/accountBudget/components/CreateAccountBudgetForm';
+import CreateAccountBudgetForm from '@/features/accountBalance/components/CreateAccountBalanceForm';
 import Modal from '@/components/modal';
 import useDateSelector from '@/features/month/hooks/useDateSelector';
 import { useLocation, useParams } from 'react-router-dom';
 import Spinner from '@/components/spinner';
-import AccountMonthlyBudget from '@/features/accountBudget/components/AccountMonthlyBudget';
+import AccountMonthlyBudget from '@/features/accountBalance/components/AccountMonthlyBalance';
 import PageHeader from '@/layout/PageHeader';
 import AccountBudgetExpenses from '@/features/accountBudgetExpenses/components/AccountBudgetExpenses';
+import { accountBalanceAPI } from '@/features/accountBalance/api/accountBalance';
+import UpdateAccountBalanceForm from '@/features/accountBalance/components/UpdateAccountBalanceForm';
 
 const AccountDetail = () => {
   const { activeDate } = useDateSelector();
   const { accountId } = useParams();
   const { state } = useLocation();
 
-  const { data: accountBudget, isLoading } = accountBudgetAPI.useGetAccountBudget({
+  const { data: accountBalance, isLoading } = accountBalanceAPI.useGetAccountBalance({
     year: activeDate.year,
     month: activeDate.month,
     accountId: accountId,
@@ -27,12 +28,12 @@ const AccountDetail = () => {
     );
   }
 
-  if (!accountBudget || !accountBudget.data) {
+  if (!accountBalance || !accountBalance.data) {
     return (
       <div className="flex justify-center flex-col items-center gap-4">
         <PageHeader backText="Accounts" title={state?.accountName} />
         <p> No budget found for this month, please create one below</p>
-        <Modal text="Create Account Budget" title="Create Account Budget">
+        <Modal text="Create Account Balance" title="Create Account Balance">
           {({ closeModal }) => <CreateAccountBudgetForm closeModal={closeModal} />}
         </Modal>
       </div>
@@ -42,11 +43,21 @@ const AccountDetail = () => {
   return (
     <div className="flex justify-center flex-col items-center gap-6 ">
       <div className="flex flex-grow justify-between self-stretch">
-        <PageHeader subtitle={accountBudget.data.account?.description} backText="Accounts" title={state?.accountName} />
+        <PageHeader subtitle={accountBalance.data.account?.description} backText="Accounts" title={state?.accountName}>
+          <Modal text="Edit" title="Update">
+            {({ closeModal }) => (
+              <UpdateAccountBalanceForm
+                accountBalanceId={accountBalance.data.id}
+                accountBalance={accountBalance.data.budget}
+                closeModal={closeModal}
+              />
+            )}
+          </Modal>
+        </PageHeader>
       </div>
 
-      <AccountMonthlyBudget budget={accountBudget.data} />
-      <AccountBudgetExpenses accountBudgetId={accountBudget.data.id} />
+      <AccountMonthlyBudget budget={accountBalance.data} />
+      <AccountBudgetExpenses accountBudgetId={accountBalance.data.id} />
     </div>
   );
 };

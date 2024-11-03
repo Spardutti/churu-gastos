@@ -4,8 +4,8 @@ import * as yup from 'yup';
 import { expensesAPI } from '@/features/expenses/api/expenses';
 import useGenerateDateFromParams from '@/hooks/useGenerateDateFromParams';
 import Spinner from '@/components/spinner';
-import { accountBudgetAPI } from '@/features/accountBudget/api/accountBudget';
 import useDateSelector from '@/features/month/hooks/useDateSelector';
+import { accountBalanceAPI } from '@/features/accountBalance/api/accountBalance';
 
 const schema = yup.object({
   amount: yup
@@ -26,7 +26,7 @@ const CreateExpenseForm = ({ categoryID, closeModal }: CreateExpenseFormProps) =
   const { mutateAsync: createExpense, isPending } = expensesAPI.useCreateExpense();
 
   const { activeDate } = useDateSelector();
-  const { data } = accountBudgetAPI.useGetAccountBudgets({ month: activeDate.month, year: activeDate.year });
+  const { data } = accountBalanceAPI.useGetAccountBalances({ month: activeDate.month, year: activeDate.year });
 
   const generateCurrentDateFromParams = useGenerateDateFromParams();
 
