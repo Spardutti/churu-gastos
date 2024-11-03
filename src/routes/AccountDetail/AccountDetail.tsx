@@ -3,11 +3,11 @@ import Modal from '@/components/modal';
 import useDateSelector from '@/features/month/hooks/useDateSelector';
 import { useLocation, useParams } from 'react-router-dom';
 import Spinner from '@/components/spinner';
-import AccountMonthlyBudget from '@/features/accountBalance/components/AccountMonthlyBalance';
 import PageHeader from '@/layout/PageHeader';
 import AccountBudgetExpenses from '@/features/accountBudgetExpenses/components/AccountBudgetExpenses';
 import { accountBalanceAPI } from '@/features/accountBalance/api/accountBalance';
 import UpdateAccountBalanceForm from '@/features/accountBalance/components/UpdateAccountBalanceForm';
+import AccountMonthlyBalance from '@/features/accountBalance/components/AccountMonthlyBalance';
 
 const AccountDetail = () => {
   const { activeDate } = useDateSelector();
@@ -56,7 +56,7 @@ const AccountDetail = () => {
         </PageHeader>
       </div>
 
-      <AccountMonthlyBudget budget={accountBalance.data} />
+      <AccountMonthlyBalance budget={accountBalance.data} />
       <AccountBudgetExpenses accountBudgetId={accountBalance.data.id} />
     </div>
   );

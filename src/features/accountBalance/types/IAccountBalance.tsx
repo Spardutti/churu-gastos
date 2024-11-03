@@ -6,4 +6,5 @@ export interface IAccountBalance {
   account: IAccount;
   date: Dayjs;
   budget: number;
+  remainingBalance: number;
 }

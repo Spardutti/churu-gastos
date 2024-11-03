@@ -11,7 +11,7 @@ const AccountMonthlyBalance = ({ budget }: AccountMonthlyBalanceProps) => {
     <Card>
       <div className="flex gap-2 flex-col justify-center items-center">
         <p>Balance</p>
-        <p>{formatCurrency({ amount: budget.budget })}</p>
+        <p>{formatCurrency({ amount: budget.remainingBalance })}</p>
       </div>
     </Card>
   );
