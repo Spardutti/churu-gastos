@@ -1,7 +1,7 @@
 import Form from '@/components/form';
 import type { FormInputs } from '@/components/form/types';
 import { accountAPI } from '@/features/account/api/account';
-import useCreateAccountBudget from '@/features/accountBudget/hooks/useCreateAccountBalance';
+import useCreateAccountBudget from '@/features/accountBalance/hooks/useCreateAccountBalance';
 import * as yup from 'yup';
 
 interface CreateAccountBudgetFormProps {

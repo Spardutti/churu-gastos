@@ -15,7 +15,7 @@ export const axiosHelper = async <T, P = unknown, D = unknown>({
   urlParams,
   data,
 }: {
-  method: 'get' | 'post' | 'put' | 'delete';
+  method: 'get' | 'post' | 'put' | 'delete' | 'patch';
   url: string;
   urlParams?: P;
   data?: D;
@@ -26,11 +26,11 @@ export const axiosHelper = async <T, P = unknown, D = unknown>({
     })
     .catch((err) => {
       if (err.response?.data?.errors) {
-				throw new Error(JSON.stringify(err.response.data.errors));
-			} else if (err.response?.data?.error) {
-				throw new Error(JSON.stringify(err.response.data.error));
+        throw new Error(JSON.stringify(err.response.data.errors));
+      } else if (err.response?.data?.error) {
+        throw new Error(JSON.stringify(err.response.data.error));
       } else {
-				throw err;
-			}
+        throw err;
+      }
     });
 };
